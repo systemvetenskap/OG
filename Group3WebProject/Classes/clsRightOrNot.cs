@@ -4,10 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using Npgsql;
+using System.Configuration;
 namespace Group3WebProject.Classes
 {
     public class clsRightOrNot
     {
+        NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
         string dbConnectionString = "Initial Catalog='ITimingACK';Data Source='127.0.0.1';user id='sa';password='ssftiming'";
         public string saveAnswers(string quID, string quAns, string testID)
         {            
