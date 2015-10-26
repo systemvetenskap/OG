@@ -5,7 +5,7 @@
     <h2>Vänlighen välj ett test i dropdown lista nedan</h2>
     <p>
         När du väl startat ett test så har du bara 30minuter på dig så gäller att du har tiden för dig. Om du inte lyckas med testet så får du vänta en vecka innan du kan göra testet igen. 
-        Du får göra ett test nu och snabbt.
+        Du får göra ett test nu. 
     </p>
     <asp:GridView runat="server" ID="gridTest">
 
