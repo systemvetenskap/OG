@@ -13,21 +13,25 @@
 <body>
     <div class="wrapper">
         <div class="clearfix">
-            <h1 class="top_header" id="th_h1">JE-Banken</h1>
-            
+            <a href="default.aspx"><h1 class="top_header" id="th_h1">JE-Banken</h1></a>
         </div>
+
        <form runat="server">
                <div class="nav_head">
                     <ul class="nav_list">
-                        <li><a runat="server" href="~/default.aspx">Home</a></li>
-                        <li><a runat="server" href="~/webbtest.aspx">Testet</a></li>
-                        <li id="login"><a runat="server" href="~/login.aspx">Logga in</a></li>
+                        <li><a class="nav_links" runat="server" href="~/default.aspx">Home</a></li>
+                        <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Testet</a></li>
+                        <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
                     </ul>
                </div>
             
            <asp:ContentPlaceHolder ID="body" runat="server">
            </asp:ContentPlaceHolder>
         </form>
+
+        <footer>
+            <p><b>©Copyright</b> JE-banken 2015<br />Hemsida levererad av <b><u>OG</u></b></p>
+        </footer>
     </div>
 </body>
 </html>
