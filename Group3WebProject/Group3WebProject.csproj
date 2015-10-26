@@ -89,6 +89,7 @@
   <ItemGroup>
     <Content Include="default.aspx" />
     <Content Include="questions.xml" />
+    <Content Include="Style\style.css" />
     <Content Include="Web.config" />
     <Content Include="webbtest.aspx" />
     <Content Include="webbtestquestion.aspx" />
@@ -131,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Script\" />
-    <Folder Include="Style\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

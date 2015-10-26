@@ -1,11 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="webbtest.aspx.cs" Inherits="Group3WebProject.webbtest" %>
+﻿<%@ Page Title="Webbtest" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="webbtest.aspx.cs" Inherits="Group3WebProject.webbtest" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+<%-- Body --%>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <h1>Webbtest</h1>
     <h2>Vänlighen välj ett test i dropdown lista nedan</h2>
     <p>
         När du väl startat ett test så har du bara 30minuter på dig så gäller att du har tiden för dig. Om du inte lyckas med testet så får du vänta en vecka innan du kan göra testet igen. 
-        Du får göra ett test nu . 
+        Du får göra ett test nu. 
     </p>
     <asp:GridView runat="server" ID="gridTest">
 
