@@ -15,27 +15,27 @@ namespace Group3WebProject
         {
             if (!IsPostBack)
             {
-                Debug.WriteLine("Startat");
-                Classes.clsSetGetStarttime clSetStart = new Classes.clsSetGetStarttime();
-                HttpCookie myCookie = clSetStart.getStart();
-               if (myCookie == null)
-               {
-                   Response.Cookies.Add(myCookie);
-               }
+               // Debug.WriteLine("Startat");
+               // Classes.clsSetGetStarttime clSetStart = new Classes.clsSetGetStarttime();
+               // HttpCookie myCookie = clSetStart.getStart();
+               //if (myCookie == null)
+               //{
+               //    Response.Cookies.Add(myCookie);
+               //}
                 
 
               //  Classes.clsFillMenu aa = new Classes.clsFillMenu();
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
                 cmbChooseQue.DataValueField = "id";
                 cmbChooseQue.DataTextField = "name";
-                cmbChooseQue.DataSource = clMenFill.read(Server.MapPath("~/questions.xml"));
+                cmbChooseQue.DataSource = clMenFill.read("1");
                 //Debug.WriteLine(aa.read(Server.MapPath("~/questions.xml")).Rows.Count.ToString());
                 cmbChooseQue.DataBind();
                 if (cmbChooseQue.Items.Count > 0)
                 {
                     ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
                     fillquestion();
-                    checkedRadion();
+                    //checkedRadion();
                 }
                 else
                 {
@@ -62,19 +62,21 @@ namespace Group3WebProject
         }
         private bool fillquestion()//Hämtar frågorna 
         {
-            Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();         
+            Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
+            DataTable dt = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), "1");
+            Label1.Text = dt.Rows.Count.ToString();
             try
             {
                 rbQuestionList.DataTextField = "name";
                 rbQuestionList.DataValueField = "id";
-                rbQuestionList.DataSource = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), Server.MapPath("~/questions.xml"));
+                rbQuestionList.DataSource = dt;
                 rbQuestionList.DataBind();
             }
             catch (Exception ex)
             {
-                Label1.Text = ex.ToString();
+               // Label1.Text = ex.ToString();
             }
-            
+           
             return true;
         }
         private void checkedRadion()//Vilken som redan är vald och då checkar den i uppstarten 
