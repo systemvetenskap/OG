@@ -61,6 +61,7 @@ namespace Group3WebProject.Classes
                        
                     }
                 }
+                reader.Close();
                 return dt;
                 //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
             }
@@ -76,14 +77,16 @@ namespace Group3WebProject.Classes
             string result = "";
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  test.id, test.name, test_type,xml_questions as qXml FROM TEST RIGHT JOIN completed_test on TEST.id = completed_test.test_id where completed_test.id='" + testID + "'", conn);
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id='" + testID + "'", conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())                
             {
                 result = dr["qXml"].ToString();
             }
+            dr.Close();
+            conn.Close();
             
-            return result;
+            return result.Trim();
         }
     }
 }

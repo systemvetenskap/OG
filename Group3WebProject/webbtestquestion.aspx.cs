@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Diagnostics;
+using Group3WebProject.Classes;
 namespace Group3WebProject
 {
     public partial class webbtestquestion : System.Web.UI.Page
@@ -15,27 +16,16 @@ namespace Group3WebProject
         {
             if (!IsPostBack)
             {
-                // Debug.WriteLine("Startat");
-                // Classes.clsSetGetStarttime clSetStart = new Classes.clsSetGetStarttime();
-                // HttpCookie myCookie = clSetStart.getStart();
-                //if (myCookie == null)
-                //{
-                //    Response.Cookies.Add(myCookie);
-                //}
-
-
-                //  Classes.clsFillMenu aa = new Classes.clsFillMenu();
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
                 cmbChooseQue.DataValueField = "id";
                 cmbChooseQue.DataTextField = "name";
                 cmbChooseQue.DataSource = clMenFill.read(testID);
-
                 cmbChooseQue.DataBind();
-                if (cmbChooseQue.Items.Count > 0)
+                cmbChooseQue.Enabled = false;
+                if (cmbChooseQue.Items.Count > 0) //Om den inte hämtat någon data så blir det felmedelande
                 {
                     ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
                     fillquestion();
-                    //checkedRadion();
                 }
                 else
                 {
@@ -49,22 +39,22 @@ namespace Group3WebProject
             }
             else
             {
-
             }
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            fillquestion();
-            ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
+           // fillquestion();
+           // ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
-           // Label2.Text = cls.allReadyCheckd(cmbChooseQue.SelectedValue.ToString(), testID);
-
+            List<string> liAnsw = new List<string>();
+            liAnsw.Add("1");
+            cls.valudateXML(testID, "1", "1");
+            Label3.Text = cls.getXml(testID);
         }
         private bool fillquestion()//Hämtar frågorna 
         {
             Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
             DataTable dt = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
-            // Label1.Text = //DataTable dt = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), "1");
             try
             {
                 int sumCheck = 0;
@@ -81,6 +71,8 @@ namespace Group3WebProject
                 }
                 if (sumCheck > 1)//Om det finns flera val att välja på visas den listan
                 {
+                    rbQuestionList.Visible = false;
+                    chkQuestionList.Visible = true;
                     chkQuestionList.DataTextField = "name";
                     chkQuestionList.DataValueField = "id";
                     chkQuestionList.DataSource = dt;
@@ -88,14 +80,19 @@ namespace Group3WebProject
                     for (int i = 0; i < dt.Rows.Count; i++)  //KRyssar i de som redan användaren har kryssat i
                     {
                         int val = 0;
-                        if (int.TryParse(dt.Rows[i]["sel"].ToString(), out val))
+                        if (dt.Rows[i]["sel"].ToString().ToUpper() == "TRUE")
                         {
-                            chkQuestionList.SelectedValue = val.ToString();
-                        }
+                            if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
+                            {
+                                chkQuestionList.Items.FindByValue(val.ToString()).Selected = true; //Sätter alla som finns till true så att den kan vara multippella
+                            }
+                        }                        
                     }
                 }
                 else //Om det är ett val så kommer man till en radiobuttonlist
                 {
+                    rbQuestionList.Visible = true;
+                    chkQuestionList.Visible = false;
                     rbQuestionList.DataTextField = "name";
                     rbQuestionList.DataValueField = "id";
                     rbQuestionList.DataSource = dt;
@@ -103,10 +100,13 @@ namespace Group3WebProject
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         int val = 0;
-                        if (int.TryParse(dt.Rows[i]["sel"].ToString(), out val))
+                        if (dt.Rows[i]["sel"].ToString().ToUpper() == "TRUE")
                         {
-                            rbQuestionList.SelectedValue = val.ToString();
-                        }
+                            if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
+                            {
+                               rbQuestionList.SelectedValue = val.ToString();
+                            }
+                        }                        
                     }
                 }
 
@@ -114,37 +114,50 @@ namespace Group3WebProject
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
-                // Label1.Text = ex.ToString();
             }
-
             return true;
         }
        
-        private bool checkAnswers(RadioButtonList aa)//Sparar svars alternativen
+        private bool checkAnswers()//Sparar svars alternativen
         {
-            return true;
-            try
+            Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
+            List<string> selDat = new List<string>();
+            string sele = "";
+            if (chkQuestionList.Visible == true)
             {
-                Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
-                if (aa.SelectedIndex > 0)
+                if (chkQuestionList.SelectedIndex > -1)
                 {
-                    Label3.Text = cls.saveAnswers(cmbChooseQue.SelectedValue.ToString(), aa.SelectedValue.ToString(), testID);
+                    foreach (ListItem item in chkQuestionList.Items)
+                    {
+                        if (item.Selected)
+                        {
+                            sele = (item.Value);
+                            Debug.WriteLine(sele);
+                        }
+                    }
                 }
             }
-            catch (Exception ex)
+            else if (rbQuestionList.Visible == true)
             {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
-                return false;
+                if (rbQuestionList.SelectedIndex > -1)
+                {
+                    sele = rbQuestionList.SelectedValue.ToString();
+                    Debug.WriteLine(sele);
+                }
             }
+            //Label1.Text = sele;
+            Debug.WriteLine(sele + " SELE ");
+            cls.valudateXML(testID, cmbChooseQue.SelectedValue.ToString(), sele);
+
             return true;
         }
         protected void rbQuestionList_Unload(object sender, EventArgs e)
         {
 
         }
-        protected void btnNext_Click(object sender, EventArgs e)
+        protected void btnNext_Click(object sender, EventArgs e) //Näst fråga kommer man till, samma som på den tidigare
         {
-            checkAnswers(rbQuestionList);
+            checkAnswers();
             ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             if (cmbChooseQue.Items.Count > cmbChooseQue.SelectedIndex + 1)
             {
@@ -152,9 +165,9 @@ namespace Group3WebProject
             }
             fillquestion();
         }
-        protected void btnPrevious_Click(object sender, EventArgs e)
+        protected void btnPrevious_Click(object sender, EventArgs e) //Föregående fråga kommer man till 
         {
-            checkAnswers(rbQuestionList);
+           checkAnswers();
             ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
             if (cmbChooseQue.Items.Count > cmbChooseQue.SelectedIndex - 1)
             {
@@ -164,9 +177,9 @@ namespace Group3WebProject
         }
         protected void cmbChooseQue_SelectedIndexChanged(object sender, EventArgs e)
         {
-            checkAnswers(rbQuestionList);
+            //checkAnswers(); //Sparar svarerne
             ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
-            fillquestion();
+            //fillquestion();
         }
     }
 }

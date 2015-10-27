@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using Npgsql;
 using System.Configuration;
+using System.Xml;
+using System.IO;
 namespace Group3WebProject.Classes
 {
     public class clsRightOrNot
@@ -13,7 +15,7 @@ namespace Group3WebProject.Classes
         NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
         string dbConnectionString = "Initial Catalog='ITimingACK';Data Source='127.0.0.1';user id='sa';password='ssftiming'";
         public string saveAnswers(string quID, string quAns, string testID)
-        {            
+        {
             try
             {
                 string sql = "SELECT * FROM dbQuest  WHERE testID='" + testID + "' and QuestonID='" + quID + "'";
@@ -50,6 +52,101 @@ namespace Group3WebProject.Classes
             }
             return "";
         }
-       
+        /// <summary>
+        /// Sparar det man har svarat i xml filen 
+        /// </summary>
+        /// <param name="testid"></param>
+        /// <param name="qid"></param>
+        /// <param name="answ"></param>
+        public void valudateXML(string testId, string qid, string answ)
+        {
+            XmlDocument doc = new XmlDocument();
+            try
+            {
+                XmlTextReader xmlReader = new XmlTextReader(new System.IO.StringReader(getXml(testId)));
+                doc.Load(xmlReader);
+                XmlNodeList nodes = doc.SelectNodes("bank/question");
+                foreach (XmlNode node in nodes)
+                {
+                    if (node.Attributes["value"].Value == qid)
+                    {
+                        Debug.WriteLine(node.Attributes["value"].Value + " värdet   och sedan value "+ answ);
+                        foreach (XmlNode childNode in node.ChildNodes)
+                        {
+                            if (childNode.Name == "answer")
+                            {
+                                if (childNode.Attributes["id"].Value == answ) //Sätter det elementet til ltrue som stämmer överens 
+                                {
+                                    childNode.Attributes["selected"].Value = "true";
+                                   // Debug.WriteLine("Right ");
+                                }
+                                else
+                                {
+                                    childNode.Attributes["selected"].Value = "false"; //Sötter alltid elementet till false för att kunna köra igenom listen
+                                  //  Debug.WriteLine("Fakse");
+                                }
+                            }
+                            //Debug.WriteLine(childNode.Name);
+                        }
+                    }
+                }
+                xmlReader.Close();
+                doc.Save(@"C:\inlk.xml");
+                string xmlResult = "";
+
+
+                StringWriter sw = new StringWriter();
+                XmlTextWriter xw = new XmlTextWriter(sw);
+                xw.Formatting = Formatting.Indented; //Fixar formateringen på xml:en
+                doc.WriteTo(xw);
+                xmlResult = sw.ToString();
+                if (xmlResult != "")
+                {
+                    updateXML(testId, xmlResult, doc);
+                    Debug.WriteLine("Saved xml");
+                }
+
+                Debug.WriteLine(doc.ToString());
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine(ex.ToString());
+            }
+            //doc.Save(yourFilePath);
+
+        }
+        private void updateXML(string testID, string strXML, XmlDocument doc)
+        {
+            NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+            conn.Open();
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE completed_test SET xml_answer='" + strXML + "' WHERE id='" + testID + "'", conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            conn.Close();
+        }
+        public string getXml(string testID)
+        {
+            string result = "";
+            NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+            conn.Open();
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id='" + testID + "'", conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                result = dr["qXml"].ToString();
+            }
+            dr.Close();
+            conn.Close();
+            Debug.WriteLine("MEOTDE");
+            return result.TrimStart();
+        }
+
     }
 }

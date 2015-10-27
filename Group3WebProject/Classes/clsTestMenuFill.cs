@@ -6,12 +6,13 @@ using System.Data;
 using System.Diagnostics;
 using System.Xml;
 using Npgsql;
+using System.IO;
 
 namespace Group3WebProject.Classes
 {
     public class clsTestMenuFill
     {
-        public DataTable read(string xmlPath)
+        public DataTable read(string testID)
         {
             Debug.WriteLine("Nu har vi kommit in ");
             DataTable dt = new DataTable();
@@ -19,7 +20,7 @@ namespace Group3WebProject.Classes
             dt.Columns.Add("id"); //Fråge id:et 
             try
             {
-                XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml("2")));
+                XmlTextReader reader = new XmlTextReader(new StringReader(getXml(testID)));
                 while (reader.Read())
                 {
                     switch (reader.Name)
@@ -33,12 +34,12 @@ namespace Group3WebProject.Classes
                             break;
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
-            }            
+            }
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 dt.Rows[i]["name"] = "Fråga " + (i + 1).ToString();
@@ -51,14 +52,16 @@ namespace Group3WebProject.Classes
             string result = "";
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  test.id, test.name, test_type,xml_questions as qXml FROM TEST RIGHT JOIN completed_test on TEST.id = completed_test.test_id where completed_test.id='" + testID + "'", conn);
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id='" + testID + "'", conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 result = dr["qXml"].ToString();
             }
-            Debug.WriteLine("MEOTDE");
-            return result;
+            dr.Close();
+            conn.Close();
+           //Debug.WriteLine(result + " asd" );
+            return result.TrimStart(); //.Trim();
         }
     }
 }
