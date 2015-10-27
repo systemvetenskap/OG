@@ -71,6 +71,8 @@ namespace Group3WebProject
                 rbQuestionList.DataValueField = "id";
                 rbQuestionList.DataSource = dt;
                 rbQuestionList.DataBind();
+
+
             }
             catch (Exception ex)
             {
