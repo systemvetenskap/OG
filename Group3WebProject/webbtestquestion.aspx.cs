@@ -79,7 +79,7 @@ namespace Group3WebProject
                         sumCheck += 1;
                     }
                 }
-                if (sumCheck > 1)
+                if (sumCheck > 1)//Om det finns flera val att välja på visas den listan
                 {
                     chkQuestionList.DataTextField = "name";
                     chkQuestionList.DataValueField = "id";
