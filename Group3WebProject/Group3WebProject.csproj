@@ -110,6 +110,7 @@
     <Compile Include="Classes\clsRightOrNot.cs" />
     <Compile Include="Classes\clsSetGetStarttime.cs" />
     <Compile Include="Classes\clsTestMenuFill.cs" />
+    <Compile Include="Classes\clsUsers.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

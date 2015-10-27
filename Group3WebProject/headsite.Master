@@ -17,14 +17,16 @@
         </div>
 
        <form runat="server">
-               <div class="nav_head">
-                    <ul class="nav_list"> <!-- Erik har clear som klass även här -->
-                        <li><a class="nav_links" runat="server" href="~/default.aspx">Home</a></li>
-                        <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Testet</a></li>
-                        <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
-                    </ul>
-               </div>
-            
+            <div class="nav_head">
+                <ul class="nav_list"> <!-- Erik har clear som klass även här -->
+                    <li><a class="nav_links" runat="server" href="~/default.aspx">Home</a></li>
+                    <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Testet</a></li>
+                    <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
+                </ul>
+               <div class="ddl clearfix">
+                   <asp:DropDownList ID="ddl_users" runat="server"></asp:DropDownList>
+                </div>
+            </div>
            <asp:ContentPlaceHolder ID="body" runat="server">
            </asp:ContentPlaceHolder>
         </form>
