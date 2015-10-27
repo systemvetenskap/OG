@@ -30,6 +30,7 @@ footer{
 .wrapper{
     background-color:#E5F0F3;
     max-width:90%;
+    min-width:280px;
     margin: 0 auto;
 }
 
@@ -40,7 +41,7 @@ footer{
     font-size:250%;
 }
 .nav_head{
-    padding-bottom:2%;
+    padding-bottom:4%;
     border-bottom:5px groove black;
 }
 
@@ -69,3 +70,21 @@ ul.nav_list li{
 #login{
     float:right;
 }
+
+#ddl{
+    float:left;
+}
+
+
+
+/*===== MEDIA =====*/
+/*
+    
+    max-width 1280px.
+    wrapper = 1280px;
+    Ta reda på med enhet.
+    
+    */
+
+
+

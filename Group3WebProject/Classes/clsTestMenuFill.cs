@@ -5,6 +5,8 @@ using System.Web;
 using System.Data;
 using System.Diagnostics;
 using System.Xml;
+using Npgsql;
+
 namespace Group3WebProject.Classes
 {
     public class clsTestMenuFill
@@ -17,7 +19,7 @@ namespace Group3WebProject.Classes
             dt.Columns.Add("id"); //Fråge id:et 
             try
             {
-                XmlTextReader reader = new XmlTextReader(xmlPath);
+                XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml("2")));
                 while (reader.Read())
                 {
                     switch (reader.Name)
@@ -31,6 +33,7 @@ namespace Group3WebProject.Classes
                             break;
                     }
                 }
+               
             }
             catch (Exception ex)
             {
@@ -42,6 +45,20 @@ namespace Group3WebProject.Classes
             }
 
             return dt;
+        }
+        private string getXml(string testID)
+        {
+            string result = "";
+            NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+            conn.Open();
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  test.id, test.name, test_type,xml_questions as qXml FROM TEST RIGHT JOIN completed_test on TEST.id = completed_test.test_id where completed_test.id='" + testID + "'", conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                result = dr["qXml"].ToString();
+            }
+            Debug.WriteLine("MEOTDE");
+            return result;
         }
     }
 }

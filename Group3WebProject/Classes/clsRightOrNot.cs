@@ -50,30 +50,6 @@ namespace Group3WebProject.Classes
             }
             return "";
         }
-        public string allReadyCheckd(string quID, string testID)
-        {
-            try
-            {
-                string sql = "SELECT answr FROM dbQuest  WHERE testID='" + testID + "' and QuestonID='" + quID + "'";
-                SqlConnection cnn = new SqlConnection(dbConnectionString);
-                cnn.Open();
-                SqlCommand cmd = new SqlCommand(sql, cnn);
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
-                {
-                    return dr["answr"].ToString();
-                }
-                else
-                {
-                    return "false";
-                }
-            }
-            catch (Exception ex)
-            {
-                
-                return ex.ToString();
-            }
-
-        }
+       
     }
 }
