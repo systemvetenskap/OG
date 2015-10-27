@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<bank>
+  <question id='2'>
+    <answer>1</answer>
+    <answer>2</answer>
+  </question>
+  <question id='3'>
+    <answer>1</answer>
+  </question>
+</bank>
