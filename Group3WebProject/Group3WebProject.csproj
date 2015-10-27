@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="answers.xml" />
+    <Content Include="admin.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -97,6 +98,13 @@
     <Content Include="webbtestquestion.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Classes\clsFillQuestion.cs" />
     <Compile Include="Classes\clsgetTests.cs" />
     <Compile Include="Classes\clsRightOrNot.cs" />

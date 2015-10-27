@@ -2,44 +2,44 @@
 <bank>
   <question value="1" part="Produkter">
     <txt>Vart ligger Sverige </txt>
-    <answer id="1" answ="true">Skandinavien</answer>
-    <answer id="2" answ="false">Västra Europa</answer>
-    <answer id="3" answ="false">Södra Europa</answer>
-    <answer id="4" answ="false">Öst Europa</answer>
+    <answer id="1" answ="true" selected="false">Skandinavien</answer>
+    <answer id="2" answ="false" selected="false">Västra Europa</answer>
+    <answer id="3" answ="false" selected="false">Södra Europa</answer>
+    <answer id="4" answ="false" selected="false">Öst Europa</answer>
   </question>
   <question value="2" part="Produkter">
     <txt>Vart ligger Norge </txt>
-    <answer id="1" answ="true">Skandinavien</answer>
-    <answer id="2" answ="false">Västra Europa</answer>
-    <answer id="3" answ="false">Södra Europa</answer>
-    <answer id="4" answ="false">Öst Europa</answer>
+    <answer id="1" answ="true" selected="false">Skandinavien</answer>
+    <answer id="2" answ="false" selected="false">Västra Europa</answer>
+    <answer id="3" answ="false" selected="false">Södra Europa</answer>
+    <answer id="4" answ="false" selected="false">Öst Europa</answer>
   </question>
   <question value="3" part="Produkter">
     <txt>Vart ligger Tyskland </txt>
-    <answer id="1" answ="false">Skandinavien</answer>
-    <answer id="2" answ="false">Västra Europa</answer>
-    <answer id="3" answ="true">Mellersta Europa</answer>
-    <answer id="4" answ="false">Öst Europa</answer>
+    <answer id="1" answ="false" selected="false">Skandinavien</answer>
+    <answer id="2" answ="false" selected="false">Västra Europa</answer>
+    <answer id="3" answ="true" selected="false">Mellersta Europa</answer>
+    <answer id="4" answ="false" selected="false">Öst Europa</answer>
   </question>
   <question value="4" part="Ekonomi">
     <txt>Var härör saab ifrån?</txt>
-    <answer id="1" answ="false">Tyskland</answer>
-    <answer id="2" answ="false">Österrike</answer>
-    <answer id="3" answ="false">Norge</answer>
-    <answer id="4" answ="true">Sverige</answer>
+    <answer id="1" answ="false" selected="false">Tyskland</answer>
+    <answer id="2" answ="false" selected="false">Österrike</answer>
+    <answer id="3" answ="false" selected="false">Norge</answer>
+    <answer id="4" answ="true" selected="false">Sverige</answer>
   </question>
   <question value="5" part="Ekonomi">
     <txt>Var härör Seat ifrån?</txt>
-    <answer id="1" answ="false">Tyskland</answer>
-    <answer id="2" answ="false">Österrike</answer>
-    <answer id="3" answ="false">Norge</answer>
-    <answer id="4" answ="true">Spanien</answer>
+    <answer id="1" answ="false" selected="false">Tyskland</answer>
+    <answer id="2" answ="false" selected="false">Österrike</answer>
+    <answer id="3" answ="false" selected="false">Norge</answer>
+    <answer id="4" answ="true" selected="false">Spanien</answer>
   </question>
   <question value="6" part="Etik">
     <txt>Var härör Ford ifrån?</txt>
-    <answer id="1" answ="false">Tyskland</answer>
-    <answer id="2" answ="true">USA</answer>
-    <answer id="3" answ="false">Norge</answer>
-    <answer id="4" answ="false">Spanien</answer>
+    <answer id="1" answ="false" selected="false">Tyskland</answer>
+    <answer id="2" answ="true" selected="false">USA</answer>
+    <answer id="3" answ="false" selected="false">Norge</answer>
+    <answer id="4" answ="false" selected="false">Spanien</answer>
   </question>
 </bank>
