@@ -19,7 +19,7 @@ namespace Group3WebProject.Classes
             dt.Columns.Add("id"); //Fråge id:et 
             try
             {
-                XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml("1")));
+                XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml("2")));
                 while (reader.Read())
                 {
                     switch (reader.Name)
@@ -33,6 +33,7 @@ namespace Group3WebProject.Classes
                             break;
                     }
                 }
+               
             }
             catch (Exception ex)
             {
@@ -56,7 +57,7 @@ namespace Group3WebProject.Classes
             {
                 result = dr["qXml"].ToString();
             }
-
+            Debug.WriteLine("MEOTDE");
             return result;
         }
     }

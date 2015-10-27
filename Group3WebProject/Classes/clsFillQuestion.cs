@@ -28,7 +28,7 @@ namespace Group3WebProject.Classes
             dt.Columns.Add("name");
             dt.Columns.Add("id");
             dt.Columns.Add("sel");
-
+            dt.Columns.Add("answ");
             try
             {
                 XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml(testID)));
@@ -51,21 +51,25 @@ namespace Group3WebProject.Classes
                             quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
                             break;
                         case "answer":
+                            //answ
                             dt.Rows.Add();//Nedan är svarsalternativen 
                             dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("id").ToUpper();
+                            dt.Rows[dt.Rows.Count - 1]["answ"] = reader.GetAttribute("answ").ToUpper();
                             dt.Rows[dt.Rows.Count - 1]["sel"] = reader.GetAttribute("selected").ToUpper();
                             dt.Rows[dt.Rows.Count - 1]["name"] = reader.ReadString();
                             break;
                        
                     }
                 }
+                return dt;
+                //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
                 return null;
             }
-            return dt;
+           // return "aakk";
         }
         private string getXml(string testID)
         {
