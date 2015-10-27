@@ -18,7 +18,7 @@
 
        <form runat="server">
                <div class="nav_head">
-                    <ul class="nav_list">
+                    <ul class="nav_list"> <!-- Erik har clear som klass även här -->
                         <li><a class="nav_links" runat="server" href="~/default.aspx">Home</a></li>
                         <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Testet</a></li>
                         <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
