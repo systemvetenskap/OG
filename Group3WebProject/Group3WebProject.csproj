@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Classes\clsFillQuestion.cs" />
     <Compile Include="Classes\clsgetTests.cs" />
+    <Compile Include="Classes\clsMethods.cs" />
     <Compile Include="Classes\clsRightOrNot.cs" />
     <Compile Include="Classes\clsSetGetStarttime.cs" />
     <Compile Include="Classes\clsTestMenuFill.cs" />
