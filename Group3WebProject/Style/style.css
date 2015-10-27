@@ -1,0 +1,70 @@
+﻿/*===== GENERELLA =====*/
+body {
+    background-color:#006C8D;
+    margin:0 auto;
+    font-family:Tahoma;
+}
+
+a.nav_links{
+    color:#384245;
+    font-size:28px;
+    text-decoration-line:none;
+}
+a.nav_links:hover{
+    color:#8F9496;
+    border-bottom: 1px solid grey;
+    border-top:1px solid grey;
+    padding-bottom:5px;
+}
+
+footer{
+    clear:both;
+    text-align:center;
+    border-top:5px groove black;
+}
+
+
+
+/*===== KLASSER =====*/
+.wrapper{
+    background-color:#E5F0F3;
+    max-width:90%;
+    margin: 0 auto;
+}
+
+.top_header{
+    color:#384245;
+    float:left;
+    padding-left:1%;
+    font-size:250%;
+}
+.nav_head{
+    padding-bottom:2%;
+    border-bottom:5px groove black;
+}
+
+.nav_list{
+    margin-top:0;
+    padding-top:2%;
+    padding-right:1%;
+    padding-bottom:0%;
+    padding-left:1%;
+}
+
+ul.nav_list li{
+    display:inline;
+    list-style-type:circle;
+}
+
+
+.clearfix{
+    overflow:auto;
+}
+
+/*===== ID =====*/
+
+
+
+#login{
+    float:right;
+}

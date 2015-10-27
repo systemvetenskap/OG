@@ -74,6 +74,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="login.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -90,6 +91,7 @@
   <ItemGroup>
     <Content Include="default.aspx" />
     <Content Include="questions.xml" />
+    <Content Include="Style\style.css" />
     <Content Include="Web.config" />
     <Content Include="webbtest.aspx" />
     <Content Include="webbtestquestion.aspx" />
@@ -114,6 +116,13 @@
     <Compile Include="headsite.Master.designer.cs">
       <DependentUpon>headsite.Master</DependentUpon>
     </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="webbtest.aspx.cs">
       <DependentUpon>webbtest.aspx</DependentUpon>
@@ -132,7 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Script\" />
-    <Folder Include="Style\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
