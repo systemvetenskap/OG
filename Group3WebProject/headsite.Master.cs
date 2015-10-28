@@ -9,6 +9,7 @@ using System.Web.Configuration;
 using Npgsql;
 using System.Configuration;
 using Group3WebProject.Classes;
+using System.Web.Caching;
 
 namespace Group3WebProject
 {
@@ -16,7 +17,7 @@ namespace Group3WebProject
     {
 
         clsUsers user;
-        List<clsUsers> userList = new List<clsUsers>();
+        private static List<clsUsers> userList = new List<clsUsers>();
         clsUsers sessionUser;
 
 
@@ -24,7 +25,7 @@ namespace Group3WebProject
         {
             if (!IsPostBack)
             {
-
+                userList.Clear();
 
                 string connectionString = WebConfigurationManager.ConnectionStrings["JE"].ConnectionString;
                 NpgsqlConnection conn = new NpgsqlConnection(connectionString);
@@ -56,7 +57,7 @@ namespace Group3WebProject
                     
                     ddl_users.DataSource = userList;
                     ddl_users.DataBind();
-
+                    Cache["chachedList"] = userList;
                 }
 
                 catch (Exception ex)
@@ -74,10 +75,11 @@ namespace Group3WebProject
         protected void ddl_users_SelectedIndexChanged(object sender, EventArgs e)
         {
             sessionUser = new clsUsers();
-            sessionUser = ddl_users.SelectedItem.Attributes;
+            sessionUser = userList[ddl_users.SelectedIndex];
+            
+            int uId = sessionUser.Id;
 
-
-                //[ddl_users.SelectedIndex];
+            //clsMethods(uId);
             
         }
 

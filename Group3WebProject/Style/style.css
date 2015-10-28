@@ -34,12 +34,27 @@ footer{
     margin: 0 auto;
 }
 
-.top_header{
-    color:#384245;
-    float:left;
-    padding-left:1%;
-    font-size:250%;
-}
+
+                        /*GRUND
+                        .top_header{
+                            color:#384245;
+                            float:left;
+                            padding-left:1%;
+                            font-size:250%;
+                             text-decoration-line:none;
+                        }*/
+
+
+
+                        /*TESTAR NYTT*/
+                        .the_header{
+                            color:#384245;
+                            float:left;
+                            padding-left:1%;
+                            font-size:190%;
+                            text-decoration-line:none;
+                        }
+
 .nav_head{
     padding-bottom:4%;
     border-bottom:5px groove black;
@@ -55,13 +70,21 @@ footer{
 
 ul.nav_list li{
     display:inline;
-    list-style-type:circle;
+    /*list-style-type:circle;*/
+}
+
+.ddl{
+    float:left;
+    padding-left:1%;
 }
 
 
 .clearfix{
     overflow:auto;
+    /*border:1px solid brown;*/   /*TA BORT RAD*/
 }
+
+
 
 /*===== ID =====*/
 
@@ -71,28 +94,116 @@ ul.nav_list li{
     float:right;
 }
 
-#ddl{
-    float:left;
-}
 
 
 
 /*===== MEDIA =====*/
-/*@media screen and (dpi:160){
-    body{
-        background-color:red;
+
+
+/*=== TABLET ===*/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+       only screen and (max-width:800px){
+
+        .wrapper{
+            max-width:100%;
+        }
+
+        .nav_head{
+            padding-bottom:6%;
+        }
+
+        #login{
+            padding-right:1%;
+        }
+}
+
+
+/*=== MOBIL ===*/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+       only screen and (max-width:500px){
+
+    .the_header{
+        width:100%;
+        font-size:170%;
+        /*border:1px solid red;*/   /*TA BORT RAD*/
+        text-align:center;
+        margin:0 auto;
+        padding-left: 0%;
+        border-bottom: 2px solid grey;
+
+    }
+
+    .whattafakk{
+        float:none;
+        padding:0;
+
+    }
+
+    .nav_head{
+        padding-bottom:8%;
+    }
+
+    #login{
+        padding-right:0%;
     }
 }
-@media screen and (dpi:140){
+
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+       only screen and (max-width:384px){
+
+    .wrapper{
+        background-color:#E5F0F3;
+        max-width:100%;
+        margin: 0 auto;
+    }
+
+    .top_header{            /*the_header || top_header*/
+        color:#384245;
+        float:none;
+        margin:0 auto;
+        padding-left:1%;
+        font-size:190%;
+    }
+
+    #login{
+        float:none;
+    }
+
+    .nav_head{
+        text-align:center;
+        padding-bottom:10%;
+    }
+
+    ul.nav_list li {
+        display: block;
+    }
+
+    .ddl
+    {
+        float:none;
+    }
+}
+
+
+/*@media	only screen and (-webkit-min-device-pixel-ratio: 1.3),
+	only screen and (-o-min-device-pixel-ratio: 13/10),
+	only screen and (min-resolution: 120dpi)/*Min skärm är 96dpi
+	{
+		body{
+            background-color:green;
+		}
+	}
+*/   
+
+
+
+
+
+    /*OM SKÄRMEN ÄR MINST 640px BRED OCH DPI ÄR MINST 326*/
+/*@media only screen and (min-width: 640px) and (min-resolution: 326dpi){
     body{
         background-color:yellow;
     }
 }*/
-    
-    /*max-width 1280px.
-    wrapper = 1280px;
-    Ta reda på med enhet.*/
-    
-
-
-
