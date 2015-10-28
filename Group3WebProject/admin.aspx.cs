@@ -58,6 +58,7 @@ namespace Group3WebProject
                 XmlTextReader reader = new XmlTextReader(new StringReader(answerXml));
 
                 int totalQuestions = 0;
+                int totalTrueAnsw = 0;
                 int rightAnswers = 0;
 
                 while (reader.Read())
@@ -73,6 +74,10 @@ namespace Group3WebProject
                             break;
 
                         case "answer":
+                            if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true")
+                            {
+                                totalTrueAnsw++;
+                            }
                             if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
                             {
                                 rightAnswers++;
@@ -82,7 +87,9 @@ namespace Group3WebProject
                     }
                 }
 
-                string result = rightAnswers.ToString() + "/" + totalQuestions.ToString();
+                int points = rightAnswers -(totalTrueAnsw - totalQuestions);
+
+                string result = points.ToString() + "/" + totalQuestions.ToString();
 
                 //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
                 dt.Rows.Add(name, testType, result, passed, validThrough);

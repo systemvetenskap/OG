@@ -9,6 +9,7 @@ using System.Web.Configuration;
 using Npgsql;
 using System.Configuration;
 using Group3WebProject.Classes;
+using System.Web.Caching;
 
 namespace Group3WebProject
 {
@@ -16,7 +17,7 @@ namespace Group3WebProject
     {
 
         clsUsers user;
-        List<clsUsers> userList = new List<clsUsers>();
+        private static List<clsUsers> userList = new List<clsUsers>();
         clsUsers sessionUser;
 
 
@@ -53,9 +54,10 @@ namespace Group3WebProject
 
                     }
 
-                    
                     ddl_users.DataSource = userList;
                     ddl_users.DataBind();
+                    //Cache["cachedUsers"] = userList;
+                    
 
                 }
 
@@ -74,10 +76,7 @@ namespace Group3WebProject
         protected void ddl_users_SelectedIndexChanged(object sender, EventArgs e)
         {
             sessionUser = new clsUsers();
-            sessionUser = ddl_users.SelectedItem.Attributes;
-
-
-                //[ddl_users.SelectedIndex];
+            sessionUser = userList[ddl_users.SelectedIndex];
             
         }
 
