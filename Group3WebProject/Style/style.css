@@ -78,13 +78,21 @@ ul.nav_list li{
 
 
 /*===== MEDIA =====*/
-/*
+/*@media screen and (dpi:160){
+    body{
+        background-color:red;
+    }
+}
+@media screen and (dpi:140){
+    body{
+        background-color:yellow;
+    }
+}*/
     
-    max-width 1280px.
+    /*max-width 1280px.
     wrapper = 1280px;
-    Ta reda på med enhet.
+    Ta reda på med enhet.*/
     
-    */
 
 
 

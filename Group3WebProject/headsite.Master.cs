@@ -42,7 +42,7 @@ namespace Group3WebProject
                     user.Id = int.Parse(dr["id"].ToString());
                     user.FirstName = dr["first_name"].ToString();
                     user.LastName = dr["last_name"].ToString();
-                    user.TeamId = int.Parse(dr["team_id)"].ToString());
+                    user.TeamId = int.Parse(dr["team_id"].ToString());
 
                     userList.Add(user);
 
