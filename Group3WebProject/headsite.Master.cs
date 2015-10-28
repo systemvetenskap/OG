@@ -54,10 +54,11 @@ namespace Group3WebProject
 
                     }
 
-                    
                     ddl_users.DataSource = userList;
                     ddl_users.DataBind();
-                    Cache["chachedList"] = userList;
+                    //Cache["cachedUsers"] = userList;
+                    
+
                 }
 
                 catch (Exception ex)
@@ -76,10 +77,6 @@ namespace Group3WebProject
         {
             sessionUser = new clsUsers();
             sessionUser = userList[ddl_users.SelectedIndex];
-            
-            int uId = sessionUser.Id;
-
-            //clsMethods(uId);
             
         }
 
