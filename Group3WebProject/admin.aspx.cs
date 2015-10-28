@@ -15,6 +15,7 @@ namespace Group3WebProject
 {
     public partial class admin : System.Web.UI.Page
     {
+        clsMethods method = new clsMethods();
         protected void Page_Load(object sender, EventArgs e)
         {
             DataTable[] dt = GetTeamList(1);
@@ -54,45 +55,45 @@ namespace Group3WebProject
 
 
 
-                //Read och switch case nedan läser antal frågor och rätta svar i xml_answer och mellanlagrar detta i totalQuestions och rightAnswers.
-                XmlTextReader reader = new XmlTextReader(new StringReader(answerXml));
+                
+                ////XmlTextReader reader = new XmlTextReader(new StringReader(answerXml));
 
-                int totalQuestions = 0;
-                int totalTrueAnsw = 0;
-                int rightAnswers = 0;
+                ////int totalQuestions = 0;
+                ////int totalTrueAnsw = 0;
+                ////int rightAnswers = 0;
 
-                while (reader.Read())
-                {
+                ////while (reader.Read())
+                ////{
 
-                    switch (reader.Name)
-                    {
-                        case "question":
-                            if (reader.AttributeCount > 0)
-                            {
-                                totalQuestions++;
-                            }
-                            break;
+                ////    switch (reader.Name)
+                ////    {
+                ////        case "question":
+                ////            if (reader.AttributeCount > 0)
+                ////            {
+                ////                totalQuestions++;
+                ////            }
+                ////            break;
 
-                        case "answer":
-                            if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true")
-                            {
-                                totalTrueAnsw++;
-                            }
-                            if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
-                            {
-                                rightAnswers++;
-                            }
-                            break;
+                ////        case "answer":
+                ////            if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true")
+                ////            {
+                ////                totalTrueAnsw++;
+                ////            }
+                ////            if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
+                ////            {
+                ////                rightAnswers++;
+                ////            }
+                ////            break;
 
-                    }
-                }
+                ////    }
+                ////}
 
-                int points = rightAnswers -(totalTrueAnsw - totalQuestions);
+                ////int points = rightAnswers -(totalTrueAnsw - totalQuestions);
 
-                string result = points.ToString() + "/" + totalQuestions.ToString();
+                ////string result = points.ToString() + "/" + totalQuestions.ToString();
 
                 //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
-                dt.Rows.Add(name, testType, result, passed, validThrough);
+                dt.Rows.Add(name, testType, method.getResultFromXml(answerXml), passed, validThrough);
             }
             conn.Close();
 
