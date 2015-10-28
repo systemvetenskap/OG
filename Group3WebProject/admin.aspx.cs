@@ -18,7 +18,7 @@ namespace Group3WebProject
         clsMethods method = new clsMethods();
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataTable[] dt = GetTeamList(1);
+            DataTable[] dt = GetTeamList(1);// Här är provledarens id hårdkodat till 1, ska bytas ut till inloggad ledare när sessioner stöds.
             previousTests.DataSource = dt[0];
             previousTests.DataBind();
 
@@ -31,7 +31,7 @@ namespace Group3WebProject
             dt.Columns.Add("Provtyp", typeof(string));
             dt.Columns.Add("Resultat", typeof(string));
             dt.Columns.Add("Godkänd", typeof(bool));
-            dt.Columns.Add("Giltig till", typeof(string));
+            dt.Columns.Add("Giltigt t.o.m.", typeof(string));
 
             //dt2 används inte just nu men ska senare visa provdeltagare och vilket nästa prov de måste göra är.
             DataTable dt2 = new DataTable();
@@ -39,11 +39,21 @@ namespace Group3WebProject
             dt2.Columns.Add("Provtyp", typeof(string));
 
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
-            string sql = "SELECT u.first_name, u.last_name, ct.passed, ct.xml_answer, t.test_type, t.valid_through FROM completed_test ct INNER JOIN users u ON u.id = ct.user_id INNER JOIN test t ON t.id = ct.test_id";
+
+            string sql = "SELECT first_name, last_name, passed, xml_answer, test_type, valid_through FROM "
+                            + "(SELECT DISTINCT ON (ct.user_id) u.first_name, u.last_name, u.team_id, ct.passed, ct.xml_answer, t.test_type, t.valid_through "
+                            + "FROM completed_test ct "
+                            + "INNER JOIN users u "
+                            + "ON u.id = ct.user_id "
+                            + "INNER JOIN test t "
+                            + "ON t.id = ct.test_id "
+                            + "ORDER BY ct.user_id, ct.start_time DESC)b "
+                            + "WHERE team_id = (SELECT id FROM team WHERE user_id = @uId)";
+
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("uId", leaderId);
             conn.Open();
             NpgsqlDataReader dr = cmd.ExecuteReader();
-
 
             while (dr.Read())
             {
@@ -53,44 +63,6 @@ namespace Group3WebProject
                 string validThrough = dr["valid_through"].ToString();
                 string answerXml = (dr["xml_answer"].ToString()).Trim();
 
-
-
-                
-                ////XmlTextReader reader = new XmlTextReader(new StringReader(answerXml));
-
-                ////int totalQuestions = 0;
-                ////int totalTrueAnsw = 0;
-                ////int rightAnswers = 0;
-
-                ////while (reader.Read())
-                ////{
-
-                ////    switch (reader.Name)
-                ////    {
-                ////        case "question":
-                ////            if (reader.AttributeCount > 0)
-                ////            {
-                ////                totalQuestions++;
-                ////            }
-                ////            break;
-
-                ////        case "answer":
-                ////            if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true")
-                ////            {
-                ////                totalTrueAnsw++;
-                ////            }
-                ////            if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
-                ////            {
-                ////                rightAnswers++;
-                ////            }
-                ////            break;
-
-                ////    }
-                ////}
-
-                ////int points = rightAnswers -(totalTrueAnsw - totalQuestions);
-
-                ////string result = points.ToString() + "/" + totalQuestions.ToString();
 
                 //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
                 dt.Rows.Add(name, testType, method.getResultFromXml(answerXml), passed, validThrough);
