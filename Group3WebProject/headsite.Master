@@ -25,7 +25,7 @@
                     <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
                 </ul>
                <div class="ddl clearfix">
-                   <asp:DropDownList ID="ddl_users" runat="server"></asp:DropDownList>
+                   <asp:DropDownList ID="ddl_users" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_users_SelectedIndexChanged"></asp:DropDownList>
                 </div>
             </div>
            <asp:ContentPlaceHolder ID="body" runat="server">
