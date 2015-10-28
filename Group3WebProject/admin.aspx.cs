@@ -8,6 +8,8 @@ using System.Data;
 using Npgsql;
 using System.Configuration;
 using Group3WebProject.Classes;
+using System.Xml;
+using System.IO;
 
 namespace Group3WebProject
 {
@@ -26,10 +28,11 @@ namespace Group3WebProject
             DataTable dt = new DataTable();
             dt.Columns.Add("Namn", typeof(string));
             dt.Columns.Add("Provtyp", typeof(string));
-            //dt.Columns.Add("Resultat", typeof(string));
+            dt.Columns.Add("Resultat", typeof(string));
             dt.Columns.Add("Godkänd", typeof(bool));
             dt.Columns.Add("Giltig till", typeof(string));
 
+            //dt2 används inte just nu men ska senare visa provdeltagare och vilket nästa prov de måste göra är.
             DataTable dt2 = new DataTable();
             dt2.Columns.Add("Namn", typeof(string));
             dt2.Columns.Add("Provtyp", typeof(string));
@@ -40,15 +43,49 @@ namespace Group3WebProject
             conn.Open();
             NpgsqlDataReader dr = cmd.ExecuteReader();
 
+
             while (dr.Read())
             {
                 string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
                 string testType = dr["test_type"].ToString();
                 bool passed = Convert.ToBoolean(dr["passed"]);
                 string validThrough = dr["valid_through"].ToString();
+                string answerXml = (dr["xml_answer"].ToString()).Trim();
 
 
-                dt.Rows.Add(name, testType, passed, validThrough);
+
+                //Read och switch case nedan läser antal frågor och rätta svar i xml_answer och mellanlagrar detta i totalQuestions och rightAnswers.
+                XmlTextReader reader = new XmlTextReader(new StringReader(answerXml));
+
+                int totalQuestions = 0;
+                int rightAnswers = 0;
+
+                while (reader.Read())
+                {
+
+                    switch (reader.Name)
+                    {
+                        case "question":
+                            if (reader.AttributeCount > 0)
+                            {
+                                totalQuestions++;
+                            }
+                            break;
+
+                        case "answer":
+                            if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
+                            {
+                                rightAnswers++;
+                            }
+                            break;
+
+                    }
+                }
+
+                string result = rightAnswers.ToString() + "/" + totalQuestions.ToString();
+
+                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                dt.Rows.Add(name, testType, result, passed, validThrough);
             }
             conn.Close();
 
