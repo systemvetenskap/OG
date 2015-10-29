@@ -56,21 +56,21 @@ namespace Group3WebProject.Classes
 
                                 rättasvar++;
                                             
+                                if(rättaalternativ == rättasvar)
+                                {
+                                    rightAnswers++;
+                                
+                                }
                                             
                             }
 
                         }
-                            if(rättaalternativ == rättasvar)
-                            {
-                                rightAnswers++;
-                                
-                            }
+
                         break;
                 }
 
 
             
-            break;
 
         }
             
