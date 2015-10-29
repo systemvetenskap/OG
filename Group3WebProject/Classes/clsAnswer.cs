@@ -8,7 +8,7 @@ namespace Group3WebProject.Classes
     public class clsAnswer
     {
         public int id { get; set; }
-        public string answ { get; set; }
-        public string selected { get; set; }
+        public bool answ { get; set; }
+        public bool selected { get; set; }
     }
 }
