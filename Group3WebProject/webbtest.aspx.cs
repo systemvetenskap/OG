@@ -48,14 +48,16 @@ namespace Group3WebProject
             }
             else
             {
-                Label2.Text = result;
+                
             }
-
+            Label2.Text = result;
         }
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
-            
-            Response.Redirect("webbtestquestion.aspx?testID=12");
+            Classes.clsStartingTest clStart = new Classes.clsStartingTest();
+            string result = clStart.startNew("ÅKU", "4");
+            ViewState.Add("testID", result);
+         //   Response.Redirect("webbtestquestion.aspx?testID=12");
         }
 
     }

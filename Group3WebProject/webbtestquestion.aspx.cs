@@ -17,6 +17,14 @@ namespace Group3WebProject
         string testID = "2";
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (ViewState["testID"].ToString() != null)
+            {
+                testID = ViewState["testID"].ToString();
+            }
+            else
+            {
+
+            }
             if (!IsPostBack)
             {
                 HttpSessionState ss = HttpContext.Current.Session;

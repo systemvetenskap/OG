@@ -5,13 +5,14 @@ using System.Web;
 using Npgsql;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 namespace Group3WebProject.Classes
 {
     public class clsStartingTest
     {
         /// <summary>
-        /// Kontrollerar vilket test som ska göras retunerar ÅKU om inget har gjort tidigare. 
-        /// Annars blir det ARBETS om man bara ska göra ett test 
+        /// Kontrollerar vilket test som ska göras retunerar Licens om inget har gjort tidigare. 
+        /// Annars blir det ÅKU om man bara ska göra ett test 
         /// </summary>
         /// <param name="userID"></param>
         /// <returns></returns>
@@ -20,7 +21,7 @@ namespace Group3WebProject.Classes
             DataTable dt = fixData(userID);
             if (dt == null && dt.Rows.Count > 0)
             {
-                return "ÅKU";
+                return "LICENS"; //FÖrsta gången 
             }
 
             DateTime startTime = DateTime.Parse(dt.Rows[0]["starttime"].ToString());
@@ -37,7 +38,7 @@ namespace Group3WebProject.Classes
             {
                 return "Du måste vänta minst 7dagar mellan proven";
             }
-            return "ARBETS";
+            return "ÅKU"; //Årliga testet 
         }
         private DataTable fixData(string userID)
         {
@@ -59,17 +60,41 @@ namespace Group3WebProject.Classes
         /// </summary>
         /// <param name="type"></param>
         /// <param name="userID"></param>
-        public void startNew(string type, string userID)
+        public string startNew(string type, string userID)
         {
+            DateTime startTime = DateTime.Now;
+            string retAnsw = "";
+            //string sql = ""
             try
             {
                 NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
                 conn.Open();
-
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT xml_questions As ans, id FROM test where test_type='" + type + "' and valid_through='" + startTime.Year.ToString() + "' order by id", conn);
+                string xml = "";
+                string test = "";
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    xml = dr["ans"].ToString();
+                    test = dr["id"].ToString();
+                }
+                else
+                {
+                    dr.Close();
+                    conn.Close();
+                    return  "";
+                }
+                dr.Close();
+                cmd = new NpgsqlCommand("INSERT INTO completed_test (user_id, test_id, xml_answer,start_time) VALUES ('" + userID + "', '" + test + "', '" + xml + "', '" + startTime.AddYears(-2).ToString() + "') RETURNING id", conn);
+                retAnsw = cmd.ExecuteScalar().ToString();             
                 conn.Close();
+           
             }
-            catch 
-            { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            return retAnsw;
         }
     }
 }
