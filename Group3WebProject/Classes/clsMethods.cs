@@ -85,5 +85,75 @@ namespace Group3WebProject.Classes
             return result;
 
         }
+
+        public List<clsQuestion> XmlToClasses(string xml)
+        {
+            clsAnswer a = new clsAnswer();
+            clsQuestion q = new clsQuestion();
+            //List<clsAnswer> answerList = new List<clsAnswer>();
+            List<clsQuestion> questionList = new List<clsQuestion>();
+
+            string elementName;
+            
+            string endElementName;
+            
+
+            XmlTextReader reader = new XmlTextReader(new StringReader(xml));
+            reader.WhitespaceHandling = WhitespaceHandling.None;
+          
+
+            while (reader.Read())
+            {
+
+                switch (reader.NodeType)
+                {
+
+
+                    case XmlNodeType.Element:
+                       
+                        elementName = reader.Name;
+                        if (elementName == "question")
+                        {
+                            q.value = int.Parse(reader.GetAttribute("value"));
+                            q.part = reader.GetAttribute("part");
+                            q.answers = new List<clsAnswer>();
+                        }
+
+                        if (elementName == "answer")
+                        {
+                            a.id = int.Parse(reader.GetAttribute("id"));
+                            a.answ = Convert.ToBoolean(reader.GetAttribute("answ"));
+                            a.selected = Convert.ToBoolean(reader.GetAttribute("selected"));
+                            a.text = reader.Value;
+
+                        }
+                        if (elementName == "txt")
+                        {
+                            q.txt = reader.Value;
+                        }
+                        break;
+
+
+
+                    case XmlNodeType.EndElement:
+                        endElementName = reader.Name;
+                        if(endElementName == "answer")
+                        {
+                            //answerList.Add(a);
+                            q.answers.Add(a);
+                            a = new clsAnswer();
+                        }
+                        if(endElementName == "question")
+                        {
+                            //q.answers = answerList;
+                            questionList.Add(q);
+                            q = new clsQuestion();
+                            
+                        }
+                        break;
+                }
+            }
+            return questionList;
+        }
     }
 }
