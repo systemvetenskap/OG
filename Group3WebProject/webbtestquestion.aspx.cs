@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Diagnostics;
 using Group3WebProject.Classes;
+using System.Web.SessionState;
 namespace Group3WebProject
 {
     public partial class webbtestquestion : System.Web.UI.Page
@@ -16,6 +17,19 @@ namespace Group3WebProject
         {
             if (!IsPostBack)
             {
+                HttpSessionState ss = HttpContext.Current.Session;
+                //HttpContext.Current.Session["test"] = "test";
+                //HttpContext.Current.Response.Write(ss.StaticObjects["username"]);
+                System.Diagnostics.Debug.WriteLine(HttpContext.Current.Session["username"].ToString() + " 32 ");
+                if (HttpContext.Current.Session["level"] != null)
+                {
+                    if (HttpContext.Current.Session["level"].ToString() == "2")
+                    {
+                        Debug.WriteLine(" DU KOM IN ");
+                    }
+                }
+                //string tre = Session.StaticObjects["level"].ToString();
+                //Debug.WriteLine(tre);
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
                 cmbChooseQue.DataValueField = "id";
                 cmbChooseQue.DataTextField = "name";
@@ -161,9 +175,17 @@ namespace Group3WebProject
             ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             if (cmbChooseQue.Items.Count > cmbChooseQue.SelectedIndex + 1)
             {
-                cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex + 1;
+                cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex + 1;            
             }
             fillquestion();
+            if (cmbChooseQue.SelectedIndex >= cmbChooseQue.Items.Count - 1)
+            {
+                btnNext.Text = "Översikt";
+            }
+            else
+            {
+                btnNext.Text = "nästa";
+            }
         }
         protected void btnPrevious_Click(object sender, EventArgs e) //Föregående fråga kommer man till 
         {
@@ -174,6 +196,8 @@ namespace Group3WebProject
                 cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex - 1;
             }
             fillquestion();
+            btnNext.Text = "nästa";
+
         }
         protected void cmbChooseQue_SelectedIndexChanged(object sender, EventArgs e)
         {

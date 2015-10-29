@@ -137,6 +137,7 @@ namespace Group3WebProject.Classes
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id='" + testID + "'", conn);
+            //cmd.Parameters.Add("testID", testID);
             NpgsqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
