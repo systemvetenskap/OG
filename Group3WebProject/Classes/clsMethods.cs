@@ -84,60 +84,60 @@ namespace Group3WebProject.Classes
         }
 
 
-        //public DataTable readXML(string qID, string testID)
-        //{
-        //    DataTable dt = new DataTable();
-        //    string quest = "";
-        //    string part = "";
+        public DataTable readXML(string xml)
+        {
+            DataTable dt = new DataTable();
+            string quest = "";
+            string part = "";
 
 
-        //    dt.Columns.Add("name");
-        //    dt.Columns.Add("id");
-        //    dt.Columns.Add("sel");
-        //    dt.Columns.Add("answ");
-        //    try
-        //    {
-        //        XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml(testID)));
-        //        while (reader.Read())
-        //        {
-        //            switch (reader.Name)
-        //            {
-        //                case "question":
+            dt.Columns.Add("name");
+            dt.Columns.Add("id");
+            dt.Columns.Add("sel");
+            dt.Columns.Add("answ");
+            try
+            {
+                XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml(testID)));
+                while (reader.Read())
+                {
+                    switch (reader.Name)
+                    {
+                        case "question":
 
-        //                    if (reader.AttributeCount > 0 && qID.ToUpper() == reader.GetAttribute("value").ToUpper())//OM DETR FINN 
-        //                    {
-        //                        part = reader.GetAttribute("part").ToUpper();
-        //                    }
-        //                    else
-        //                    {
-        //                        reader.Skip();
-        //                    }
-        //                    break;
-        //                case "txt":
-        //                    quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
-        //                    break;
-        //                case "answer":
-        //                    //answ
-        //                    dt.Rows.Add();//Nedan är svarsalternativen 
-        //                    dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("id").ToUpper();
-        //                    dt.Rows[dt.Rows.Count - 1]["answ"] = reader.GetAttribute("answ").ToUpper();
-        //                    dt.Rows[dt.Rows.Count - 1]["sel"] = reader.GetAttribute("selected").ToUpper();
-        //                    dt.Rows[dt.Rows.Count - 1]["name"] = reader.ReadString();
-        //                    break;
+                            if (reader.AttributeCount > 0 && qID.ToUpper() == reader.GetAttribute("value").ToUpper())//OM DETR FINN 
+                            {
+                                part = reader.GetAttribute("part").ToUpper();
+                            }
+                            else
+                            {
+                                reader.Skip();
+                            }
+                            break;
+                        case "txt":
+                            quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
+                            break;
+                        case "answer":
+                            //answ
+                            dt.Rows.Add();//Nedan är svarsalternativen 
+                            dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("id").ToUpper();
+                            dt.Rows[dt.Rows.Count - 1]["answ"] = reader.GetAttribute("answ").ToUpper();
+                            dt.Rows[dt.Rows.Count - 1]["sel"] = reader.GetAttribute("selected").ToUpper();
+                            dt.Rows[dt.Rows.Count - 1]["name"] = reader.ReadString();
+                            break;
 
-        //            }
-        //        }
-        //        reader.Close();
-        //        return dt;
-        //        //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex.ToString());
-        //        return null;
-        //    }
-        //    // return "aakk";
-        //}
+                    }
+                }
+                reader.Close();
+                return dt;
+                //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+                return null;
+            }
+            // return "aakk";
+        }
 
 
 
