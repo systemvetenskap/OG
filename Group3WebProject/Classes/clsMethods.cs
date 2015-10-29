@@ -42,39 +42,38 @@ namespace Group3WebProject.Classes
                         if (elementName == "question")
                         {
                             totalQuestions++;
-                            switch (reader.NodeType)
+                        }
+    
+                        if (elementName == "answer" && reader.AttributeCount > 0)
+                        {
+                            if (reader.GetAttribute("answ") == "true")
                             {
-                                case XmlNodeType.Element:
-                                    elementName = reader.Name;
-                                    if (elementName == "answer" && reader.AttributeCount > 0)
-                                    {
-                                        if (reader.GetAttribute("answ") == "true")
-                                        {
-                                            rättaalternativ++;
-                                        }
-
-                                        if (reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
-                                        {
-
-                                            rättasvar++;
-                                            
-                                            
-                                        }
-                                    }
-                                    break;
+                                rättaalternativ++;
                             }
+
+                            if (reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
+                            {
+
+                                rättasvar++;
+                                            
+                                            
+                            }
+
+                        }
                             if(rättaalternativ == rättasvar)
                             {
                                 rightAnswers++;
                                 
                             }
-
-
-                        }
                         break;
-
                 }
-            }
+
+
+            
+            break;
+
+        }
+            
 
             //Poäng endast för komplett besvarade frågor, alltså med rätt antal svarsalternativ förbockade.
 
