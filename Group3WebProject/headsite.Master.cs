@@ -27,11 +27,9 @@ namespace Group3WebProject
             if (!IsPostBack)
             {
 
-                HttpSessionState ss = HttpContext.Current.Session;
-                HttpContext.Current.Session["username"] = "test";
-                HttpContext.Current.Session["level"] = "2";                
+                             
 
-                System.Diagnostics.Debug.WriteLine(HttpContext.Current.Session["username"].ToString() + " 12 ");
+               // System.Diagnostics.Debug.WriteLine(HttpContext.Current.Session["username"].ToString() + " 12 ");
                 userList.Clear();
 
                 string connectionString = WebConfigurationManager.ConnectionStrings["JE"].ConnectionString;

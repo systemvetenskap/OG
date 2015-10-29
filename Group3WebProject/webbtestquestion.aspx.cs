@@ -17,17 +17,26 @@ namespace Group3WebProject
         {
             if (!IsPostBack)
             {
-                HttpSessionState ss = HttpContext.Current.Session;
-                //HttpContext.Current.Session["test"] = "test";
-                //HttpContext.Current.Response.Write(ss.StaticObjects["username"]);
-                System.Diagnostics.Debug.WriteLine(HttpContext.Current.Session["username"].ToString() + " 32 ");
+               // HttpSessionState ss = HttpContext.Current.Session;
                 if (HttpContext.Current.Session["level"] != null)
                 {
-                    if (HttpContext.Current.Session["level"].ToString() == "2")
+
+                    //Check if user have right credit 
+                    //IF level == Provdeltahare
+                    if (HttpContext.Current.Session["level"].ToString() == "1") //Inloggad
                     {
                         Debug.WriteLine(" DU KOM IN ");
                     }
+                    else //Är inloggad med fel credinatl
+                    {
+                        Response.Redirect("default.aspx");
+                    }
                 }
+                else //Har inte loggat in 
+                {
+                    Response.Redirect("login.aspx");
+                }
+
                 //string tre = Session.StaticObjects["level"].ToString();
                 //Debug.WriteLine(tre);
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
