@@ -17,7 +17,7 @@
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Spara" CssClass="btn-primary" />
     </div>
     <div id="qu">
-        <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label><asp:Label ID="lblChoose" runat="server" Text="Label"></asp:Label>
         <br />
         <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
         <br />
