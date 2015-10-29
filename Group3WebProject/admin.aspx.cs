@@ -44,7 +44,7 @@ namespace Group3WebProject
                 }
             }
 
-            DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));// Här är provledarens id hårdkodat till 1, ska bytas ut till inloggad ledare när sessioner stöds.
+            DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             previousTests.DataSource = dt[0];
             previousTests.DataBind();
 

@@ -21,12 +21,12 @@ namespace Group3WebProject.Classes
         public string getResultFromXml(string xml)
         {
             string elementName;
+            bool correct = true;
 
             XmlTextReader reader = new XmlTextReader(new StringReader(xml));
-
+            reader.WhitespaceHandling = WhitespaceHandling.None;
             int totalQuestions = 0; //Totala antalet frågor.
-            int totalTrueAnsw = 0; //Totala antalet svarsalternat som är rätt(kan vara flera per fråga).
-            int rightAnswers = 0; //Provdeltagarens antal förbockade rätta svarsalternativ.
+            int rightAnswers = 0; //Provdeltagarens antal rätta svar.
 
             while (reader.Read())
             {
@@ -36,8 +36,7 @@ namespace Group3WebProject.Classes
                         
                     
                     case XmlNodeType.Element:
-                        int rättaalternativ = 0;
-                        int rättasvar = 0;
+                        
                         elementName = reader.Name;
                         if (elementName == "question")
                         {
@@ -46,24 +45,28 @@ namespace Group3WebProject.Classes
     
                         if (elementName == "answer" && reader.AttributeCount > 0)
                         {
-                            if (reader.GetAttribute("answ") == "true")
+                            if (reader.GetAttribute("answ") != reader.GetAttribute("selected"))
                             {
-                                rättaalternativ++;
+                                correct = false;
+
                             }
 
-                            if (reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
-                            {
+                        }
 
-                                rättasvar++;
-                                            
-                                if(rättaalternativ == rättasvar)
-                                {
-                                    rightAnswers++;
-                                
-                                }
-                                            
-                            }
+                        break;
 
+
+                    case XmlNodeType.EndElement:
+                        string endElement = reader.Name;
+
+                        if (endElement == "question" && correct == true)
+                        {
+                            rightAnswers++;
+                            
+                        }
+                        else if (endElement == "question")
+                        {
+                            correct = true;
                         }
 
                         break;
@@ -82,66 +85,5 @@ namespace Group3WebProject.Classes
             return result;
 
         }
-
-
-        public DataTable readXML(string xml)
-        {
-            DataTable dt = new DataTable();
-            string quest = "";
-            string part = "";
-
-
-            dt.Columns.Add("name");
-            dt.Columns.Add("id");
-            dt.Columns.Add("sel");
-            dt.Columns.Add("answ");
-            try
-            {
-                XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml(testID)));
-                while (reader.Read())
-                {
-                    switch (reader.Name)
-                    {
-                        case "question":
-
-                            if (reader.AttributeCount > 0 && qID.ToUpper() == reader.GetAttribute("value").ToUpper())//OM DETR FINN 
-                            {
-                                part = reader.GetAttribute("part").ToUpper();
-                            }
-                            else
-                            {
-                                reader.Skip();
-                            }
-                            break;
-                        case "txt":
-                            quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
-                            break;
-                        case "answer":
-                            //answ
-                            dt.Rows.Add();//Nedan är svarsalternativen 
-                            dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("id").ToUpper();
-                            dt.Rows[dt.Rows.Count - 1]["answ"] = reader.GetAttribute("answ").ToUpper();
-                            dt.Rows[dt.Rows.Count - 1]["sel"] = reader.GetAttribute("selected").ToUpper();
-                            dt.Rows[dt.Rows.Count - 1]["name"] = reader.ReadString();
-                            break;
-
-                    }
-                }
-                reader.Close();
-                return dt;
-                //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.ToString());
-                return null;
-            }
-            // return "aakk";
-        }
-
-
-
-
-
     }
 }
