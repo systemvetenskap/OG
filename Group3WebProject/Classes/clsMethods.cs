@@ -5,6 +5,7 @@ using System.Web;
 using System.Xml;
 using System.Configuration;
 using System.IO;
+using System.Data;
 
 
 namespace Group3WebProject.Classes
@@ -19,6 +20,8 @@ namespace Group3WebProject.Classes
         /// <returns></returns>
         public string getResultFromXml(string xml)
         {
+            string elementName;
+
             XmlTextReader reader = new XmlTextReader(new StringReader(xml));
 
             int totalQuestions = 0; //Totala antalet frågor.
@@ -28,36 +31,114 @@ namespace Group3WebProject.Classes
             while (reader.Read())
             {
 
-                switch (reader.Name)
+                switch (reader.NodeType)
                 {
-                    case "question":
-                        if (reader.AttributeCount > 0)
+                        
+                    
+                    case XmlNodeType.Element:
+                        int rättaalternativ = 0;
+                        int rättasvar = 0;
+                        elementName = reader.Name;
+                        if (elementName == "question")
                         {
                             totalQuestions++;
-                        }
-                        break;
+                            switch (reader.NodeType)
+                            {
+                                case XmlNodeType.Element:
+                                    elementName = reader.Name;
+                                    if (elementName == "answer" && reader.AttributeCount > 0)
+                                    {
+                                        if (reader.GetAttribute("answ") == "true")
+                                        {
+                                            rättaalternativ++;
+                                        }
 
-                    case "answer":
-                        if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true")
-                        {
-                            totalTrueAnsw++;
-                        }
-                        if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
-                        {
-                            rightAnswers++;
+                                        if (reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
+                                        {
+
+                                            rättasvar++;
+                                            
+                                            
+                                        }
+                                    }
+                                    break;
+                            }
+                            if(rättaalternativ == rättasvar)
+                            {
+                                rightAnswers++;
+                                
+                            }
+
+
                         }
                         break;
 
                 }
             }
 
-            int points = rightAnswers - (totalTrueAnsw - totalQuestions); //Poäng endast för komplett besvarade frågor, alltså med rätt antal svarsalternativ förbockade.
+            //Poäng endast för komplett besvarade frågor, alltså med rätt antal svarsalternativ förbockade.
 
-            string result = points.ToString() + "/" + totalQuestions.ToString();
+            string result = rightAnswers.ToString() + "/" + totalQuestions.ToString();
 
             return result;
 
         }
+
+
+        //public DataTable readXML(string qID, string testID)
+        //{
+        //    DataTable dt = new DataTable();
+        //    string quest = "";
+        //    string part = "";
+
+
+        //    dt.Columns.Add("name");
+        //    dt.Columns.Add("id");
+        //    dt.Columns.Add("sel");
+        //    dt.Columns.Add("answ");
+        //    try
+        //    {
+        //        XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml(testID)));
+        //        while (reader.Read())
+        //        {
+        //            switch (reader.Name)
+        //            {
+        //                case "question":
+
+        //                    if (reader.AttributeCount > 0 && qID.ToUpper() == reader.GetAttribute("value").ToUpper())//OM DETR FINN 
+        //                    {
+        //                        part = reader.GetAttribute("part").ToUpper();
+        //                    }
+        //                    else
+        //                    {
+        //                        reader.Skip();
+        //                    }
+        //                    break;
+        //                case "txt":
+        //                    quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
+        //                    break;
+        //                case "answer":
+        //                    //answ
+        //                    dt.Rows.Add();//Nedan är svarsalternativen 
+        //                    dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("id").ToUpper();
+        //                    dt.Rows[dt.Rows.Count - 1]["answ"] = reader.GetAttribute("answ").ToUpper();
+        //                    dt.Rows[dt.Rows.Count - 1]["sel"] = reader.GetAttribute("selected").ToUpper();
+        //                    dt.Rows[dt.Rows.Count - 1]["name"] = reader.ReadString();
+        //                    break;
+
+        //            }
+        //        }
+        //        reader.Close();
+        //        return dt;
+        //        //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex.ToString());
+        //        return null;
+        //    }
+        //    // return "aakk";
+        //}
 
 
 
