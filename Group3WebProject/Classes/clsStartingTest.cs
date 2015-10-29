@@ -23,7 +23,9 @@ namespace Group3WebProject.Classes
             {
                 return "LICENS"; //FÖrsta gången 
             }
+            DateTime endTime;
 
+            
             DateTime startTime = DateTime.Parse(dt.Rows[0]["starttime"].ToString());
             DateTime timNow = DateTime.Now;
             TimeSpan diffDate = timNow - startTime;
@@ -33,6 +35,15 @@ namespace Group3WebProject.Classes
                 {
                     return "Du har redan gjort årets test och är godkänd";
                 }
+            }
+
+            if (dt.Rows[0]["endtime"] == null || Convert.ToString(dt.Rows[0]["endtime"]) == "")
+            {
+               if (diffDate.Minutes < 30)
+               {
+                   return "IGÅNG";
+               }
+                
             }
             if (diffDate.Days < 7)
             {
@@ -47,7 +58,7 @@ namespace Group3WebProject.Classes
             {
                 NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
                 conn.Open();
-                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT start_time AS starttime, passed FROM completed_test WHERE user_id='" + userID + "' ORDER BY start_time desc", conn);
+                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT start_time AS starttime, passed, end_time AS endtime FROM completed_test WHERE user_id='" + userID + "' ORDER BY start_time desc", conn);
                 adp.Fill(dt);
                 conn.Close();
             }
@@ -82,19 +93,47 @@ namespace Group3WebProject.Classes
                 {
                     dr.Close();
                     conn.Close();
-                    return  "";
+                    return "";
                 }
                 dr.Close();
-                cmd = new NpgsqlCommand("INSERT INTO completed_test (user_id, test_id, xml_answer,start_time) VALUES ('" + userID + "', '" + test + "', '" + xml + "', '" + startTime.AddYears(-2).ToString() + "') RETURNING id", conn);
-                retAnsw = cmd.ExecuteScalar().ToString();             
+                cmd = new NpgsqlCommand("INSERT INTO completed_test (user_id, test_id, xml_answer,start_time) VALUES ('" + userID + "', '" + test + "', '" + xml + "', '" + startTime.ToString() + "') RETURNING id", conn);
+                retAnsw = cmd.ExecuteScalar().ToString();
                 conn.Close();
-           
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
             }
             return retAnsw;
+        }
+        public string getTestid(string userID)
+        {
+            string test = "";
+            try
+            {
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT id FROM completed_test WHERE user_id='" + userID + "' ORDER BY start_time desc limit 1", conn);
+
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    test = dr["id"].ToString();
+                }
+                else
+                {
+                    dr.Close();
+                    conn.Close();
+                    return "Finns inget test";
+                }
+                //Debug.WriteLine()
+                dr.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            return test;
         }
     }
 }

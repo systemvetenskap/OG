@@ -15,5 +15,5 @@
     
     <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
     <br />
-    <asp:Button runat="server" Text="Välj test" OnClick="Unnamed1_Click"/><br /><asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+    <asp:Button runat="server" Text="Välj test" OnClick="Unnamed1_Click" ID="btnTest"/><br /><asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 </asp:Content>
