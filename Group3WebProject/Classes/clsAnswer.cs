@@ -10,5 +10,7 @@ namespace Group3WebProject.Classes
         public int id { get; set; }
         public bool answ { get; set; }
         public bool selected { get; set; }
+        public string text { get; set; }
+
     }
 }
