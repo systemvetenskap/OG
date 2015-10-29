@@ -17,13 +17,14 @@ namespace Group3WebProject
         {
             if (!IsPostBack)
             {
-               // HttpSessionState ss = HttpContext.Current.Session;
-                if (HttpContext.Current.Session["level"] != null)
+                HttpSessionState ss = HttpContext.Current.Session;
+                if (HttpContext.Current.Session["userid"] != null)
                 {
-
+                    Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
                     //Check if user have right credit 
                     //IF level == Provdeltahare
-                    if (HttpContext.Current.Session["level"].ToString() == "1") //Inloggad
+                    Classes.clsLogin clsLog = new Classes.clsLogin();
+                    if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "deltagare") //Inloggad
                     {
                         Debug.WriteLine(" DU KOM IN ");
                     }
@@ -37,8 +38,7 @@ namespace Group3WebProject
                     Response.Redirect("login.aspx");
                 }
 
-                //string tre = Session.StaticObjects["level"].ToString();
-                //Debug.WriteLine(tre);
+                Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " LÖ ");
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
                 cmbChooseQue.DataValueField = "id";
                 cmbChooseQue.DataTextField = "name";
