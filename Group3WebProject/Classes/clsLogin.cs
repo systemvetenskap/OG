@@ -5,6 +5,8 @@ using System.Web;
 using Npgsql;
 using System.Data;
 using System.Configuration;
+using System.Diagnostics;
+
 namespace Group3WebProject.Classes
 {
     public class clsLogin
@@ -24,24 +26,31 @@ namespace Group3WebProject.Classes
                 conn.Close();
             }
             catch
-            { }
+            { 
+            
+            }
 
             return dt;
         }
         public string getLevel(string userID)
         {
             string retLevel = "";
+            string getUsers;
 
             try
             {
                 NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
-                conn.Open();
+                getUsers = "SELECT * FROM users INNER JOIN team ON users.id = team.user_id WHERE users.id = @uId";
                // string sql = "SELECT *  FROM users RIGHT JOIN team on users.id = team.user_id WHERE user.id='" + userID + "'";
-                NpgsqlCommand cmd = new NpgsqlCommand("SELECT *  FROM users RIGHT JOIN team on users.id = team.user_id WHERE users.id='" + userID + "'", conn);
+                NpgsqlCommand cmd = new NpgsqlCommand(getUsers, conn);
+                cmd.Parameters.AddWithValue("uId", Convert.ToInt32(userID));
+                conn.Open();
                 NpgsqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
+
+
+                if (dr.HasRows)
                 {
-                    retLevel = "team";
+                    retLevel = "provledare";
                 }
                 else
                 {
@@ -49,8 +58,10 @@ namespace Group3WebProject.Classes
                 }
                 conn.Close();
             }
-            catch
-            { }
+            catch (NpgsqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
             return retLevel;
         }
     }

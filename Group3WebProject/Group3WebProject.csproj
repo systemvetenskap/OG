@@ -111,6 +111,7 @@
     <Compile Include="Classes\clsMethods.cs" />
     <Compile Include="Classes\clsRightOrNot.cs" />
     <Compile Include="Classes\clsSetGetStarttime.cs" />
+    <Compile Include="Classes\clsStartingTest.cs" />
     <Compile Include="Classes\clsTestMenuFill.cs" />
     <Compile Include="Classes\clsUsers.cs" />
     <Compile Include="default.aspx.cs">

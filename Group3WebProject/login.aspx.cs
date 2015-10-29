@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Web.SessionState;
-using Group3WebProject;
+using Group3WebProject.Classes;
 namespace Group3WebProject
 {
     public partial class login : System.Web.UI.Page
@@ -38,10 +38,29 @@ namespace Group3WebProject
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            
             HttpSessionState ss = HttpContext.Current.Session; //Går till sessionen som finns
             HttpContext.Current.Session["username"] = ddlAllUser.Text;
             HttpContext.Current.Session["userid"] = ddlAllUser.SelectedValue;
             //HttpContext.Current.Session["level"] = "2"; 
+
+            string a = HttpContext.Current.Session["username"].ToString();
+            string b = HttpContext.Current.Session["userid"].ToString();
+
+
+            clsLogin logInClass = new clsLogin();
+            if(logInClass.getLevel(b) == "provledare")
+            {
+                Response.Redirect("admin.aspx");
+            }
+            else if(logInClass.getLevel(b) == "deltagare")
+            {
+                Response.Redirect("webbtest.aspx");
+            }
+
+
+
+
         }
     }
 }
