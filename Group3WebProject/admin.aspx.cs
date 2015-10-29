@@ -10,6 +10,8 @@ using System.Configuration;
 using Group3WebProject.Classes;
 using System.Xml;
 using System.IO;
+using System.Web.SessionState;
+using System.Diagnostics;
 
 namespace Group3WebProject
 {
@@ -18,9 +20,35 @@ namespace Group3WebProject
         clsMethods method = new clsMethods();
         protected void Page_Load(object sender, EventArgs e)
         {
-            DataTable[] dt = GetTeamList(1);// Här är provledarens id hårdkodat till 1, ska bytas ut till inloggad ledare när sessioner stöds.
+            if(!IsPostBack)
+            {
+                HttpSessionState ss = HttpContext.Current.Session;
+                if (HttpContext.Current.Session["userid"] != null)
+                {
+                    Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
+                    //Check if user have right credit 
+                    //IF level == Provdeltahare
+                    Classes.clsLogin clsLog = new Classes.clsLogin();
+                    if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "provledare") //Inloggad
+                    {
+                        Debug.WriteLine(" DU KOM IN ");
+                    }
+                    else //Är inloggad med fel credinatl
+                    {
+                        Response.Redirect("login.aspx");
+                    }
+                }
+                else //Har inte loggat in 
+                {
+                    Response.Redirect("login.aspx");
+                }
+            }
+
+            DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             previousTests.DataSource = dt[0];
             previousTests.DataBind();
+
+
 
         }
 

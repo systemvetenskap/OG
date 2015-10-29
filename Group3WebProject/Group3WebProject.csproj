@@ -105,10 +105,12 @@
     <Compile Include="admin.aspx.designer.cs">
       <DependentUpon>admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\clsAnswer.cs" />
     <Compile Include="Classes\clsFillQuestion.cs" />
     <Compile Include="Classes\clsgetTests.cs" />
     <Compile Include="Classes\clsLogin.cs" />
     <Compile Include="Classes\clsMethods.cs" />
+    <Compile Include="Classes\clsQuestion.cs" />
     <Compile Include="Classes\clsRightOrNot.cs" />
     <Compile Include="Classes\clsSetGetStarttime.cs" />
     <Compile Include="Classes\clsStartingTest.cs" />

@@ -5,6 +5,7 @@ using System.Web;
 using System.Xml;
 using System.Configuration;
 using System.IO;
+using System.Data;
 
 
 namespace Group3WebProject.Classes
@@ -19,49 +20,70 @@ namespace Group3WebProject.Classes
         /// <returns></returns>
         public string getResultFromXml(string xml)
         {
-            XmlTextReader reader = new XmlTextReader(new StringReader(xml));
+            string elementName;
+            bool correct = true;
 
+            XmlTextReader reader = new XmlTextReader(new StringReader(xml));
+            reader.WhitespaceHandling = WhitespaceHandling.None;
             int totalQuestions = 0; //Totala antalet frågor.
-            int totalTrueAnsw = 0; //Totala antalet svarsalternat som är rätt(kan vara flera per fråga).
-            int rightAnswers = 0; //Provdeltagarens antal förbockade rätta svarsalternativ.
+            int rightAnswers = 0; //Provdeltagarens antal rätta svar.
 
             while (reader.Read())
             {
 
-                switch (reader.Name)
+                switch (reader.NodeType)
                 {
-                    case "question":
-                        if (reader.AttributeCount > 0)
+                        
+                    
+                    case XmlNodeType.Element:
+                        
+                        elementName = reader.Name;
+                        if (elementName == "question")
                         {
                             totalQuestions++;
                         }
+    
+                        if (elementName == "answer" && reader.AttributeCount > 0)
+                        {
+                            if (reader.GetAttribute("answ") != reader.GetAttribute("selected"))
+                            {
+                                correct = false;
+
+                            }
+
+                        }
+
                         break;
 
-                    case "answer":
-                        if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true")
-                        {
-                            totalTrueAnsw++;
-                        }
-                        if (reader.AttributeCount > 0 && reader.GetAttribute("answ") == "true" && reader.GetAttribute("selected") == "true")
+
+                    case XmlNodeType.EndElement:
+                        string endElement = reader.Name;
+
+                        if (endElement == "question" && correct == true)
                         {
                             rightAnswers++;
+                            
                         }
+                        else if (endElement == "question")
+                        {
+                            correct = true;
+                        }
+
                         break;
-
                 }
-            }
 
-            int points = rightAnswers - (totalTrueAnsw - totalQuestions); //Poäng endast för komplett besvarade frågor, alltså med rätt antal svarsalternativ förbockade.
 
-            string result = points.ToString() + "/" + totalQuestions.ToString();
+            
+
+        }
+            
+
+            //Poäng endast för komplett besvarade frågor, alltså med rätt antal svarsalternativ förbockade.
+
+            string result = rightAnswers.ToString() + "/" + totalQuestions.ToString();
 
             return result;
 
         }
-
-
-
-
-
     }
 }
