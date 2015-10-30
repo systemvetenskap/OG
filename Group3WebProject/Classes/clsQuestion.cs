@@ -8,11 +8,25 @@ namespace Group3WebProject.Classes
 {
     public class clsQuestion
     {
+        public int value { get; set; }
         public string txt { get; set; }
+        public string part { get; set; }
 
         public List<clsAnswer> answers { get; set; }
 
-
+        public bool right()
+        {
+            bool right = true;
+            foreach (clsAnswer ca in answers)
+            {
+                if( ca.answ != ca.selected)
+                {
+                    right = false;
+                    break;
+                }
+            }
+            return right;
+        }
 
     }
 }

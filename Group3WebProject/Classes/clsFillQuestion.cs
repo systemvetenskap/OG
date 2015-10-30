@@ -18,12 +18,12 @@ namespace Group3WebProject.Classes
         /// <param name="qID"></param>
         /// <param name="testID"></param>
         /// <returns></returns>
-        public DataTable readXML(string qID, string testID)
+        public Tuple<DataTable, string, int> readXML(string qID, string testID)
         {
             DataTable dt = new DataTable();
             string quest = "";
             string part = "";
-
+            int countRi = 0;
 
             dt.Columns.Add("name");
             dt.Columns.Add("id");
@@ -57,12 +57,16 @@ namespace Group3WebProject.Classes
                             dt.Rows[dt.Rows.Count - 1]["answ"] = reader.GetAttribute("answ").ToUpper();
                             dt.Rows[dt.Rows.Count - 1]["sel"] = reader.GetAttribute("selected").ToUpper();
                             dt.Rows[dt.Rows.Count - 1]["name"] = reader.ReadString();
+                            if (dt.Rows[dt.Rows.Count - 1]["answ"].ToString() == "TRUE")
+                            {
+                                countRi += 1;
+                            }
                             break;
                        
                     }
                 }
                 reader.Close();
-                return dt;
+                return new Tuple<DataTable, string, int>(dt, quest, countRi);
                 //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
             }
             catch (Exception ex)

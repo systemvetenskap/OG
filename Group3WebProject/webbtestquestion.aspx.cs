@@ -17,17 +17,9 @@ namespace Group3WebProject
         string testID = "2";
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (ViewState["testID"].ToString() != null)
-            {
-                testID = ViewState["testID"].ToString();
-            }
-            else
-            {
 
-            }
             if (!IsPostBack)
             {
-                HttpSessionState ss = HttpContext.Current.Session;
                 if (HttpContext.Current.Session["userid"] != null)
                 {
                     Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
@@ -37,6 +29,7 @@ namespace Group3WebProject
                     if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "deltagare") //Inloggad
                     {
                         Debug.WriteLine(" DU KOM IN ");
+                        Label2.Text = HttpContext.Current.Session["userid"].ToString();
                     }
                     else //Är inloggad med fel credinatl
                     {
@@ -47,8 +40,29 @@ namespace Group3WebProject
                 {
                     Response.Redirect("login.aspx");
                 }
+                if (ViewState["testID"] != null || Convert.ToString(ViewState["testID"]) != "")
+                {
+                    testID = ViewState["testID"].ToString();
+                    Debug.WriteLine("FInns något ialla fall");
 
-                Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " LÖ ");
+                }
+                else
+                {
+                    int tstID;
+
+                    clsStartingTest clsTestID = new clsStartingTest();
+                    testID = clsTestID.getTestid(HttpContext.Current.Session["userid"].ToString());
+                    Debug.WriteLine(testID + "  ALfekroek");
+                    if (int.TryParse(testID, out tstID))
+                    {
+                        ViewState["testID"] = testID;
+                    }
+                    else
+                    {
+                        //Finns inget test startat 
+                    }
+                }
+                Label2.Text = Label2.Text + "  testID_ " + testID; 
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
                 cmbChooseQue.DataValueField = "id";
                 cmbChooseQue.DataTextField = "name";
@@ -72,12 +86,14 @@ namespace Group3WebProject
             }
             else
             {
+                Debug.WriteLine(" FEL ET ");
+                testID = ViewState["testID"].ToString();
             }
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-           // fillquestion();
-           // ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
+            // fillquestion();
+            // ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
             List<string> liAnsw = new List<string>();
             liAnsw.Add("1");
@@ -87,7 +103,12 @@ namespace Group3WebProject
         private bool fillquestion()//Hämtar frågorna 
         {
             Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
-            DataTable dt = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
+            Tuple<DataTable, string, int> getData = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
+
+            DataTable dt = getData.Item1;
+            int antVal = getData.Item3;
+            Label3.Text = getData.Item2;
+            lblChoose.Text = " Du ska välja:" + antVal.ToString() + " frågor";
             try
             {
                 int sumCheck = 0;
@@ -119,7 +140,7 @@ namespace Group3WebProject
                             {
                                 chkQuestionList.Items.FindByValue(val.ToString()).Selected = true; //Sätter alla som finns till true så att den kan vara multippella
                             }
-                        }                        
+                        }
                     }
                 }
                 else //Om det är ett val så kommer man till en radiobuttonlist
@@ -137,9 +158,9 @@ namespace Group3WebProject
                         {
                             if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                             {
-                               rbQuestionList.SelectedValue = val.ToString();
+                                rbQuestionList.SelectedValue = val.ToString();
                             }
-                        }                        
+                        }
                     }
                 }
 
@@ -150,7 +171,7 @@ namespace Group3WebProject
             }
             return true;
         }
-       
+
         private bool checkAnswers()//Sparar svars alternativen
         {
             Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
@@ -194,9 +215,15 @@ namespace Group3WebProject
             ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             if (cmbChooseQue.Items.Count > cmbChooseQue.SelectedIndex + 1)
             {
-                cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex + 1;            
+                cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex + 1;
             }
             fillquestion();
+            if (btnNext.Text == "Översikt")
+            {
+               
+
+            }
+
             if (cmbChooseQue.SelectedIndex >= cmbChooseQue.Items.Count - 1)
             {
                 btnNext.Text = "Översikt";
@@ -206,9 +233,14 @@ namespace Group3WebProject
                 btnNext.Text = "nästa";
             }
         }
+        private bool ReturnValue()
+        {
+            
+            return false;
+        }
         protected void btnPrevious_Click(object sender, EventArgs e) //Föregående fråga kommer man till 
         {
-           checkAnswers();
+            checkAnswers();
             ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
             if (cmbChooseQue.Items.Count > cmbChooseQue.SelectedIndex - 1)
             {

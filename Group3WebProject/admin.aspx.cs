@@ -12,6 +12,7 @@ using System.Xml;
 using System.IO;
 using System.Web.SessionState;
 using System.Diagnostics;
+using System.Text;
 
 namespace Group3WebProject
 {
@@ -48,6 +49,8 @@ namespace Group3WebProject
             previousTests.DataSource = dt[0];
             previousTests.DataBind();
 
+            upcomingTests.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
+            upcomingTests.DataBind();
 
 
         }
@@ -105,6 +108,75 @@ namespace Group3WebProject
             dtA[1] = dt2;
             
             return dtA;
+        }
+
+        private DataTable testStats(int leaderId, int testId)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Namn", typeof(string));
+            dt.Columns.Add("Provtyp", typeof(string));
+            //dt.Columns.Add("Resultat", typeof(string));
+            dt.Columns.Add("Godkänd", typeof(bool));
+            dt.Columns.Add("Giltigt t.o.m.", typeof(string));
+
+
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+
+            string sql = "SELECT first_name, last_name, passed, xml_answer, test_type, valid_through FROM "
+                            + "(SELECT DISTINCT ON (ct.user_id) u.first_name, u.last_name, u.team_id, ct.passed, ct.xml_answer, ct.test_id, t.test_type, t.valid_through "
+                            + "FROM completed_test ct "
+                            + "INNER JOIN users u "
+                            + "ON u.id = ct.user_id "
+                            + "INNER JOIN test t "
+                            + "ON t.id = ct.test_id "
+                            + "ORDER BY ct.user_id, ct.start_time DESC)b "
+                            + "WHERE team_id = (SELECT id FROM team WHERE user_id = @uId) AND test_id = @tId";
+
+            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("uId", leaderId);
+            cmd.Parameters.AddWithValue("tId", testId);
+            conn.Open();
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
+                string testType = dr["test_type"].ToString();
+                bool passed = Convert.ToBoolean(dr["passed"]);
+                string validThrough = dr["valid_through"].ToString();
+                string answerXml = (dr["xml_answer"].ToString()).Trim();
+
+                
+                
+                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                dt.Rows.Add(name, testType, passed, validThrough);
+                int questionCounter = 3;
+                foreach (clsQuestion cq in method.XmlToClasses(answerXml))
+                {
+                    questionCounter++;
+                    if (dt.Columns.Count == 4)
+                    {
+                        foreach (clsQuestion q in method.XmlToClasses(answerXml))
+                        {
+                            dt.Columns.Add("Fråga: " + q.value.ToString());
+
+                        }
+                    }
+                    
+			                if (cq.right())
+                            {
+
+                                dt.Rows[dt.Rows.Count - 1][questionCounter] = "Rätt";
+                            }
+                            else
+                            {
+                                dt.Rows[dt.Rows.Count - 1][questionCounter] = "Fel";
+                            }
+
+                }
+            }
+            conn.Close();
+            return dt;
         }
     }
 }

@@ -74,6 +74,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="webbtestresult.aspx" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="login.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -151,6 +152,13 @@
     </Compile>
     <Compile Include="webbtestquestion.aspx.designer.cs">
       <DependentUpon>webbtestquestion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="webbtestresult.aspx.cs">
+      <DependentUpon>webbtestresult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="webbtestresult.aspx.designer.cs">
+      <DependentUpon>webbtestresult.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
