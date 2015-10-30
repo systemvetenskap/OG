@@ -17,73 +17,73 @@ namespace Group3WebProject
     public partial class headsite : System.Web.UI.MasterPage
     {
 
-        clsUsers user;
-        private static List<clsUsers> userList = new List<clsUsers>();
-        clsUsers sessionUser;
+    //    clsUsers user;
+    //    private static List<clsUsers> userList = new List<clsUsers>();
+    //    clsUsers sessionUser;
 
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
+    //    protected void Page_Load(object sender, EventArgs e)
+    //    {
+    //        if (!IsPostBack)
+    //        {
 
                              
 
-               // System.Diagnostics.Debug.WriteLine(HttpContext.Current.Session["username"].ToString() + " 12 ");
-                userList.Clear();
+    //           // System.Diagnostics.Debug.WriteLine(HttpContext.Current.Session["username"].ToString() + " 12 ");
+    //            userList.Clear();
 
-                string connectionString = WebConfigurationManager.ConnectionStrings["JE"].ConnectionString;
-                NpgsqlConnection conn = new NpgsqlConnection(connectionString);
+    //            string connectionString = WebConfigurationManager.ConnectionStrings["JE"].ConnectionString;
+    //            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
 
-                NpgsqlConnection connection = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
-
-
-                try
-                {
-                    string sql = "SELECT * FROM users";
-                    NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                    conn.Open();
-                    NpgsqlDataReader dr = cmd.ExecuteReader();
+    //            NpgsqlConnection connection = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
 
 
-                    while (dr.Read())
-                    {
+    //            try
+    //            {
+    //                string sql = "SELECT * FROM users";
+    //                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+    //                conn.Open();
+    //                NpgsqlDataReader dr = cmd.ExecuteReader();
 
-                        user = new Classes.clsUsers();
-                        user.Id = int.Parse(dr["id"].ToString());
-                        user.FirstName = dr["first_name"].ToString();
-                        user.LastName = dr["last_name"].ToString();
-                        user.TeamId = int.Parse(dr["team_id"].ToString());
 
-                        userList.Add(user);
+    //                while (dr.Read())
+    //                {
 
-                    }
+    //                    user = new Classes.clsUsers();
+    //                    user.Id = int.Parse(dr["id"].ToString());
+    //                    user.FirstName = dr["first_name"].ToString();
+    //                    user.LastName = dr["last_name"].ToString();
+    //                    user.TeamId = int.Parse(dr["team_id"].ToString());
 
-                    ddl_users.DataSource = userList;
-                    ddl_users.DataBind();
-                    //Cache["cachedUsers"] = userList;
+    //                    userList.Add(user);
+
+    //                }
+
+    //                ddl_users.DataSource = userList;
+    //                ddl_users.DataBind();
+    //                //Cache["cachedUsers"] = userList;
                     
 
-                }
+    //            }
 
-                catch (Exception ex)
-                {
-                    Response.Write(ex.Message);
-                }
+    //            catch (Exception ex)
+    //            {
+    //                Response.Write(ex.Message);
+    //            }
 
-                finally
-                {
-                    conn.Close();
-                }
-            }
-        }
+    //            finally
+    //            {
+    //                conn.Close();
+    //            }
+    //        }
+    //    }
 
-        protected void ddl_users_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            sessionUser = new clsUsers();
-            sessionUser = userList[ddl_users.SelectedIndex];
+    //    protected void ddl_users_SelectedIndexChanged(object sender, EventArgs e)
+    //    {
+    //        sessionUser = new clsUsers();
+    //        sessionUser = userList[ddl_users.SelectedIndex];
             
-        }
+    //    }
 
     }
 }

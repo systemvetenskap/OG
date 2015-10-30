@@ -31,9 +31,9 @@
                     <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Testet</a></li>
                     <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
                 </ul>
-                <div class="ddl clearfix">
+                <%--<div class="ddl clearfix">
                    <asp:DropDownList ID="ddl_users" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_users_SelectedIndexChanged"></asp:DropDownList>
-                </div>
+                </div>--%>
             </div>
            <div class="testar_divs">
                <asp:ContentPlaceHolder ID="bodyn" runat="server">
