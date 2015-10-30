@@ -152,13 +152,14 @@ ul.nav_list li{
             padding-bottom:6%;
         }
 
+        .all_contents{
+            padding-left:0%;
+        }
+
         #login{
             padding-right:1%;
         }
         
-        .all_contents{
-            padding-left:0%;
-        }
 }
 
 
@@ -174,7 +175,6 @@ ul.nav_list li{
         margin:0 auto;
         padding-left: 0%;
         border-bottom: 2px solid grey;
-
     }
 
     .header_class{
@@ -200,6 +200,15 @@ ul.nav_list li{
 @media only screen and (-webkit-min-device-pixel-ratio: 1.3),
        only screen and (max-width:384px){ /*Om max-bredden på webbläsarfönstret är 384px, gör nedan.*/
 
+    ul.nav_list li {
+        display: block;
+    }
+
+    a.nav_links{
+        padding-right:0%;
+        border-right:none;
+    }
+
     .wrapper{
         background-color:#E5F0F3;
         max-width:100%;
@@ -214,26 +223,17 @@ ul.nav_list li{
         font-size:190%;
     }
 
-    #login{
-        float:none;
-    }
-
     .nav_head{
         text-align:center;
         padding-bottom:5%;
     }
 
-    ul.nav_list li {
-        display: block;
-        
-    }
-    a.nav_links{
-        padding-right:0%;
-        border-right:none;
-    }
-
     .ddl
     {
+        float:none;
+    }
+
+    #login{
         float:none;
     }
 }
