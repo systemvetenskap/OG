@@ -49,7 +49,6 @@ namespace Group3WebProject
                 else
                 {
                     int tstID;
-
                     clsStartingTest clsTestID = new clsStartingTest();
                     testID = clsTestID.getTestid(HttpContext.Current.Session["userid"].ToString());
                     Debug.WriteLine(testID + "  ALfekroek");
@@ -59,10 +58,9 @@ namespace Group3WebProject
                     }
                     else
                     {
-                        //Finns inget test startat 
                     }
                 }
-                Label2.Text = Label2.Text + "  testID_ " + testID; 
+                Label2.Text = Label2.Text + "  testID_ " + testID;
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
                 cmbChooseQue.DataValueField = "id";
                 cmbChooseQue.DataTextField = "name";
@@ -92,8 +90,6 @@ namespace Group3WebProject
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            // fillquestion();
-            // ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
             List<string> liAnsw = new List<string>();
             liAnsw.Add("1");
@@ -104,11 +100,15 @@ namespace Group3WebProject
         {
             Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
             Tuple<DataTable, string, int, string, string> getData = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
-
+            //Saab_9-5_Gen_II_Front.jpg
             DataTable dt = getData.Item1;
             int antVal = getData.Item3;
             Label3.Text = "Frågan är inom området:" + getData.Item4 + " <br />" + getData.Item2;
             lblChoose.Text = " Du ska välja:" + antVal.ToString() + " frågor";
+            if (getData.Item5 != "")
+            {
+                Label2.Text = "<img src='pictures/" + getData.Item5 + "' style='height: 250px; width: 250px;'alt='bilden' />";
+            }
             try
             {
                 int sumCheck = 0;
@@ -220,7 +220,7 @@ namespace Group3WebProject
             fillquestion();
             if (btnNext.Text == "Översikt")
             {
-               
+
 
             }
 
@@ -235,7 +235,7 @@ namespace Group3WebProject
         }
         private bool ReturnValue()
         {
-            
+
             return false;
         }
         protected void btnPrevious_Click(object sender, EventArgs e) //Föregående fråga kommer man till 
