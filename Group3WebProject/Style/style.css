@@ -5,6 +5,7 @@ body {
     font-family:Tahoma;
 }
 
+
 a.nav_links{
     color:#384245;
     font-size:28px;
@@ -23,6 +24,19 @@ footer{
     border-top:5px groove black;
     padding-bottom:0.5%;
 }
+
+
+/*===== CONTENT PAGES =====*/
+h1{
+    color:red;
+}
+.all_contents{
+    background-color:purple;
+}
+
+/*testar_divs{
+    background-color:yellow;
+}*/
 
 
 
@@ -88,7 +102,9 @@ ul.nav_list li{
 
 /*===== ID =====*/
 
-
+#bodyn{
+    background-color:red;
+}
 
 #login{
     float:right;
@@ -98,7 +114,6 @@ ul.nav_list li{
 
 
 /*===== MEDIA =====*/
-
 
 /*=== TABLET ===*/
 @media only screen and (-webkit-min-device-pixel-ratio: 1.3),
@@ -133,7 +148,7 @@ ul.nav_list li{
 
     }
 
-    .whattafakk{
+    .header_class{
         float:none;
         padding:0;
 

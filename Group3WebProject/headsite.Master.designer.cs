@@ -40,12 +40,12 @@ namespace Group3WebProject {
         protected global::System.Web.UI.WebControls.DropDownList ddl_users;
         
         /// <summary>
-        /// body control.
+        /// bodyn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder body;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder bodyn;
     }
 }

@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <header class="whattafakk clearfix">
+        <header class="header_class clearfix">
             <%--<div class="clearfix">--%>
                      <%--Grund--%>
                 <%--<a href="default.aspx"><h1 class="top_header" id="th_h1">JE-Banken</h1></a>--%>
@@ -26,17 +26,19 @@
 
        <form runat="server">
             <div class="nav_head">
-                <ul class="nav_list"> <!-- Erik har clear som klass även här -->
+                <ul class="nav_list"> <!-- navigerings-menyn -->
                     <li><a class="nav_links" runat="server" href="~/default.aspx">Home</a></li>
                     <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Testet</a></li>
                     <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
                 </ul>
-               <div class="ddl clearfix">
+                <div class="ddl clearfix">
                    <asp:DropDownList ID="ddl_users" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_users_SelectedIndexChanged"></asp:DropDownList>
                 </div>
             </div>
-           <asp:ContentPlaceHolder ID="body" runat="server">
-           </asp:ContentPlaceHolder>
+           <div class="testar_divs">
+               <asp:ContentPlaceHolder ID="bodyn" runat="server">
+               </asp:ContentPlaceHolder>
+            </div>
         </form>
 
         <footer>
