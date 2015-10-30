@@ -11,12 +11,17 @@ a.nav_links{
     color:#384245;
     font-size:28px;
     text-decoration-line:none;
+
+    padding-right:1%;
+    border-right:1px solid black;
 }
 a.nav_links:hover{
     color:#8F9496;
     border-bottom: 1px solid grey;
     border-top:1px solid grey;
     padding-bottom:5px;
+
+    border-right:none;
 }
 
 footer{
@@ -116,6 +121,8 @@ ul.nav_list li{
 
 #login{
     float:right;
+    padding-right:0%;
+    border-right:none;
 }
 
 
@@ -219,6 +226,10 @@ ul.nav_list li{
     ul.nav_list li {
         display: block;
         
+    }
+    a.nav_links{
+        padding-right:0%;
+        border-right:none;
     }
 
     .ddl
