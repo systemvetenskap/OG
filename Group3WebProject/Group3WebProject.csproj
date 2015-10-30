@@ -162,6 +162,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="pictures\" />
     <Folder Include="Script\" />
   </ItemGroup>
   <PropertyGroup>

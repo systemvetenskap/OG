@@ -103,11 +103,11 @@ namespace Group3WebProject
         private bool fillquestion()//Hämtar frågorna 
         {
             Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
-            Tuple<DataTable, string, int> getData = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
+            Tuple<DataTable, string, int, string, string> getData = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
 
             DataTable dt = getData.Item1;
             int antVal = getData.Item3;
-            Label3.Text = getData.Item2;
+            Label3.Text = "Frågan är inom området:" + getData.Item4 + " <br />" + getData.Item2;
             lblChoose.Text = " Du ska välja:" + antVal.ToString() + " frågor";
             try
             {

@@ -18,13 +18,13 @@ namespace Group3WebProject.Classes
         /// <param name="qID"></param>
         /// <param name="testID"></param>
         /// <returns></returns>
-        public Tuple<DataTable, string, int> readXML(string qID, string testID)
+        public Tuple<DataTable, string, int, string, string> readXML(string qID, string testID)
         {
             DataTable dt = new DataTable();
             string quest = "";
             string part = "";
             int countRi = 0;
-
+            string img = "";
             dt.Columns.Add("name");
             dt.Columns.Add("id");
             dt.Columns.Add("sel");
@@ -43,30 +43,33 @@ namespace Group3WebProject.Classes
                                 part = reader.GetAttribute("part").ToUpper();
                             }
                             else
-                            {                                
+                            {
                                 reader.Skip();
                             }
                             break;
                         case "txt":
                             quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
+                            img = reader.GetAttribute("img");
                             break;
                         case "answer":
                             //answ
+                            string rightOrFalse = "";
                             dt.Rows.Add();//Nedan är svarsalternativen 
                             dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("id").ToUpper();
-                            dt.Rows[dt.Rows.Count - 1]["answ"] = reader.GetAttribute("answ").ToUpper();
+                            rightOrFalse = reader.GetAttribute("answ").ToUpper();
+                            dt.Rows[dt.Rows.Count - 1]["answ"] = rightOrFalse;
                             dt.Rows[dt.Rows.Count - 1]["sel"] = reader.GetAttribute("selected").ToUpper();
                             dt.Rows[dt.Rows.Count - 1]["name"] = reader.ReadString();
-                            if (dt.Rows[dt.Rows.Count - 1]["answ"].ToString() == "TRUE")
+                            if (rightOrFalse == "TRUE")
                             {
                                 countRi += 1;
                             }
                             break;
-                       
+
                     }
                 }
                 reader.Close();
-                return new Tuple<DataTable, string, int>(dt, quest, countRi);
+                return new Tuple<DataTable, string, int, string, string>(dt, quest, countRi, part, img);
                 //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
             }
             catch (Exception ex)
@@ -74,7 +77,7 @@ namespace Group3WebProject.Classes
                 Debug.WriteLine(ex.ToString());
                 return null;
             }
-           // return "aakk";
+            // return "aakk";
         }
         private string getXml(string testID)
         {
@@ -83,13 +86,13 @@ namespace Group3WebProject.Classes
             conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id='" + testID + "'", conn);
             NpgsqlDataReader dr = cmd.ExecuteReader();
-            if (dr.Read())                
+            if (dr.Read())
             {
                 result = dr["qXml"].ToString();
             }
             dr.Close();
             conn.Close();
-            
+
             return result.Trim();
         }
     }
