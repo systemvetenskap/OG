@@ -23,26 +23,35 @@ namespace Group3WebProject
         {
             if(!IsPostBack)
             {
-                HttpSessionState ss = HttpContext.Current.Session;
-                if (HttpContext.Current.Session["userid"] != null)
+                try
                 {
-                    Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
-                    //Check if user have right credit 
-                    //IF level == Provdeltahare
-                    Classes.clsLogin clsLog = new Classes.clsLogin();
-                    if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "provledare") //Inloggad
+                    HttpSessionState ss = HttpContext.Current.Session;
+                    if (HttpContext.Current.Session["userid"] != null)
                     {
-                        Debug.WriteLine(" DU KOM IN ");
+                        Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
+                        //Check if user have right credit 
+                        //IF level == Provdeltahare
+                        Classes.clsLogin clsLog = new Classes.clsLogin();
+                        if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "provledare") //Inloggad
+                        {
+                            Debug.WriteLine(" DU KOM IN ");
+                        }
+                        else //Är inloggad med fel credinatl
+                        {
+                            Response.Redirect("login.aspx");
+                        }
                     }
-                    else //Är inloggad med fel credinatl
+                    else //Har inte loggat in 
                     {
                         Response.Redirect("login.aspx");
                     }
                 }
-                else //Har inte loggat in 
+
+                catch (Exception ex)
                 {
-                    Response.Redirect("login.aspx");
+                    Response.Write(ex.Message);
                 }
+
             }
 
             DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
@@ -52,7 +61,8 @@ namespace Group3WebProject
             upcomingTests.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
             upcomingTests.DataBind();
 
-
+            
+            
         }
 
         private DataTable[] GetTeamList(int leaderId)
@@ -177,6 +187,41 @@ namespace Group3WebProject
             }
             conn.Close();
             return dt;
+        }
+
+        protected void upcomingTests_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+                foreach (GridViewRow row in upcomingTests.Rows)
+                {
+
+                    int rad = upcomingTests.Rows.Count;
+
+
+                    for (int y = 0; y <= rad; y++)
+                    {
+                        for (int i = 0; i < row.Cells.Count; i++)
+                        {
+                            if (i >= 0)
+                            {
+                                if (row.Cells[i].Text == "R&#228;tt")
+                                {
+                                    row.Cells[i].BackColor = System.Drawing.Color.LightGreen;
+                                }
+
+                                else if (row.Cells[i].Text == "Fel")
+                                {
+                                    row.Cells[i].BackColor = System.Drawing.Color.Tomato;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            //}
+
+         
         }
     }
 }
