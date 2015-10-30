@@ -173,17 +173,19 @@ namespace Group3WebProject
                         }
                     }
                     
-			                if (cq.right())
-                            {
+			        if (cq.right())
+                    {
 
-                                dt.Rows[dt.Rows.Count - 1][questionCounter] = "Rätt";
-                            }
-                            else
-                            {
-                                dt.Rows[dt.Rows.Count - 1][questionCounter] = "Fel";
-                            }
+                        dt.Rows[dt.Rows.Count - 1][questionCounter] = "Rätt";
+                    }
+                    else
+                    {
+                        dt.Rows[dt.Rows.Count - 1][questionCounter] = "Fel";
+                    }
+
 
                 }
+                
             }
             conn.Close();
             return dt;
