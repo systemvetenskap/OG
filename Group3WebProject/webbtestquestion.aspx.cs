@@ -125,6 +125,8 @@ namespace Group3WebProject
                 }
                 if (sumCheck > 1)//Om det finns flera val att välja på visas den listan
                 {
+                    btnNext.OnClientClick = "return userValid('chkQuestionList', '" + antVal + "');";
+                    btnPrevious.OnClientClick = "return userValid('chkQuestionList', '" + antVal + "');";
                     rbQuestionList.Visible = false;
                     chkQuestionList.Visible = true;
                     chkQuestionList.DataTextField = "name";
@@ -145,6 +147,8 @@ namespace Group3WebProject
                 }
                 else //Om det är ett val så kommer man till en radiobuttonlist
                 {
+                    btnNext.OnClientClick = "return userValid('rbQuestionList', '" + antVal + "');";
+                    btnPrevious.OnClientClick = "return userValid('rbQuestionList', '" + antVal + "');";
                     rbQuestionList.Visible = true;
                     chkQuestionList.Visible = false;
                     rbQuestionList.DataTextField = "name";
@@ -163,6 +167,7 @@ namespace Group3WebProject
                         }
                     }
                 }
+
 
             }
             catch (Exception ex)
@@ -223,7 +228,6 @@ namespace Group3WebProject
 
 
             }
-
             if (cmbChooseQue.SelectedIndex >= cmbChooseQue.Items.Count - 1)
             {
                 btnNext.Text = "Översikt";
