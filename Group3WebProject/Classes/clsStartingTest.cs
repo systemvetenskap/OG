@@ -22,16 +22,13 @@ namespace Group3WebProject.Classes
             if (dt == null && dt.Rows.Count > 0)
             {
                 return "LICENS"; //FÖrsta gången 
-            }
-            DateTime endTime;
-
-            
+            }            
             DateTime startTime = DateTime.Parse(dt.Rows[0]["starttime"].ToString());
             DateTime timNow = DateTime.Now;
             TimeSpan diffDate = timNow - startTime;
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                if ((DateTime.Parse(dt.Rows[i]["starttime"].ToString()).Year == DateTime.Now.Year) && (dt.Rows[0]["passed"].ToString().ToUpper() == "t"))//Då har man redan gjort testet
+                if ((DateTime.Parse(dt.Rows[i]["starttime"].ToString()).Year == DateTime.Now.Year) && (dt.Rows[i]["passed"].ToString().ToUpper() == "t"))//Då har man redan gjort testet
                 {
                     return "Du har redan gjort årets test och är godkänd";
                 }
@@ -39,8 +36,9 @@ namespace Group3WebProject.Classes
 
             if (dt.Rows[0]["endtime"] == null || Convert.ToString(dt.Rows[0]["endtime"]) == "")
             {
-               if (diffDate.Minutes < 30)
+               if (diffDate.TotalMinutes < 30)
                {
+                   Debug.WriteLine(diffDate.TotalMinutes.ToString());
                    return "IGÅNG";
                }
                 
@@ -67,7 +65,7 @@ namespace Group3WebProject.Classes
             return dt;
         }
         /// <summary>
-        /// Vilken typ som ska vara emd och för att kopiera över datan till completed test 
+        /// Vilken typ som ska vara med och för att kopiera över datan till completed test 
         /// </summary>
         /// <param name="type"></param>
         /// <param name="userID"></param>

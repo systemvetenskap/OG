@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="Webbtestquestion" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="webbtestquestion.aspx.cs" Inherits="Group3WebProject.webbtestquestion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="scripts/validateForms.js" type="text/javascript"> 
-    </script>
+    
 </asp:Content>
 
 <%-- Body --%>
@@ -12,7 +11,7 @@
         <h1>Webbtestquestion</h1>
         <div>
             <h2>Välkommen till test tryck på start för att påbörja</h2>
-            <p>Obs tiden startas då du trycker på start </p>
+            <p>Tid kvar: <span id="timeLeft">30:00</span> </p>
         </div>
         <div>
             <asp:Label ID="Label1" runat="server" Text="Label">Välj frågor: </asp:Label>

@@ -58,8 +58,9 @@ namespace Group3WebProject.Classes
         /// <param name="testid"></param>
         /// <param name="qid"></param>
         /// <param name="answ"></param>
-        public void valudateXML(string testId, string qid, string answ)
+        public void valudateXML(string testId, string qid, List<string> answ)
         {
+            
             XmlDocument doc = new XmlDocument();
             try
             {
@@ -70,20 +71,22 @@ namespace Group3WebProject.Classes
                 {
                     if (node.Attributes["value"].Value == qid)
                     {
-                        Debug.WriteLine(node.Attributes["value"].Value + " värdet   och sedan value "+ answ);
+                        Debug.WriteLine(node.Attributes["value"].Value + " värdet   och sedan value " + answ);
                         foreach (XmlNode childNode in node.ChildNodes)
                         {
                             if (childNode.Name == "answer")
                             {
-                                if (childNode.Attributes["id"].Value == answ) //Sätter det elementet til ltrue som stämmer överens 
+                                var match = answ.FirstOrDefault(stringToCheck => stringToCheck.Contains(childNode.Attributes["id"].Value));
+                                //if (childNode.Attributes["id"].Value == answ) //Sätter det elementet til ltrue som stämmer överens 
+                                if (match != null) //Sätter det elementet til ltrue som stämmer överens 
                                 {
                                     childNode.Attributes["selected"].Value = "true";
-                                   // Debug.WriteLine("Right ");
+                                    // Debug.WriteLine("Right ");
                                 }
                                 else
                                 {
                                     childNode.Attributes["selected"].Value = "false"; //Sötter alltid elementet till false för att kunna köra igenom listen
-                                  //  Debug.WriteLine("Fakse");
+                                    //  Debug.WriteLine("Fakse");
                                 }
                             }
                             //Debug.WriteLine(childNode.Name);

@@ -6,6 +6,9 @@
 <%-- Body --%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
+    <script type="text/javascript">
+        
+    </script>
     <div class="all_contents">
         <h1>Webbtest</h1>
         <h2 id="doTest"></h2>

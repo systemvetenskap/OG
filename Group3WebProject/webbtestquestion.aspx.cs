@@ -12,6 +12,8 @@ using System.Web.SessionState;
 
 namespace Group3WebProject
 {
+    //            
+
     public partial class webbtestquestion : System.Web.UI.Page
     {
         string testID = "2";
@@ -44,7 +46,6 @@ namespace Group3WebProject
                 {
                     testID = ViewState["testID"].ToString();
                     Debug.WriteLine("FInns något ialla fall");
-
                 }
                 else
                 {
@@ -60,6 +61,7 @@ namespace Group3WebProject
                     {
                     }
                 }
+               // ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:timeToEnd(); ", true);
                 Label2.Text = Label2.Text + "  testID_ " + testID;
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
                 cmbChooseQue.DataValueField = "id";
@@ -87,22 +89,31 @@ namespace Group3WebProject
                 Debug.WriteLine(" FEL ET ");
                 testID = ViewState["testID"].ToString();
             }
+            if (btnNext.Text == "Översikt")
+            {
+                //Do the job to check test and stop time
+            }
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
             Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
             List<string> liAnsw = new List<string>();
             liAnsw.Add("1");
-            cls.valudateXML(testID, "1", "1");
+            //cls.valudateXML(testID, "1", "1");
             Label3.Text = cls.getXml(testID);
         }
         private bool fillquestion()//Hämtar frågorna 
         {
             Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
             Tuple<DataTable, string, int, string, string> getData = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
-            //Saab_9-5_Gen_II_Front.jpg
             DataTable dt = getData.Item1;
             int antVal = getData.Item3;
+            bool lookAgain = bool.Parse(HttpContext.Current.Session["seeTest"].ToString());
+            if (lookAgain)
+            {
+                rbQuestionList.Enabled = false;
+                chkQuestionList.Enabled = false;
+            }
             Label3.Text = "Frågan är inom området:" + getData.Item4 + " <br />" + getData.Item2;
             lblChoose.Text = " Du ska välja:" + antVal.ToString() + " frågor";
             if (getData.Item5 != "")
@@ -142,7 +153,17 @@ namespace Group3WebProject
                             {
                                 chkQuestionList.Items.FindByValue(val.ToString()).Selected = true; //Sätter alla som finns till true så att den kan vara multippella
                             }
+                            val = 0;
                         }
+                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" && lookAgain == true)
+                        {
+                            if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
+                            {
+                                chkQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;"); //= System.Drawing.Color.Green; //Sätter alla som finns till true så att den kan vara multippella
+                            }
+                            val = 0;
+                        }
+
                     }
                 }
                 else //Om det är ett val så kommer man till en radiobuttonlist
@@ -163,6 +184,13 @@ namespace Group3WebProject
                             if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                             {
                                 rbQuestionList.SelectedValue = val.ToString();
+                            }
+                        }
+                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" && lookAgain == true)
+                        {
+                            if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
+                            {
+                                rbQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;");
                             }
                         }
                     }
@@ -191,6 +219,7 @@ namespace Group3WebProject
                         if (item.Selected)
                         {
                             sele = (item.Value);
+                            selDat.Add(item.Value);
                             Debug.WriteLine(sele);
                         }
                     }
@@ -201,12 +230,13 @@ namespace Group3WebProject
                 if (rbQuestionList.SelectedIndex > -1)
                 {
                     sele = rbQuestionList.SelectedValue.ToString();
+                    selDat.Add(rbQuestionList.SelectedValue.ToString());
                     Debug.WriteLine(sele);
                 }
             }
             //Label1.Text = sele;
             Debug.WriteLine(sele + " SELE ");
-            cls.valudateXML(testID, cmbChooseQue.SelectedValue.ToString(), sele);
+            cls.valudateXML(testID, cmbChooseQue.SelectedValue.ToString(), selDat);
 
             return true;
         }
@@ -217,6 +247,7 @@ namespace Group3WebProject
         protected void btnNext_Click(object sender, EventArgs e) //Näst fråga kommer man till, samma som på den tidigare
         {
             checkAnswers();
+            
             ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             if (cmbChooseQue.Items.Count > cmbChooseQue.SelectedIndex + 1)
             {
@@ -225,16 +256,17 @@ namespace Group3WebProject
             fillquestion();
             if (btnNext.Text == "Översikt")
             {
-
-
+                btnNext.OnClientClick = "return wantToCont();";
             }
             if (cmbChooseQue.SelectedIndex >= cmbChooseQue.Items.Count - 1)
             {
                 btnNext.Text = "Översikt";
+                btnNext.OnClientClick = "return wantToCont();";
             }
             else
             {
-                btnNext.Text = "nästa";
+                btnNext.OnClientClick = null;
+                btnNext.Text = "Nästa";
             }
         }
         private bool ReturnValue()

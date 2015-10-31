@@ -28,3 +28,17 @@ function userValid(elementID, minium) {
     }
     return true;
 }
+function timeToEnd(starttime, duration)
+{
+    
+}
+function wantToCont()
+{
+    if (confirm("Är du säker på att du vill lämna in testet? \n det går inte att ångra!")) {
+        return true; //Om man vill lämna in det får man välja att skicka in en true
+    }
+    else {
+        return false; //Vill maninte lämmna in det retunera false;
+    }
+
+}
