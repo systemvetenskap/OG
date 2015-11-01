@@ -6,6 +6,7 @@ using System.Xml;
 using System.Configuration;
 using System.IO;
 using System.Data;
+using System.Xml.Serialization;
 
 
 namespace Group3WebProject.Classes
@@ -153,6 +154,12 @@ namespace Group3WebProject.Classes
                         break;
                 }
             }
+
+            //XmlSerializer serializer = new XmlSerializer(typeof(clsQuestion));
+            //using (TextWriter writer = new StreamWriter(@"C:\Xml.xml"))
+            //{
+            //    serializer.Serialize(writer, questionList);
+            //} 
             return questionList;
         }
 

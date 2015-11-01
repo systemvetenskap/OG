@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Group3WebProject.Classes;
+using System.Xml.Serialization;
 
 namespace Group3WebProject.Classes
-{
-    public class clsQuestion
+{   
+    [Serializable]
+    public class clsQuestion 
     {
         public int value { get; set; }
         public string txt { get; set; }
