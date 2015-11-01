@@ -157,7 +157,6 @@ namespace Group3WebProject
                             }
                             val = 0;
                         }
-
                     }
                 }
                 else //Om det är ett val så kommer man till en radiobuttonlist
