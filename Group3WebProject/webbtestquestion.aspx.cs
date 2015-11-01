@@ -30,7 +30,6 @@ namespace Group3WebProject
                     Classes.clsLogin clsLog = new Classes.clsLogin();
                     if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "deltagare") //Inloggad
                     {
-                        Debug.WriteLine(" DU KOM IN ");
                         Label2.Text = HttpContext.Current.Session["userid"].ToString();
                     }
                     else //Är inloggad med fel credinatl
@@ -45,7 +44,6 @@ namespace Group3WebProject
                 if (ViewState["testID"] != null || Convert.ToString(ViewState["testID"]) != "")
                 {
                     testID = ViewState["testID"].ToString();
-                    Debug.WriteLine("FInns något ialla fall");
                 }
                 else
                 {
@@ -57,11 +55,8 @@ namespace Group3WebProject
                     {
                         ViewState["testID"] = testID;
                     }
-                    else
-                    {
-                    }
                 }
-               // ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:timeToEnd(); ", true);
+                // ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:timeToEnd(); ", true); //Skapar en timer för nedräkning javascript
                 Label2.Text = Label2.Text + "  testID_ " + testID;
                 Classes.clsTestMenuFill clMenFill = new Classes.clsTestMenuFill();
                 cmbChooseQue.DataValueField = "id";
@@ -99,7 +94,6 @@ namespace Group3WebProject
             Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
             List<string> liAnsw = new List<string>();
             liAnsw.Add("1");
-            //cls.valudateXML(testID, "1", "1");
             Label3.Text = cls.getXml(testID);
         }
         private bool fillquestion()//Hämtar frågorna 
@@ -109,7 +103,7 @@ namespace Group3WebProject
             DataTable dt = getData.Item1;
             int antVal = getData.Item3;
             bool lookAgain = bool.Parse(HttpContext.Current.Session["seeTest"].ToString());
-            if (lookAgain)
+            if (lookAgain) //Om man vill titta igen får man inte kryssa i något
             {
                 rbQuestionList.Enabled = false;
                 chkQuestionList.Enabled = false;
@@ -186,7 +180,7 @@ namespace Group3WebProject
                                 rbQuestionList.SelectedValue = val.ToString();
                             }
                         }
-                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" && lookAgain == true)
+                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" && lookAgain == true) //Om man vill kolla på frågorna igen så markeras den grön om det är okej 
                         {
                             if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                             {
@@ -195,8 +189,6 @@ namespace Group3WebProject
                         }
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -236,7 +228,7 @@ namespace Group3WebProject
             }
             //Label1.Text = sele;
             Debug.WriteLine(sele + " SELE ");
-            cls.valudateXML(testID, cmbChooseQue.SelectedValue.ToString(), selDat);
+            cls.valudateXML(testID, cmbChooseQue.SelectedValue.ToString(), selDat); //SKickar en list så att flera val kan väljas
 
             return true;
         }
@@ -247,7 +239,7 @@ namespace Group3WebProject
         protected void btnNext_Click(object sender, EventArgs e) //Näst fråga kommer man till, samma som på den tidigare
         {
             checkAnswers();
-            
+
             ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             if (cmbChooseQue.Items.Count > cmbChooseQue.SelectedIndex + 1)
             {
@@ -256,12 +248,12 @@ namespace Group3WebProject
             fillquestion();
             if (btnNext.Text == "Översikt")
             {
-                btnNext.OnClientClick = "return wantToCont();";
+                btnNext.OnClientClick = "return wantToCont();"; 
             }
             if (cmbChooseQue.SelectedIndex >= cmbChooseQue.Items.Count - 1)
             {
                 btnNext.Text = "Översikt";
-                btnNext.OnClientClick = "return wantToCont();";
+                btnNext.OnClientClick = "return wantToCont();"; //Frågar om man vill gå vidare och lämna in det 
             }
             else
             {
@@ -271,7 +263,6 @@ namespace Group3WebProject
         }
         private bool ReturnValue()
         {
-
             return false;
         }
         protected void btnPrevious_Click(object sender, EventArgs e) //Föregående fråga kommer man till 
@@ -283,13 +274,12 @@ namespace Group3WebProject
                 cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex - 1;
             }
             fillquestion();
-            btnNext.Text = "nästa";
-
+            btnNext.Text = "Nästa"; //Sätter nästa
         }
         protected void cmbChooseQue_SelectedIndexChanged(object sender, EventArgs e)
         {
             //checkAnswers(); //Sparar svarerne
-            ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
+           // ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
             //fillquestion();
         }
     }

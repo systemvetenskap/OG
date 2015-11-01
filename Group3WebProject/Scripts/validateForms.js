@@ -28,9 +28,13 @@ function userValid(elementID, minium) {
     }
     return true;
 }
-function timeToEnd(starttime, duration)
+function timeToEnd(starttime, duration, proc) //Starttiden och sedan hur långt, till sist procenten om personen har ett handikapp och behöver längre tid
 {
-    
+    //var stTim = new Date.parse(starttime);
+    //var durAt = parseInt(duration); //Är i millisekunder
+    //var start = stTim.getMilliseconds();
+    //stTim.getTime();
+
 }
 function wantToCont()
 {
