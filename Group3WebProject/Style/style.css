@@ -164,6 +164,21 @@ ul.nav_list li{
     /*border:1px solid brown;*/   /*TA BORT RAD*/
 }
 
+.gvPrevious{
+    float:left;
+}
+
+.gvUpcoming{
+    float:left;
+}
+
+.gvStats{
+    float:left;
+}
+
+
+
+
 /*==FIX FÖR KNAPPAR==*/
 .btn {
     background-image: -webkit-linear-gradient(top, #6495ED, #2980b9);
@@ -222,17 +237,23 @@ ul.nav_list li{
 
 
 
+
+
+
+
 /*===== ID =====*/
 
-#bodyn{
+/*#bodyn{
     background-color:red;
-}
+}*/
 
 #login{
     float:right;
     padding-right:0%;
     border-right:none;
 }
+
+
 
 
 
