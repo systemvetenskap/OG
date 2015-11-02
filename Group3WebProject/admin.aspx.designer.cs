@@ -13,21 +13,30 @@ namespace Group3WebProject {
     public partial class admin {
         
         /// <summary>
-        /// previousTests control.
+        /// gvPreviousTests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView previousTests;
+        protected global::System.Web.UI.WebControls.GridView gvPreviousTests;
         
         /// <summary>
-        /// upcomingTests control.
+        /// gvUpcomingTests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView upcomingTests;
+        protected global::System.Web.UI.WebControls.GridView gvUpcomingTests;
+        
+        /// <summary>
+        /// gvStats control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvStats;
     }
 }

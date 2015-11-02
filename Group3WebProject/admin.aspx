@@ -4,8 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
     <div class="all_contents shadow">
-        <asp:GridView ID="previousTests" runat="server"></asp:GridView>
+        <asp:GridView ID="gvPreviousTests" runat="server"></asp:GridView>
         <br />
-        <asp:GridView ID="upcomingTests" runat="server" OnRowDataBound="upcomingTests_RowDataBound"></asp:GridView>
+        <asp:GridView ID="gvUpcomingTests" runat="server"></asp:GridView>
+        <br />
+        <asp:GridView ID="gvStats" runat="server" OnRowDataBound="gvStats_RowDataBound"></asp:GridView>
     </div>
 </asp:Content>

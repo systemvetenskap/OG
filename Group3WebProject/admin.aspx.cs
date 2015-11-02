@@ -55,11 +55,11 @@ namespace Group3WebProject
             }
 
             DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
-            previousTests.DataSource = dt[0];
-            previousTests.DataBind();
+            gvPreviousTests.DataSource = dt[0];
+            gvPreviousTests.DataBind();
 
-            upcomingTests.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
-            upcomingTests.DataBind();
+            gvStats.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
+            gvStats.DataBind();
 
             
             
@@ -191,14 +191,14 @@ namespace Group3WebProject
             return dt;
         }
 
-        protected void upcomingTests_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvStats_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             //if (e.Row.RowType == DataControlRowType.DataRow)
             //{
-                foreach (GridViewRow row in upcomingTests.Rows) //För varje rad i Gridview gör detta.
+            foreach (GridViewRow row in gvStats.Rows) //För varje rad i Gridview gör detta.
                 {
 
-                    int rad = upcomingTests.Rows.Count; //Räknar rader i GridView.
+                    int rad = gvStats.Rows.Count; //Räknar rader i GridView.
 
 
                     for (int y = 0; y <= rad; y++) //För varje rad
