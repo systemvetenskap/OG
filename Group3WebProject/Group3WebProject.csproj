@@ -74,6 +74,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="pictures\fncd0wql.bmp" />
     <Content Include="Scripts\validateForms.js" />
     <Content Include="webbtestresult.aspx" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
@@ -163,7 +164,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="pictures\" />
     <Folder Include="Script\" />
   </ItemGroup>
   <PropertyGroup>
