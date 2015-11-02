@@ -22,7 +22,7 @@
 
             <%--Testar nytt--%>
             <%--<h1><a href="default.aspx" class="top_header" id="th_h1">JE-Banken</a></h1>--%>
-            <h1><a href="default.aspx" class="the_header" id="th_h1">JE-Banken</a></h1>
+            <h1><a href="default.aspx" class="the_header" id="th_h1" title="Till kompetensportalens startsida"><span class="JE">JE</span><span class="bindestreck">-</span><span class="banken">Banken</span></a></h1>
             <%--</div>--%>
         </header>
 

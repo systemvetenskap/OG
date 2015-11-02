@@ -1,6 +1,8 @@
 ﻿/*===== GENERELLA =====*/
 body {
-    background-color:#006C8D;
+    background-image:url("/pictures/fncd0wql-jpg.jpg");
+    background-repeat: repeat;
+    /*background-color:#006C8D;*/
     margin:0 auto;
     font-family:Tahoma;
 }
@@ -54,7 +56,9 @@ h1{
 
 /*===== KLASSER =====*/
 .wrapper{
-    background-color:#E5F0F3;
+    background-color:#ffffff;
+    /*background-color:#E3E8EF;*/
+    /*background-color:#E5F0F3;*/
     max-width:1280px; /*Sätter ett maxvärde på wrappern (allt innehåll) här för att den inte ska breda ut sig om man har gigantisk skärm. */ 
     /*max-width:90%;*/ /*max-width:90% sätts som en media query istället när webbläsarfönstret är max 1400px;*/
     min-width:280px;
@@ -78,9 +82,25 @@ h1{
                             color:#384245;
                             float:left;
                             padding-left:1%;
-                            font-size:190%;
+                            /*font-size:190%;    STÄLLER IN FONT-SIZE i span-klasserna JE och -banken*/
                             text-decoration-line:none;
                         }
+
+
+.JE{
+    color:cornflowerblue;
+    font-size:190%;
+}
+
+.bindestreck{
+    color:#b5b9bf;
+    font-size:150%
+}
+
+.banken{
+    color:#b5b9bf;
+    font-size:150%;
+}
 
 .nav_head{
     padding-bottom:4%;
