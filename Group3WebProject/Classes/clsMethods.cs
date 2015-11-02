@@ -225,6 +225,14 @@ namespace Group3WebProject.Classes
 
             }
 
+            noOfCorrectPerPart.Add(prodCorrectCounter);
+            noOfCorrectPerPart.Add(ecoCorrectCounter);
+            noOfCorrectPerPart.Add(ethCorrectCounter);
+
+            noOfQuestionsPerPart.Add(prodQuestionCounter);
+            noOfQuestionsPerPart.Add(ecoQuestionCounter);
+            noOfQuestionsPerPart.Add(ethQuestionCounter);
+
             double total = totalCorrectCounter / totalQuestionCounter;
             double partProd = prodCorrectCounter / prodQuestionCounter;
             double partEco = ecoCorrectCounter / ecoQuestionCounter;
