@@ -185,10 +185,11 @@ ul.nav_list li{
 }
 
 
-b
-#6495ED, #D, 6495ED, #2980b9);
-    background-image: -moz-linear-gradient(top, #6495ED, #29 #29880b9
-80b9);
+
+
+.btn {
+    background-image: -webkit-linear-gradient(top, #6495ED, #2980b9);
+    background-image: -moz-linear-gradient(top, #6495ED, #2980b9);
     background-image: -ms-linear-gradient(top, #6495ED, #2980b9);
     background-image: -o-linear-gradient(top, #6495ED, #2980b9);
     background-image: linear-gradient(to bottom, #6495ED, #2980b9);
