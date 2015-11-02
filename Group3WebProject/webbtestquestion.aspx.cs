@@ -102,12 +102,17 @@ namespace Group3WebProject
             Tuple<DataTable, string, int, string, string> getData = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
             DataTable dt = getData.Item1;
             int antVal = getData.Item3;
-            bool lookAgain = bool.Parse(HttpContext.Current.Session["seeTest"].ToString());
-            if (lookAgain) //Om man vill titta igen får man inte kryssa i något
+            bool lookAgain = false;
+            if (HttpContext.Current.Session["seeTest"] != null)
             {
-                rbQuestionList.Enabled = false;
-                chkQuestionList.Enabled = false;
+                 lookAgain = bool.Parse(HttpContext.Current.Session["seeTest"].ToString());
+                if (lookAgain) //Om man vill titta igen får man inte kryssa i något
+                {
+                    rbQuestionList.Enabled = false;
+                    chkQuestionList.Enabled = false;
+                }
             }
+            
             Label3.Text = "Frågan är inom området:" + getData.Item4 + " <br />" + getData.Item2;
             lblChoose.Text = " Du ska välja:" + antVal.ToString() + " frågor";
             if (getData.Item5 != "")
