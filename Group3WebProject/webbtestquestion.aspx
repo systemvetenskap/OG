@@ -7,7 +7,7 @@
 <%-- Body --%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
-    <div class="all_contents">
+    <div class="all_contents shadow">
         <h1>Webbtestquestion</h1>
         <div>
             <h2>Välkommen till test tryck på start för att påbörja</h2>

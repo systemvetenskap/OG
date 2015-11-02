@@ -18,28 +18,30 @@
 </head>
 <body>
     <div class="wrapper">
-        <header class="header_class clearfix">
-            <%--<div class="clearfix">--%>
-            <%--Grund--%>
-            <%--<a href="default.aspx"><h1 class="top_header" id="th_h1">JE-Banken</h1></a>--%>
+        <div class="shadow">
+            <header class="header_class clearfix">
+                <%--<div class="clearfix">--%>
+                <%--Grund--%>
+                <%--<a href="default.aspx"><h1 class="top_header" id="th_h1">JE-Banken</h1></a>--%>
 
-            <%--Testar nytt--%>
-            <%--<h1><a href="default.aspx" class="top_header" id="th_h1">JE-Banken</a></h1>--%>
-            <h1><a href="default.aspx" class="the_header" id="th_h1" title="Till kompetensportalens startsida"><span class="JE">JE</span><span class="banken">Banken</span></a></h1>  <%--Har delat upp headern i 3 delar kan man säga med span--%>
-            <%--</div>--%>
-        </header>
+                <%--Testar nytt--%>
+                <%--<h1><a href="default.aspx" class="top_header" id="th_h1">JE-Banken</a></h1>--%>
+                <h1><a href="default.aspx" class="the_header" id="th_h1" title="Till kompetensportalens startsida"><span class="JE">JE</span><span class="the_B">B</span><span class="banken">ANKEN</span></a></h1>  <%--Har delat upp headern i 3 delar kan man säga med span--%>
+                <%--</div>--%>
+            </header>
 
-        <form runat="server">
-            <div class="nav_head">
-                <ul class="nav_list">
-                    <!-- navigerings-menyn -->
-                    <li><a class="nav_links" runat="server" href="~/default.aspx">Home</a></li>
-                    <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Testet</a></li>
-                    <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
-                </ul>
-                <%--<div class="ddl clearfix">
-                   <asp:DropDownList ID="ddl_users" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_users_SelectedIndexChanged"></asp:DropDownList>
-                </div>--%>
+            <form runat="server">
+                <div class="nav_head">
+                    <ul class="nav_list">
+                        <!-- navigerings-menyn -->
+                        <li><a class="nav_links" runat="server" href="~/default.aspx">Home</a></li>
+                        <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Testet</a></li>
+                        <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
+                    </ul>
+                    <%--<div class="ddl clearfix">
+                       <asp:DropDownList ID="ddl_users" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_users_SelectedIndexChanged"></asp:DropDownList>
+                    </div>--%>
+                </div>
             </div>
             <div class="testar_divs">
                 <asp:ContentPlaceHolder ID="bodyn" runat="server">
@@ -47,7 +49,7 @@
             </div>
         </form>
 
-        <footer>
+        <footer class="shadow no_margin_bottom">
             <p><b>©Copyright</b> JE-banken 2015<br />
                 Hemsida levererad av <b><u>OG</u></b></p>
         </footer>

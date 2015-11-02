@@ -6,7 +6,7 @@
 <%-- Body --%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
-    <div class="all_contents">
+    <div class="all_contents shadow">
         <h1>TestDefault</h1>
             <h2>Välkommen till JE banken den invovativ banken med kunden i fokus</h2>
                 <p>

@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
-    <div class="all_contents">
+    <div class="all_contents shadow">
         <asp:DropDownList ID="ddlAllUser"  runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
         <br />
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>

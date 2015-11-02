@@ -10,7 +10,7 @@
     <script type="text/javascript">
         
     </script>
-    <div class="all_contents">
+    <div class="all_contents shadow">
         <h1>Webbtest</h1>
         <h2 id="doTest"></h2>
         <p>

@@ -7,7 +7,13 @@ body {
     font-family:Tahoma;
 }
 
+h1{
+    margin:0;
+}
 
+p{
+    margin:0;
+}
 
 a.nav_links{
     color:#384245;
@@ -27,11 +33,14 @@ a.nav_links:hover{
 }
 
 footer{
+    background-color:#ffffff;
     clear:both;
     text-align:center;
-    border-top:5px groove black;
+    /*border-top:5px groove black;*/
     padding-bottom:0.5%;
+    padding-top:0.5%;
     font-size:90%;
+    /*box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.4);*/
 }
 
 
@@ -40,12 +49,14 @@ h1{
     color:red;
 }
 .all_contents{
+    background-color:#ffffff;
     padding-top:2%;
     padding-bottom:2%;
     width:95%;
     padding-left:5%;
     margin: 0 auto;
     font-size:90%;
+    /*box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.4);*/
 }
 
 /*testar_divs{
@@ -56,7 +67,8 @@ h1{
 
 /*===== KLASSER =====*/
 .wrapper{
-    background-color:#ffffff;
+    opacity:1.0;
+    /*background-color:#ffffff;*/
     /*background-color:#E3E8EF;*/
     /*background-color:#E5F0F3;*/
     max-width:1280px; /*Sätter ett maxvärde på wrappern (allt innehåll) här för att den inte ska breda ut sig om man har gigantisk skärm. */ 
@@ -66,25 +78,39 @@ h1{
 }
 
 
-                        /*GRUND
-                        .top_header{
-                            color:#384245;
-                            float:left;
-                            padding-left:1%;
-                            font-size:250%;
-                             text-decoration-line:none;
-                        }*/
+/*GRUND
+.top_header{
+    color:#384245;
+    float:left;
+    padding-left:1%;
+    font-size:250%;
+        text-decoration-line:none;
+}*/
 
 
 
-                        /*TESTAR NYTT*/
-                        .the_header{
-                            color:#384245;
-                            float:left;
-                            padding-left:1%;
-                            /*font-size:190%;    STÄLLER IN FONT-SIZE i span-klasserna JE och -banken*/
-                            text-decoration-line:none;
-                        }
+/*TESTAR NYTT*/
+.the_header{
+    width:99%;
+    background-color:#ffffff;
+    color:#384245;
+    float:left;
+    padding-left:1%;
+    /*font-size:190%;    STÄLLER IN FONT-SIZE i span-klasserna JE och -banken*/
+    text-decoration-line:none;
+                              
+}
+
+
+.shadow{
+    box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.4);
+    margin-bottom:14.4px;
+}
+
+
+.no_margin_bottom{
+    margin-bottom:0;
+}
 
 
 .JE{
@@ -97,14 +123,21 @@ h1{
     font-size:150%
 }
 
+.the_B{
+    color:#b5b9bf;
+    font-size:190%;
+}
+
 .banken{
     color:#b5b9bf;
     font-size:150%;
 }
 
 .nav_head{
-    padding-bottom:4%;
-    border-bottom:5px groove black;
+    padding-bottom:1%;
+    background-color:#ffffff;
+    /*box-shadow: 0px 0px 10px black;*/
+    /*border-bottom:5px groove black;*/
 }
 
 .nav_list{
@@ -157,6 +190,7 @@ ul.nav_list li{
         .wrapper{
             max-width:90%;
         }
+
 }
 
 
@@ -165,7 +199,7 @@ ul.nav_list li{
        only screen and (max-width:800px){ /*Om max-bredden på webbläsarfönstret är 800px, gör nedan.*/
 
         .wrapper{
-            max-width:100%;
+            max-width:98.5%;
         }
 
         .nav_head{
@@ -173,7 +207,10 @@ ul.nav_list li{
         }
 
         .all_contents{
-            padding-left:0%;
+            padding-left:1%;
+            padding-right:1%;
+            width:98%;
+            
         }
 
         #login{
@@ -189,7 +226,7 @@ ul.nav_list li{
 
     .the_header{
         width:100%;
-        font-size:150%;
+        font-size:105%;
         /*border:1px solid red;*/   /*TA BORT RAD*/
         text-align:center;
         margin:0 auto;
@@ -230,8 +267,8 @@ ul.nav_list li{
     }
 
     .wrapper{
-        background-color:#E5F0F3;
-        max-width:100%;
+        /*background-color:#E5F0F3;*/
+        /*max-width:100%;*/
         margin: 0 auto;
     }
 
