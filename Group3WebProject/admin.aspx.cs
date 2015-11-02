@@ -195,24 +195,24 @@ namespace Group3WebProject
         {
             //if (e.Row.RowType == DataControlRowType.DataRow)
             //{
-                foreach (GridViewRow row in upcomingTests.Rows)
+                foreach (GridViewRow row in upcomingTests.Rows) //För varje rad i Gridview gör detta.
                 {
 
-                    int rad = upcomingTests.Rows.Count;
+                    int rad = upcomingTests.Rows.Count; //Räknar rader i GridView.
 
 
-                    for (int y = 0; y <= rad; y++)
+                    for (int y = 0; y <= rad; y++) //För varje rad
                     {
-                        for (int i = 0; i < row.Cells.Count; i++)
+                        for (int i = 0; i < row.Cells.Count; i++) //För varje cell
                         {
                             if (i >= 0)
                             {
-                                if (row.Cells[i].Text == "R&#228;tt")
+                                if (row.Cells[i].Text == "R&#228;tt") //Om texten i cellen[i] är "Rätt" sätt backgrundsfärgen för cellen till grön.
                                 {
                                     row.Cells[i].BackColor = System.Drawing.Color.LightGreen;
                                 }
 
-                                else if (row.Cells[i].Text == "Fel")
+                                else if (row.Cells[i].Text == "Fel") //Om texten i cellen[i] är "Fel" sätt backgrundsfärgen för cellen till tomatröd.
                                 {
                                     row.Cells[i].BackColor = System.Drawing.Color.Tomato;
                                 }
