@@ -58,8 +58,12 @@ namespace Group3WebProject
             gvPreviousTests.DataSource = dt[0];
             gvPreviousTests.DataBind();
 
+            gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
+            gvUpcomingTests.DataBind();
+
             gvStats.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
             gvStats.DataBind();
+
 
             
             
@@ -111,7 +115,6 @@ namespace Group3WebProject
             conn.Close();
 
 
-
             
             DataTable[] dtA = new DataTable[2];
             dtA[0] = dt;
@@ -119,6 +122,124 @@ namespace Group3WebProject
             
             return dtA;
         }
+
+        private DataTable UpcomingTests(int leaderId)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Namn", typeof(string));
+            dt.Columns.Add("Provtyp", typeof(string));
+            dt.Columns.Add("Giltigt t.o.m.", typeof(string));
+
+
+
+            string sqlUpcomingLicensTests = "SELECT first_name, last_name FROM users u"
+                                            + " WHERE u.id NOT IN (SELECT user_id FROM completed_test ct)"
+                                            + " AND u.id IN(SELECT id FROM users WHERE id != @uId"
+                                            + " AND team_id IN(SELECT id FROM team WHERE user_id = @uId))";
+
+            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+            NpgsqlCommand cmd = new NpgsqlCommand(sqlUpcomingLicensTests, conn);
+            cmd.Parameters.AddWithValue("uId", leaderId);
+            conn.Open();
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
+                string testType = "Licens";
+                
+
+                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                dt.Rows.Add(name, testType, "-");
+            }
+            conn.Close();
+
+
+            string sqlFailedTests = "SELECT first_name, last_name, test_type, valid_through FROM"
+                                    + " (SELECT DISTINCT ON(ct.user_id, t.valid_through) u.first_name, u.last_name, u.team_id, t.test_type, ct.passed, t.valid_through FROM users u"
+                                    + " INNER JOIN completed_test ct"
+                                    + " ON u.id = ct.user_id"
+                                    + " INNER JOIN test t"
+                                    + " ON ct.test_id = t.id"
+                                    + " ORDER BY ct.user_id, t.valid_through, ct.passed DESC, ct.start_time DESC)a"
+                                    + " WHERE valid_through >=  (SELECT date_part('year',current_date))  AND passed = false AND team_id IN (SELECT id FROM team WHERE user_id = @uId)";
+
+            NpgsqlCommand cmd2 = new NpgsqlCommand(sqlFailedTests, conn);
+            cmd2.Parameters.AddWithValue("uId", leaderId);
+            conn.Open();
+            NpgsqlDataReader dr2 = cmd2.ExecuteReader();
+
+            while (dr2.Read())
+            {
+                string name = dr2["first_name"].ToString() + " " + dr2["last_name"].ToString();
+                string testType = dr2["test_type"].ToString();
+                string validThrough = dr2["valid_through"].ToString();
+
+                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                dt.Rows.Add(name, testType, validThrough);
+            }
+            conn.Close();
+
+
+
+            string sqlExpiredPassed = "SELECT DISTINCT ON(u.id) u.first_name, u.last_name, t.valid_through, t.test_type, ct.passed, ct.id FROM users u"
+                                   + " INNER JOIN completed_test ct"
+                                   + " ON u.id = ct.user_id"
+                                   + " INNER JOIN test t"
+                                   + " ON t.id = ct.test_id"
+                                   + " WHERE u.id IN(SELECT id FROM users WHERE id != @uId"
+                                   + " AND u.team_id IN(SELECT id FROM team WHERE user_id = @uId))"
+                                   + " AND ct.passed = true"
+                                   + " AND u.id NOT IN"
+                                   + ""
+                                   + " (SELECT id FROM"
+                                   + " (SELECT DISTINCT ON(ct.user_id, t.valid_through) u.id, u.first_name, u.last_name, u.team_id, t.test_type, ct.passed, t.valid_through FROM users u"
+                                   + " INNER JOIN completed_test ct"
+                                   + " ON u.id = ct.user_id"
+                                   + " INNER JOIN test t"
+                                   + " ON ct.test_id = t.id"
+                                   + " ORDER BY ct.user_id, t.valid_through, ct.passed DESC, ct.start_time DESC)a"
+                                   + " WHERE valid_through >=  (SELECT date_part('year',current_date))  AND passed = false AND team_id IN (SELECT id FROM team WHERE user_id = @uId))"
+                                   + ""
+                                   + " AND u.id NOT IN"
+                                   + ""
+                                   + " (SELECT id FROM users u"
+                                   + " WHERE u.id NOT IN (SELECT user_id FROM completed_test ct)"
+                                   + " AND u.id IN(SELECT id FROM users WHERE id != @uId"
+                                   + " AND team_id IN(SELECT id FROM team WHERE user_id = @uId)))";
+
+
+            NpgsqlCommand cmd3 = new NpgsqlCommand(sqlExpiredPassed, conn);
+            cmd3.Parameters.AddWithValue("uId", leaderId);
+            conn.Open();
+            NpgsqlDataReader dr3 = cmd3.ExecuteReader();
+
+            while (dr3.Read())
+            {
+                string name = dr3["first_name"].ToString() + " " + dr3["last_name"].ToString();
+                string testType = dr3["test_type"].ToString();
+                string validThrough = "";
+
+                if(int.Parse(validThrough = dr3["valid_through"].ToString()) < int.Parse(DateTime.Now.Year.ToString()))
+                {
+                    validThrough = DateTime.Now.Year.ToString();
+                }
+                else if (int.Parse(validThrough = dr3["valid_through"].ToString()) == (DateTime.Now.Year))
+                {
+                    int thisYear = DateTime.Now.Year;
+                    
+                    validThrough = (thisYear +1).ToString();
+                }
+
+                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                dt.Rows.Add(name, testType, validThrough);
+            }
+            conn.Close();
+
+            return dt;
+        }
+
+
 
         private DataTable testStats(int leaderId, int testId)
         {
