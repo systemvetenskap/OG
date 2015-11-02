@@ -79,7 +79,7 @@ namespace Group3WebProject.Classes
             }
             // return "aakk";
         }
-        private string getXml(string testID)
+        public string getXml(string testID)
         {
             string result = "";
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);

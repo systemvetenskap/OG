@@ -22,26 +22,26 @@ namespace Group3WebProject.Classes
             if (dt == null && dt.Rows.Count > 0)
             {
                 return "LICENS"; //FÖrsta gången 
-            }            
+            }
             DateTime startTime = DateTime.Parse(dt.Rows[0]["starttime"].ToString());
             DateTime timNow = DateTime.Now;
             TimeSpan diffDate = timNow - startTime;
-            for (int i = 0; i < dt.Rows.Count; i++)
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+            if ((DateTime.Parse(dt.Rows[0]["starttime"].ToString()).Year == DateTime.Now.Year) && (dt.Rows[0]["passed"].ToString().ToUpper() == "t"))//Då har man redan gjort testet
             {
-                if ((DateTime.Parse(dt.Rows[i]["starttime"].ToString()).Year == DateTime.Now.Year) && (dt.Rows[i]["passed"].ToString().ToUpper() == "t"))//Då har man redan gjort testet
-                {
-                    return "Du har redan gjort årets test och är godkänd";
-                }
+                return "Du har redan gjort årets test och är godkänd";
             }
-
+            // }
+            Debug.WriteLine(DateTime.Parse(dt.Rows[0]["starttime"].ToString()));
             if (dt.Rows[0]["endtime"] == null || Convert.ToString(dt.Rows[0]["endtime"]) == "")
             {
-               if (diffDate.TotalMinutes < 30)
-               {
-                   Debug.WriteLine(diffDate.TotalMinutes.ToString());
-                   return "IGÅNG";
-               }
-                
+                if (diffDate.TotalMinutes < 30)
+                {
+                    Debug.WriteLine(diffDate.TotalMinutes.ToString());
+                    return "IGÅNG";
+                }
+
             }
             if (diffDate.Days < 7)
             {
@@ -94,7 +94,8 @@ namespace Group3WebProject.Classes
                     return "";
                 }
                 dr.Close();
-                cmd = new NpgsqlCommand("INSERT INTO completed_test (user_id, test_id, xml_answer,start_time) VALUES ('" + userID + "', '" + test + "', '" + xml + "', '" + startTime.ToString() + "') RETURNING id", conn);
+                bool aa = false;
+                cmd = new NpgsqlCommand("INSERT INTO completed_test (user_id, test_id, xml_answer,start_time, passed) VALUES ('" + userID + "', '" + test + "', '" + xml + "', '" + startTime.ToString() + "', '" + aa + "') RETURNING id", conn);
                 retAnsw = cmd.ExecuteScalar().ToString();
                 conn.Close();
             }
