@@ -86,7 +86,15 @@ namespace Group3WebProject
             }
             if (btnNext.Text == "Översikt")
             {
-                //Do the job to check test and stop time
+                clsFillQuestion clQue = new clsFillQuestion();
+                clsRightOrNot clRi = new clsRightOrNot();
+                clsMethods clMeth = new clsMethods();                
+                string xml = clQue.getXml(ViewState["testID"].ToString());                
+                Tuple<bool, List<int>, List<int>, int, int> aa = clMeth.PartAndTotalResult(clMeth.XmlToClasses(xml));//list1, 
+                bool result = aa.Item1;
+                Debug.WriteLine("TESTID " + testID + "  " + result.ToString() + " res och " + aa.Item4.ToString() + " till sist " + aa.Item5);
+                clRi.updateResult(ViewState["testID"].ToString(), result);
+                Response.Redirect("webbtestresult.aspx");
             }
         }
         protected void Button1_Click(object sender, EventArgs e)
@@ -105,7 +113,7 @@ namespace Group3WebProject
             bool lookAgain = false;
             if (HttpContext.Current.Session["seeTest"] != null)
             {
-                 lookAgain = bool.Parse(HttpContext.Current.Session["seeTest"].ToString());
+                lookAgain = bool.Parse(HttpContext.Current.Session["seeTest"].ToString());
                 if (lookAgain) //Om man vill titta igen får man inte kryssa i något
                 {
                     rbQuestionList.Enabled = false;
@@ -286,5 +294,7 @@ namespace Group3WebProject
            // ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
             //fillquestion();
         }
+
+        
     }
 }

@@ -6,33 +6,75 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Group3WebProject.Classes;
 using System.Data;
+using System.Diagnostics;
 namespace Group3WebProject
 {
     public partial class webbtestresult : System.Web.UI.Page
     {
-        string tstID = "18";
+        string testID;
         protected void Page_Load(object sender, EventArgs e)
         {
-            clsTestMenuFill menu = new clsTestMenuFill();
 
-            DataTable dtQuestions = menu.read(tstID);
-            for (int i = 0; i < dtQuestions.Rows.Count; i++)
+            if (!IsPostBack)
             {
-                Label quNam = new Label();
-                quNam.Text = "<h3>" + dtQuestions.Rows[i]["name"].ToString() + "</h3>";
-                panData.Controls.Add(quNam);
-                fillData(dtQuestions.Rows[i]["id"].ToString(), tstID);
+                if (HttpContext.Current.Session["userid"] != null)
+                {
+                    Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
+                    //Check if user have right credit 
+                    //IF level == Provdeltahare
+                    Classes.clsLogin clsLog = new Classes.clsLogin();
+                    if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "deltagare") //Inloggad
+                    {
+                        //Label2.Text = HttpContext.Current.Session["userid"].ToString();
+                    }
+                    else //Är inloggad med fel credinatl
+                    {
+                        Response.Redirect("default.aspx");
+                    }
+                }
+                else //Har inte loggat in 
+                {
+                    Response.Redirect("login.aspx");
+                }
+            }
+
+            if (ViewState["testID"] != null || Convert.ToString(ViewState["testID"]) != "")
+            {
+                testID = ViewState["testID"].ToString();
+            }
+            else
+            {
+                int tstID;
+                clsStartingTest clsTestID = new clsStartingTest();
+                testID = clsTestID.getTestid(HttpContext.Current.Session["userid"].ToString());
+                Debug.WriteLine(testID + "  ALfekroek");
+                if (int.TryParse(testID, out tstID))
+                {
+                    ViewState["testID"] = testID;
+                }
+            }
+            if (!IsPostBack)
+            {
+                clsTestMenuFill menu = new clsTestMenuFill();
+                DataTable dtQuestions = menu.read(testID);
+                for (int i = 0; i < dtQuestions.Rows.Count; i++)
+                {
+                    Label quNam = new Label();
+                    quNam.Text = "<h3>" + dtQuestions.Rows[i]["name"].ToString() + "</h3>";
+                    panData.Controls.Add(quNam);
+                    fillData(dtQuestions.Rows[i]["id"].ToString(), testID);
+                }
             }
         }
         /// <summary>
         /// Lägger till varje fråga i paneln och visar om man har svarat rätt eller fel. 
         /// </summary>
         /// <param name="queID"></param>
-        /// <param name="testID"></param>
-        private void fillData(string queID, string testID)
+        /// <param name="ttID"></param>
+        private void fillData(string queID, string ttID)
         {
             clsFillQuestion quest = new clsFillQuestion();
-            Tuple<DataTable, string, int, string, string> Que = quest.readXML(queID, testID);
+            Tuple<DataTable, string, int, string, string> Que = quest.readXML(queID, ttID);
             DataTable dt = Que.Item1;
 
             Label lbN = new Label();
