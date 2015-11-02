@@ -246,7 +246,10 @@ namespace Group3WebProject
             DataTable dt = new DataTable();
             dt.Columns.Add("Namn", typeof(string));
             dt.Columns.Add("Provtyp", typeof(string));
-            //dt.Columns.Add("Resultat", typeof(string));
+            dt.Columns.Add("Produkt", typeof(string));
+            dt.Columns.Add("Ekonomi", typeof(string));
+            dt.Columns.Add("Etik", typeof(string));
+            dt.Columns.Add("Total", typeof(string));
             dt.Columns.Add("Godkänd", typeof(bool));
             dt.Columns.Add("Giltigt t.o.m.", typeof(string));
 
@@ -277,15 +280,21 @@ namespace Group3WebProject
                 string validThrough = dr["valid_through"].ToString();
                 string answerXml = (dr["xml_answer"].ToString()).Trim();
 
+                //Här plockas resultaten totalt och per provdel fram via en metod som returnerar dessa som listor i en Tuple.
+                Tuple<bool, List<int>, List<int>, int, int> solution = method.PartAndTotalResult(method.XmlToClasses(answerXml));
+                string totalResult = solution.Item4.ToString() + "/" + solution.Item5.ToString();
+                string prodResult = solution.Item2[0].ToString() + "/" + solution.Item3[0].ToString();
+                string ecoResult = solution.Item2[1].ToString() + "/" + solution.Item3[1].ToString(); ;
+                string ethResult = solution.Item2[2].ToString() + "/" + solution.Item3[2].ToString(); ;
                 
                 
                 //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
-                dt.Rows.Add(name, testType, passed, validThrough);
-                int questionCounter = 3;
+                dt.Rows.Add(name, testType, prodResult, ecoResult, ethResult, totalResult, passed, validThrough);
+                int questionCounter = 7;
                 foreach (clsQuestion cq in method.XmlToClasses(answerXml))
                 {
                     questionCounter++;
-                    if (dt.Columns.Count == 4)
+                    if (dt.Columns.Count == 8)
                     {
                         foreach (clsQuestion q in method.XmlToClasses(answerXml))
                         {
