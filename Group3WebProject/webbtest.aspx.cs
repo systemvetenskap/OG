@@ -61,9 +61,7 @@ namespace Group3WebProject
         {
             if (btnTest.Text == "Se senaste testet")
             {
-                HttpContext.Current.Session["seeTest"] = "true";
-
-                //ViewState.Add("seeTest", "true");
+                Response.Redirect("webbtestresult.aspx");
             }
             else if (btnTest.Text != "Fortsätt testet")
             {

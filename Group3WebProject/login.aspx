@@ -8,6 +8,6 @@
         <br />
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         <br />
-        <asp:Button ID="btnLogin" runat="server" Text="Button" OnClick="btnLogin_Click" />
+        <asp:Button ID="btnLogin" runat="server" Text="Logga in" OnClick="btnLogin_Click" CssClass="btn" />
     </div>
 </asp:Content>

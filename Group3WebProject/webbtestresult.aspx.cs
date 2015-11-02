@@ -64,6 +64,9 @@ namespace Group3WebProject
                     panData.Controls.Add(quNam);
                     fillData(dtQuestions.Rows[i]["id"].ToString(), testID);
                 }
+                Label qutNam = new Label();
+                qutNam.Text = "<br/> <br />";
+                panData.Controls.Add(qutNam);
             }
         }
         /// <summary>
