@@ -20,7 +20,7 @@
 
         <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
         <br />
-        <asp:Button runat="server" Text="Välj test" OnClick="Unnamed1_Click" ID="btnTest" CssClass="btn btn-primary" /><br />
+        <asp:Button runat="server" Text="Välj test" OnClick="Unnamed1_Click" ID="btnTest" CssClass="btn" /><br />
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     </div>
 </asp:Content>
