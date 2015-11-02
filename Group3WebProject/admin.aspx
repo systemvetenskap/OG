@@ -19,7 +19,7 @@
             <br />
         </div>
         <div class="gvS">
-            <h3 class="lblAdmin">Föregående test</h3>
+            <h3 class="lblAdmin">Statistik</h3>
             <%--<asp:Label class="lblAdmin" ID="lblGvStat" runat="server" Text="Statistik"></asp:Label>--%>
             <asp:GridView ID="gvStats" runat="server" OnRowDataBound="gvStats_RowDataBound"></asp:GridView>
         </div>
