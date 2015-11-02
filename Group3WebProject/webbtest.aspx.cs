@@ -42,9 +42,9 @@ namespace Group3WebProject
             {
                 btnTest.Text = "Starta årligt test";
             }
-            else if (result == "ARBETS")
+            else if (result == "LICENS")
             {
-                btnTest.Text = "Starta Licens test";
+                btnTest.Text = "Starta Licenstest";
             }
             else if (result == "IGÅNG")
             {
@@ -65,8 +65,22 @@ namespace Group3WebProject
             }
             else if (btnTest.Text != "Fortsätt testet")
             {
+                string testNa = "";
+                if (btnTest.Text == "Starta Licenstest")
+                {
+                    testNa = "ÅKU";
+                }
+                else if(btnTest.Text == "Starta årligt test")
+                {
+                    testNa = "LICENS";
+                }
+                else
+                {
+
+                    return;
+                }
                 Classes.clsStartingTest clStart = new Classes.clsStartingTest();
-                string result = clStart.startNew("ÅKU", HttpContext.Current.Session["userid"].ToString());
+                string result = clStart.startNew(testNa, HttpContext.Current.Session["userid"].ToString());
                 ViewState.Add("testID", result);
             }
             Response.Redirect("webbtestquestion.aspx?testID=" + ViewState["testID"].ToString());
