@@ -35,35 +35,35 @@
     <answer id="4" answ="false" selected="false" sort="">Åbo</answer>
   </question>
 
-  <question value="9" part="Ekonomi" order="">
+  <question value="6" part="Ekonomi" order="">
     <txt img="">Var härör saab ifrån?</txt>
     <answer id="1" answ="false" selected="false" sort="">Tyskland</answer>
     <answer id="2" answ="false" selected="false" sort="">Österrike</answer>
     <answer id="3" answ="false" selected="false" sort="">Norge</answer>
     <answer id="4" answ="true" selected="false" sort="">Sverige</answer>
   </question>
-  <question value="10" part="Ekonomi" order="">
+  <question value="7" part="Ekonomi" order="">
     <txt img="">Var härör Seat ifrån?</txt>
     <answer id="1" answ="false" selected="false" sort="">Tyskland</answer>
     <answer id="2" answ="false" selected="false" sort="">Österrike</answer>
     <answer id="3" answ="false" selected="false" sort="">Norge</answer>
     <answer id="4" answ="true" selected="false" sort="">Spanien</answer>
   </question>
-  <question value="11" part="Ekonomi" order="">
+  <question value="8" part="Ekonomi" order="">
     <txt img="q11.svg">Vilken biltillverkare använder detta emblem?</txt>
     <answer id="1" answ="true" selected="false" sort="">Ferarri</answer>
     <answer id="2" answ="false" selected="false" sort="">BMW</answer>
     <answer id="3" answ="false" selected="false" sort="">Saab</answer>
     <answer id="4" answ="false" selected="false" sort="">Ford Mustang</answer>
   </question>
-  <question value="12" part="Ekonomi" order="">
+  <question value="9" part="Ekonomi" order="">
     <txt img="">Hur många bultar finns det i Ölandsbron?</txt>
     <answer id="1" answ="false" selected="false" sort="">1.000.126</answer>
     <answer id="2" answ="false" selected="false" sort="">4.265.491</answer>
     <answer id="3" answ="false" selected="false" sort="">6.546.855</answer>
     <answer id="4" answ="true" selected="false" sort="">7.428.954</answer>
   </question>
-  <question value="13" part="Ekonomi" order="">
+  <question value="10" part="Ekonomi" order="">
     <txt img="">Vilken bokstav saknas i bilmärket Ki* "?</txt>
     <answer id="1" answ="true" selected="false" sort="">a</answer>
     <answer id="2" answ="false" selected="false" sort="">b</answer>
@@ -71,35 +71,35 @@
     <answer id="4" answ="false" selected="false" sort="">d</answer>
   </question>
 
-  <question value="17" part="Etik" order="">
+  <question value="11" part="Etik" order="">
     <txt img="">Hur många Star Wars -filmer har släppt till dags dato(2015-11-03)?</txt>
     <answer id="1" answ="false" selected="false" sort="">3</answer>
     <answer id="2" answ="true" selected="false" sort="">6</answer>
     <answer id="3" answ="false" selected="false" sort="">9</answer>
     <answer id="4" answ="false" selected="false" sort="">7</answer>
   </question>
-  <question value="18" part="Etik" order="">
+  <question value="12" part="Etik" order="">
     <txt img="">Vad heter superhjälten vars sidekick har namnet Robin?</txt>
     <answer id="1" answ="true" selected="false" sort="">Batman</answer>
     <answer id="2" answ="false" selected="false" sort="">Stålmannen</answer>
     <answer id="3" answ="false" selected="false" sort="">Spindelmannen</answer>
     <answer id="4" answ="true" selected="false" sort="">Läderlappen</answer>
   </question>
-  <question value="19" part="Etik" order="">
+  <question value="13" part="Etik" order="">
     <txt img="">Vad heter filmen från 1997 där skeppet Titanic sjunker?</txt>
     <answer id="1" answ="false" selected="false" sort="">Shipwrecked</answer>
     <answer id="2" answ="true" selected="false" sort="">Titanic</answer>
     <answer id="3" answ="false" selected="false" sort="">Cast Away</answer>
     <answer id="4" answ="false" selected="false" sort="">I Kvav</answer>
   </question>
-  <question value="20" part="Etik" order="">
+  <question value="14" part="Etik" order="">
     <txt img="">I vilken film levererade Clint Eastwood repliken "Go ahead, make my day"?</txt>
     <answer id="1" answ="true" selected="false" sort="">Dirty Harry </answer>
     <answer id="2" answ="false" selected="false" sort="">Magnum Force</answer>
     <answer id="3" answ="false" selected="false" sort="">Den onde, den gode och den fule</answer>
     <answer id="4" answ="false" selected="false" sort="">Tightrope</answer>
   </question>
-  <question value="21" part="Etik" order="">
+  <question value="15" part="Etik" order="">
     <txt img="q21.gif">Vilken film kommer det här klippet från?</txt>
     <answer id="1" answ="false" selected="false" sort="">Taxi</answer>
     <answer id="2" answ="false" selected="false" sort="">Star Wars</answer>
