@@ -19,7 +19,7 @@ namespace Group3WebProject.Classes
         public string getOk(string userID)
         {
             DataTable dt = fixData(userID);
-            if (dt == null && dt.Rows.Count > 0)
+            if (dt == null || dt.Rows.Count < 1)
             {
                 return "LICENS"; //FÖrsta gången 
             }
@@ -105,7 +105,7 @@ namespace Group3WebProject.Classes
             }
             return retAnsw;
         }
-        public string getTestid(string userID)
+        public string getTestid(string userID) //Hämtar bara ut det senaste testID:et 
         {
             string test = "";
             try

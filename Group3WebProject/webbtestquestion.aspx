@@ -27,7 +27,7 @@
             <asp:RadioButtonList ID="rbQuestionList" runat="server" OnUnload="rbQuestionList_Unload"></asp:RadioButtonList>
         </div>
         <div>
-            <asp:Button ID="btnPrevious" runat="server" Text="Föregående" OnClick="btnPrevious_Click" />&nbsp;&nbsp;&nbsp;<asp:Button ID="btnNext" runat="server" Text="Nästa" OnClick="btnNext_Click" />
+            <asp:Button ID="btnPrevious" runat="server" Text="Föregående" OnClick="btnPrevious_Click" CssClass="btn" />&nbsp;&nbsp;&nbsp;<asp:Button ID="btnNext" runat="server" Text="Nästa" OnClick="btnNext_Click" CssClass="btn" />
 
         </div>
     </div>

@@ -84,7 +84,7 @@ namespace Group3WebProject
                 Debug.WriteLine(" FEL ET ");
                 testID = ViewState["testID"].ToString();
             }
-            if (btnNext.Text == "Översikt")
+            if (btnNext.Text == "Lämna in")
             {
                 clsFillQuestion clQue = new clsFillQuestion();
                 clsRightOrNot clRi = new clsRightOrNot();
@@ -258,17 +258,19 @@ namespace Group3WebProject
                 cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex + 1;
             }
             fillquestion();
-            if (btnNext.Text == "Översikt")
+            if (btnNext.Text == "Lämna in")
             {
                 btnNext.OnClientClick = "return wantToCont();"; 
             }
             if (cmbChooseQue.SelectedIndex >= cmbChooseQue.Items.Count - 1)
             {
-                btnNext.Text = "Översikt";
+                btnNext.Text = "Lämna in";
+                btnNext.CssClass = "btn btn-succes";
                 btnNext.OnClientClick = "return wantToCont();"; //Frågar om man vill gå vidare och lämna in det 
             }
             else
             {
+                btnNext.CssClass = "btn";
                 btnNext.OnClientClick = null;
                 btnNext.Text = "Nästa";
             }
@@ -286,6 +288,7 @@ namespace Group3WebProject
                 cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex - 1;
             }
             fillquestion();
+            btnNext.CssClass = "btn";
             btnNext.Text = "Nästa"; //Sätter nästa
         }
         protected void cmbChooseQue_SelectedIndexChanged(object sender, EventArgs e)
