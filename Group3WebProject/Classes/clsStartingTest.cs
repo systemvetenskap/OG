@@ -101,6 +101,8 @@ namespace Group3WebProject.Classes
                 cmd = new NpgsqlCommand("INSERT INTO completed_test (user_id, test_id, xml_answer,start_time, passed) VALUES ('" + userID + "', '" + test + "', '" + xml + "', '" + startTime.ToString() + "', '" + aa + "') RETURNING id", conn);
                 retAnsw = cmd.ExecuteScalar().ToString();
                 conn.Close();
+                clsRandomQue clRa = new clsRandomQue();
+                clRa.randomizeTest(retAnsw);
             }
             catch (Exception ex)
             {

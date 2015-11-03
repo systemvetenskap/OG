@@ -121,6 +121,7 @@
     <Compile Include="Classes\clsLogin.cs" />
     <Compile Include="Classes\clsMethods.cs" />
     <Compile Include="Classes\clsQuestion.cs" />
+    <Compile Include="Classes\clsRandomQue.cs" />
     <Compile Include="Classes\clsRightOrNot.cs" />
     <Compile Include="Classes\clsSetGetStarttime.cs" />
     <Compile Include="Classes\clsStartingTest.cs" />

@@ -3,9 +3,9 @@
   <question value="1" part="Produkter" order="">
     <txt img="">Var ligger Sverige?</txt>
     <answer id="1" answ="true" selected="false" sort="">Skandinavien</answer>
-    <answer id="2" answ="false" selected="false">Västra Europa</answer>
-    <answer id="3" answ="false" selected="false">Södra Europa</answer>
-    <answer id="4" answ="true" selected="false">Norra Europa</answer>
+    <answer id="2" answ="false" selected="false" sort="">Västra Europa</answer>
+    <answer id="3" answ="false" selected="false" sort="">Södra Europa</answer>
+    <answer id="4" answ="true" selected="false" sort="">Norra Europa</answer>
   </question>
   <question value="2" part="Produkter" order="">
     <txt img="">Var ligger Norge </txt>

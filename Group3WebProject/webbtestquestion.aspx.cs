@@ -114,6 +114,10 @@ namespace Group3WebProject
             liAnsw.Add("1");
             Label3.Text = cls.getXml(testID);
         }
+        /// <summary>
+        /// Laddar in frågorna i antingen checboxlist eller radiobuttonlist
+        /// </summary>
+        /// <returns></returns>
         private bool fillquestion()//Hämtar frågorna 
         {
             Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
@@ -151,6 +155,10 @@ namespace Group3WebProject
             {
                 Label2.Text = "<img src='pictures/" + getData.Item5 + "' style='height: 250px; width: 250px;'alt='bilden' />";
                 Debug.WriteLine(getData.Item5);
+            }
+            else
+            {
+                Label2.Text = "";
             }
             try
             {

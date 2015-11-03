@@ -20,6 +20,7 @@ namespace Group3WebProject.Classes
             dt.Columns.Add("id"); //Fråge id:et 
             try
             {
+                int va = 0;
                 XmlTextReader reader = new XmlTextReader(new StringReader(getXml(testID)));
                 while (reader.Read())
                 {
@@ -28,8 +29,8 @@ namespace Group3WebProject.Classes
                         case "question":
                             dt.Rows.Add();
                             dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("value").ToUpper();
-                            Random random = new Random();
-                            dt.Rows[dt.Rows.Count - 1]["name"] = random.Next(20, 100);
+                           // Random random = new Random();
+                            dt.Rows[dt.Rows.Count - 1]["name"] = (va + 1).ToString(); //random.Next(20, 100);
                             reader.Skip();
                             break;
                     }
@@ -40,14 +41,7 @@ namespace Group3WebProject.Classes
             {
                 Debug.WriteLine(ex.ToString());
             }
-            for (int i = 0; i < dt.Rows.Count; i++ )
-            {
-                Random rand = new Random((int)DateTime.Now.Ticks);
-                int RandomNumber;
-                RandomNumber = rand.Next(1, 1200)*1000;
-                dt.Rows[i]["name"] = RandomNumber.ToString();
-                Debug.WriteLine(RandomNumber.ToString() + " " + i.ToString());
-            }
+            
             dt.DefaultView.Sort = "name";
             dt = dt.DefaultView.ToTable();
             for (int i = 0; i < dt.Rows.Count; i++)
