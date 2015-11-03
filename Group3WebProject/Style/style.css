@@ -1,4 +1,218 @@
-﻿/*===== GENERELLA =====*/
+﻿/*===== SCROLL =====*/
+
+/*#gvS{
+     overflow-x: scroll; 
+    text-align: left;
+    width: 400px;
+}
+
+.locked
+{
+    position: fixed; 
+    background-color: White;
+    z-index: 100; 
+}
+.scrolled
+{
+    position: relative;
+    left: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    min-width: 500px;
+}
+.col1
+{
+    left: 0px;
+    width: 50px;
+}
+.col2
+{
+    left: 50px;
+    width: 100px;
+}*/
+
+
+
+
+/*.GridviewScrollHeader TH, .GridviewScrollHeader TD 
+{ 
+    padding: 5px; 
+    font-weight: bold; 
+    white-space: nowrap; 
+    border-right: 1px solid #AAAAAA; 
+    border-bottom: 1px solid #AAAAAA; 
+    background-color: #EFEFEF; 
+    text-align: left; 
+    vertical-align: bottom; 
+} 
+.GridviewScrollItem TD 
+{ 
+    padding: 5px; 
+    white-space: nowrap; 
+    border-right: 1px solid #AAAAAA; 
+    border-bottom: 1px solid #AAAAAA; 
+    background-color: #FFFFFF; 
+} 
+.GridviewScrollPager  
+{ 
+    border-top: 1px solid #AAAAAA; 
+    background-color: #FFFFFF; 
+} 
+.GridviewScrollPager TD 
+{ 
+    padding-top: 3px; 
+    font-size: 14px; 
+    padding-left: 5px; 
+    padding-right: 5px; 
+} 
+.GridviewScrollPager A 
+{ 
+    color: #666666; 
+}
+.GridviewScrollPager SPAN
+
+{
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+}*/
+
+
+
+/*#gvStats{
+    overflow-x:auto;
+    width:400px;
+    scrollbar-base-color:cyan;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*HALVFUNKAR*/
+div#gvS{
+width: 220px;
+height: 100px;
+overflow: auto;
+scrollbar-base-color:#ffeaff;
+
+}
+td.lockColumns, th.lockColumns{
+font-size: 14px;
+font-weight: bold;
+text-align: center;
+background-color: navy;
+color: white;
+border-right: 1px solid silver;
+position:relative;
+cursor: default;
+left: expression(document.getElementById("div-datagrid").scrollLeft-2);
+}
+
+th {
+   font-size: 14px;
+font-weight: bold;
+text-align: center;
+background-color: navy;
+color: white;
+border-right: 1px solid silver;
+position:relative;
+cursor: default;
+left: expression(document.getElementById("div-datagrid").scrollLeft-2);
+top: expression(document.getElementById("div-datagrid").scrollTop-2);
+z-index: -1;
+}
+
+
+th.lockColumns{
+    z-index:99;
+}
+
+
+th.floatColumns{
+       
+    float:left;
+}
+
+
+.GridRow {
+    font-size: 10pt;
+    color: black;
+    font-family: Arial; 
+    background-color:#ffffff; height:35px;
+
+}
+
+.GridAltRow {
+    font-size: 10pt; 
+    color: black; 
+    font-family: Arial; 
+    background-color:#eeeeee; 
+    height:35px;
+}
+
+
+
+
+
+
+
+
+
+/*.scrollGridView
+{
+        overflow-x: scroll; 
+        text-align: left;
+        width: 700px; /* i.e. too small for all the columns
+    }
+
+    .locked
+    {
+        position: fixed; /* i.e. not scrolled
+        background-color: blueviolet; /* prevent the scrolled columns showing through
+        /*z-index: 100;*/ /* keep the pinned on top of the scrollables
+    }
+    .scrolled
+    {
+        position: relative;
+        left: 450px; /* i.e. col1 Width + col2 width
+        overflow: hidden;
+        white-space: nowrap;
+        min-width: 50px; /* set your real column widths here
+    }
+    .col1
+    {
+        left: 0px;
+        width: 200px;
+    }
+    .col2
+    {
+        left: 200px; /* i.e. col1 Width 
+        width: 75px;
+    }*/
+
+
+
+
+
+
+
+
+
+/*===== GENERELLA =====*/
 body {
     background-image:url("/pictures/fncd0wql-jpg.jpg");
     background-repeat: repeat;
@@ -42,6 +256,10 @@ footer{
     font-size:90%;
     /*box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.4);*/
 }
+
+
+
+
 
 
 /*===== CONTENT PAGES =====*/
@@ -176,6 +394,8 @@ ul.nav_list li{
 
 .gvS{
     float:left;
+    /*overflow-x:auto;
+    max-width:360px;*/
 }
 
 .lblAdmin{

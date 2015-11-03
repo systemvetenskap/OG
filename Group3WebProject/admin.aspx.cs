@@ -314,6 +314,9 @@ namespace Group3WebProject
                     }
 
 
+                    
+
+
                 }
                 
             }
@@ -323,6 +326,11 @@ namespace Group3WebProject
 
         protected void gvStats_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+
+
+            
+
+
             //if (e.Row.RowType == DataControlRowType.DataRow)
             //{
             foreach (GridViewRow row in gvStats.Rows) //För varje rad i Gridview gör detta.
@@ -350,10 +358,24 @@ namespace Group3WebProject
                         }
                     }
 
+         
                 }
             //}
 
-         
+            e.Row.Cells[0].CssClass = "lockColumns";
+
+            for (int i = 1; i < e.Row.Cells.Count; i++)
+            {
+                e.Row.Cells[i].CssClass = "floatColumns";
+            }
+
+            //e.Row.Cells[1].CssClass = "lockColumns";
         }
+
+        protected void gvStats_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
     }
 }
