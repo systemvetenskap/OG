@@ -60,6 +60,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AKUQuestions.xml" />
     <Content Include="answers.xml" />
     <Content Include="admin.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -74,6 +75,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="licenseQuestions.xml" />
+    <Content Include="pictures\q11.svg" />
+    <Content Include="pictures\q21.gif" />
+    <Content Include="pictures\q22.png" />
+    <Content Include="pictures\q4.gif" />
     <Content Include="pictures\fncd0wql-jpg.jpg" />
     <Content Include="pictures\fncd0wql.bmp" />
     <Content Include="Scripts\validateForms.js" />
@@ -95,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
-    <Content Include="questions.xml" />
     <Content Include="Style\style.css" />
     <Content Include="Web.config" />
     <Content Include="webbtest.aspx" />

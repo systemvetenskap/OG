@@ -34,29 +34,7 @@
     <answer id="3" answ="true" selected="false" sort="">Odense</answer>
     <answer id="4" answ="false" selected="false" sort="">Åbo</answer>
   </question>
-  <question value="6" part="Produkter" order="">
-    <txt img="">Var ligger Mali?</txt>
-    <answer id="1" answ="true" selected="false" sort="">Nordvästra Afrika</answer>
-    <answer id="2" answ="false" selected="false" sort="">Södra Afrika</answer>
-    <answer id="3" answ="false" selected="false" sort="">Arabiska halvön</answer>
-    <answer id="4" answ="false" selected="false" sort="">Sydostasien</answer>
-  </question>
-  <question value="7" part="Produkter" order="">
-    <txt img="">Vilka två länder sammanbinds av Öresundsbron? </txt>
-    <answer id="1" answ="false" selected="false" sort="">Sverige och Tyskland</answer>
-    <answer id="2" answ="true" selected="false" sort="">Sverige och Danmark</answer>
-    <answer id="3" answ="false" selected="false" sort="">Sverige och Åland</answer>
-    <answer id="4" answ="false" selected="false" sort="">Sverige och Finland</answer>
-  </question>
-  <question value="8" part="Produkter" order="">
-    <txt img="">Var ligger Östersund=</txt>
-    <answer id="1" answ="true" selected="false" sort="">Jämtland</answer>
-    <answer id="2" answ="true" selected="false" sort="">Sverige</answer>
-    <answer id="3" answ="true" selected="false" sort="">Europa</answer>
-    <answer id="4" answ="true" selected="false" sort="">Vid Storsjön</answer>
-    <answer id="5" answ="false" selected="false" sort="">Medelpad</answer>
-  </question>
-  
+
   <question value="9" part="Ekonomi" order="">
     <txt img="">Var härör saab ifrån?</txt>
     <answer id="1" answ="false" selected="false" sort="">Tyskland</answer>
@@ -92,28 +70,7 @@
     <answer id="3" answ="false" selected="false" sort="">c</answer>
     <answer id="4" answ="false" selected="false" sort="">d</answer>
   </question>
-  <question value="14" part="Ekonomi" order="">
-    <txt img="">När grundades Volvo?</txt>
-    <answer id="1" answ="false" selected="false" sort="">1956</answer>
-    <answer id="2" answ="false" selected="false" sort="">1940</answer>
-    <answer id="3" answ="true" selected="false" sort="">1926</answer>
-    <answer id="4" answ="false" selected="false" sort="">1932</answer>
-  </question>
-  <question value="15" part="Ekonomi" order="">
-    <txt img="">Vilka biltillverkare kommer från Storbitannien?</txt>
-    <answer id="1" answ="true" selected="false" sort="">Land Rover</answer>
-    <answer id="2" answ="false" selected="false" sort="">Jeep</answer>
-    <answer id="3" answ="true" selected="false" sort="">Aston Martin</answer>
-    <answer id="4" answ="false" selected="false" sort="">Volvo</answer>
-  </question>
-  <question value="16" part="Ekonomi" order="">
-    <txt img="">Vilka biltillverkare kommer från tyskland?</txt>
-    <answer id="1" answ="false" selected="false" sort="">Audi</answer>
-    <answer id="2" answ="false" selected="false" sort="">VW</answer>
-    <answer id="3" answ="false" selected="false" sort="">BMW</answer>
-    <answer id="4" answ="true" selected="false" sort="">Tata</answer>
-  </question>
-  
+
   <question value="17" part="Etik" order="">
     <txt img="">Hur många Star Wars -filmer har släppt till dags dato(2015-11-03)?</txt>
     <answer id="1" answ="false" selected="false" sort="">3</answer>
@@ -148,34 +105,5 @@
     <answer id="2" answ="false" selected="false" sort="">Star Wars</answer>
     <answer id="3" answ="true" selected="false" sort="">The Shining</answer>
     <answer id="4" answ="false" selected="false" sort="">Chinatown</answer>
-  </question>
-  <question value="22" part="Etik" order="">
-    <txt img="q22.png">Vilka av alternativen är filmer som släppts?</txt>
-    <answer id="1" answ="true" selected="false" sort="">Jurassic Park</answer>
-    <answer id="2" answ="true" selected="false" sort="">The Lost World: Jurassic Park</answer>
-    <answer id="3" answ="true" selected="false" sort="">Jurassic Park III</answer>
-    <answer id="4" answ="true" selected="false" sort="">Jurassic World</answer>
-    <answer id="5" answ="false" selected="false" sort="">Jurassic Park IV</answer>
-  </question>
-  <question value="23" part="Etik" order="">
-    <txt img="">Hur många medlemmar har The Fantastic Four?</txt>
-    <answer id="1" answ="false" selected="false" sort="">3</answer>
-    <answer id="2" answ="true" selected="false" sort="">4</answer>
-    <answer id="3" answ="false" selected="false" sort="">5</answer>
-    <answer id="4" answ="false" selected="false" sort="">2</answer>
-  </question>
-  <question value="24" part="Etik" order="">
-    <txt img="">Vilka skådespelare medverkade i The Boondock Saints från 1999</txt>
-    <answer id="1" answ="true" selected="false" sort="">Willem Dafoe</answer>
-    <answer id="2" answ="true" selected="false" sort="">Sean Patrick Flanery</answer>
-    <answer id="3" answ="true" selected="false" sort="">Norman Reedus</answer>
-    <answer id="4" answ="false" selected="false" sort="">Harrison Ford</answer>
-  </question>
-  <question value="25" part="Etik" order="">
-    <txt img="">Vad heter Harrison Fords karaktär i äventyrsfilmerna en arkeolog med samma namn?</txt>
-    <answer id="1" answ="false" selected="false" sort="">Jonas India</answer>
-    <answer id="2" answ="false" selected="false" sort="">John Indian</answer>
-    <answer id="3" answ="true" selected="false" sort="">Indiana Jones</answer>
-    <answer id="4" answ="false" selected="false" sort="">Indy</answer>
   </question>
 </test>
