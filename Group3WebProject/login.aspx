@@ -4,10 +4,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
     <div class="all_contents shadow">
-        <asp:DropDownList ID="ddlAllUser"  runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-        <br />
-        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-        <br />
-        <asp:Button ID="btnLogin" runat="server" Text="Logga in" OnClick="btnLogin_Click" CssClass="btn" />
+        <div class="center_login">
+            <h3 class="lblLogIn">Välkommen, vänligen logga in</h3>
+            <asp:DropDownList ID="ddlAllUser"  runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+            <br />
+            <%--<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>--%>
+            <br />
+            <asp:Button ID="btnLogin" runat="server" Text="Logga in" OnClick="btnLogin_Click" CssClass="btn" />
+        </div>
     </div>
 </asp:Content>

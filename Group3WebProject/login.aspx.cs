@@ -32,7 +32,7 @@ namespace Group3WebProject
         {
             //ddlAllUser
             string userid = ddlAllUser.SelectedValue;
-            Label1.Text = userid;
+            //Label1.Text = userid;
            
         }
 
