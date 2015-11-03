@@ -74,11 +74,14 @@ namespace Group3WebProject.Classes
             DateTime startTime = DateTime.Now;
             string retAnsw = "";
             //string sql = ""
+            string sql= "SELECT xml_questions As ans, id FROM test where test_type='" + type + "' and valid_through='" + startTime.Year.ToString() + "' order by id";
+            Debug.WriteLine(sql);
             try
             {
                 NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
                 conn.Open();
-                NpgsqlCommand cmd = new NpgsqlCommand("SELECT xml_questions As ans, id FROM test where test_type='" + type + "' and valid_through='" + startTime.Year.ToString() + "' order by id", conn);
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                
                 string xml = "";
                 string test = "";
                 NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -91,7 +94,7 @@ namespace Group3WebProject.Classes
                 {
                     dr.Close();
                     conn.Close();
-                    return "";
+                    return "false";
                 }
                 dr.Close();
                 bool aa = false;

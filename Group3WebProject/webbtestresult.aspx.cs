@@ -69,6 +69,12 @@ namespace Group3WebProject
                 panData.Controls.Add(qutNam);
             }
         }
+        private void result()
+        {
+            string xml = clQue.getXml(ViewState["testID"].ToString());
+            Tuple<bool, List<int>, List<int>, int, int> aa = clMeth.PartAndTotalResult(clMeth.XmlToClasses(xml));//list1, 
+            bool result = aa.Item1;
+        }
         /// <summary>
         /// Lägger till varje fråga i paneln och visar om man har svarat rätt eller fel. 
         /// </summary>
