@@ -68,11 +68,11 @@ namespace Group3WebProject
                 string testNa = "";
                 if (btnTest.Text == "Starta Licenstest")
                 {
-                    testNa = "ÅKU";
+                    testNa = "LICENS";
                 }
                 else if(btnTest.Text == "Starta årligt test")
                 {
-                    testNa = "LICENS";
+                    testNa = "ÅKU";
                 }
                 else
                 {
@@ -81,6 +81,11 @@ namespace Group3WebProject
                 }
                 Classes.clsStartingTest clStart = new Classes.clsStartingTest();
                 string result = clStart.startNew(testNa, HttpContext.Current.Session["userid"].ToString());
+                if (result == "false")
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", "alert('Finns inget test att välja');", true);
+                    return;
+                }
                 ViewState.Add("testID", result);
             }
             Response.Redirect("webbtestquestion.aspx?testID=" + ViewState["testID"].ToString());

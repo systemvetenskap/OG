@@ -25,8 +25,7 @@ namespace Group3WebProject
                 if (HttpContext.Current.Session["userid"] != null)
                 {
                     Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
-                    //Check if user have right credit 
-                    //IF level == Provdeltahare
+                  
                     Classes.clsLogin clsLog = new Classes.clsLogin();
                     if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "deltagare") //Inloggad
                     {
@@ -86,9 +85,20 @@ namespace Group3WebProject
             }
             if (btnNext.Text == "Lämna in")
             {
+                clsMethods clMeth = new clsMethods();
                 clsFillQuestion clQue = new clsFillQuestion();
                 clsRightOrNot clRi = new clsRightOrNot();
-                clsMethods clMeth = new clsMethods();                
+                
+                string handle = clRi.canHandIn(ViewState["testID"].ToString());
+                if (handle == "TIDEN DROG ÖVER")
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", "alert('Du lämnade in testet för sent du blir underkänd');", true);
+                    return;
+                }
+                else if(handle != "OK")
+                {
+                    return;
+                }
                 string xml = clQue.getXml(ViewState["testID"].ToString());                
                 Tuple<bool, List<int>, List<int>, int, int> aa = clMeth.PartAndTotalResult(clMeth.XmlToClasses(xml));//list1, 
                 bool result = aa.Item1;
@@ -111,6 +121,7 @@ namespace Group3WebProject
             DataTable dt = getData.Item1;
             int antVal = getData.Item3;
             bool lookAgain = false;
+            string part = getData.Item4.ToUpper();
             if (HttpContext.Current.Session["seeTest"] != null)
             {
                 lookAgain = bool.Parse(HttpContext.Current.Session["seeTest"].ToString());
@@ -121,8 +132,28 @@ namespace Group3WebProject
                 }
             }
             
-            Label3.Text = "Frågan är inom området:" + getData.Item4 + " <br />" + getData.Item2;
-            lblChoose.Text = " Du ska välja:" + antVal.ToString() + " frågor";
+            if (part == "ETIK")
+            {
+                part = "Etik och regelverk";
+            }
+            else if(part == "EKONOMI")
+            {
+                part = "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi.";
+            }
+            else if (part == "PRODUKTER")
+            {
+                part = "Produkter och hantering av kundens affärer ";
+            }
+            Label3.Text = "Frågan är inom området:" + part + " <br />" + "<h4>" + getData.Item2 + "</h4>";
+            if (antVal == 1)
+            {
+                lblChoose.Text = " fråga";
+            }
+            else
+            {
+                lblChoose.Text = " frågor";
+            }
+            lblChoose.Text = " Du ska välja: <b>" + antVal.ToString() + "</b>" + lblChoose.Text;
             if (getData.Item5 != "")
             {
                 Label2.Text = "<img src='pictures/" + getData.Item5 + "' style='height: 250px; width: 250px;'alt='bilden' />";
@@ -270,6 +301,7 @@ namespace Group3WebProject
             }
             else
             {
+                
                 btnNext.CssClass = "btn";
                 btnNext.OnClientClick = null;
                 btnNext.Text = "Nästa";

@@ -44,10 +44,10 @@
                     </div>--%>
                 </div>
             </div>
-            <div class="testar_divs">
+            <%--<div class="testar_divs">--%>
                 <asp:ContentPlaceHolder ID="bodyn" runat="server">
                 </asp:ContentPlaceHolder>
-            </div>
+            <%--</div>--%>
         </form>
 
         <footer class="shadow no_margin_bottom">
