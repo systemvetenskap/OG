@@ -18,8 +18,6 @@
             <br />
         </div>
 
-        <h3 class="lblAdmin">Statistik</h3>
-
         <div id="gvS">
             <asp:GridView ID="gvStats" runat="server" OnRowDataBound="gvStats_RowDataBound" OnRowCreated="gvStats_RowCreated">
             </asp:GridView>
@@ -66,10 +64,11 @@
         <%--<dx:ASPxGridView ID="gvStats" AutoGenerateColumns="false" DataSourceID="gvStats" OnRowDataBound="gvStats_RowDataBound">
 
             </dx:ASPxGridView>--%>
-        <p>
+<%--        <p>
             <br />
-        </p>
-        <div class="tabSiz">
+        </p>--%>
+        <div class="stats_div">
+            <h3 class="lblAdmin">Statistik</h3>
             <div class="outer">
                 <div class="inner" id="filen" runat="server">
                 </div>
