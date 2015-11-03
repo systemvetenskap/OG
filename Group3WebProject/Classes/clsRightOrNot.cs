@@ -66,7 +66,7 @@ namespace Group3WebProject.Classes
             {
                 XmlTextReader xmlReader = new XmlTextReader(new System.IO.StringReader(getXml(testId)));
                 doc.Load(xmlReader);
-                XmlNodeList nodes = doc.SelectNodes("bank/question");
+                XmlNodeList nodes = doc.SelectNodes("test/question");
                 foreach (XmlNode node in nodes)
                 {
                     if (node.Attributes["value"].Value == qid)
