@@ -10,11 +10,12 @@ namespace Group3WebProject.Classes
     {
         public string getTableFixed(DataTable dt)
         {
+            int antCols = 1;
             string ht = "<table class='tabFixRel'>";
             ht += "<tr>";
             for (int z = 0; z < dt.Columns.Count; z++ )
             {
-                if (z < 2)
+                if (z < antCols)
                 {
                     ht += "<th class='fixColumns' style='margin-left:" + ((z) * 100).ToString() + "px;'>" + dt.Columns[z].ColumnName.ToString() + "</th>";
                     Debug.WriteLine(ht);
@@ -30,7 +31,7 @@ namespace Group3WebProject.Classes
                     ht += "<tr>";
                     for (int z = 0; z < dt.Columns.Count; z++)
                     {
-                        if (z < 2)
+                        if (z < antCols)
                         {
                             ht += "<td class='fixColumns' style='margin-left:" + ((z) * 100).ToString() + "px;'>" + dt.Rows[i][z].ToString() + "</td>";
                             Debug.WriteLine(ht);
