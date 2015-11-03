@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <bank>
-  <question value="1" part="Produkter" order="5">
-    <txt>Vart ligger Sverige </txt>
-    <answer id="1" answ="true" selected="false">Skandinavien</answer>
+  <question value="1" part="Produkter" order="">
+    <txt img="">Vart ligger Sverige </txt>
+    <answer id="1" answ="true" selected="false" sort="">Skandinavien</answer>
     <answer id="2" answ="false" selected="false">Västra Europa</answer>
     <answer id="3" answ="false" selected="false">Södra Europa</answer>
     <answer id="4" answ="false" selected="false">Öst Europa</answer>
   </question>
-  <question value="2" part="Produkter" order="1">
+  <question value="2" part="Produkter" order="">
     <txt>Vart ligger Norge </txt>
-    <answer id="1" answ="true" selected="false" order="4">Skandinavien</answer>
-    <answer id="2" answ="false" selected="false" order="">Västra Europa</answer>
+    <answer id="1" answ="true" selected="false" >Skandinavien</answer>
+    <answer id="2" answ="false" selected="false" >Västra Europa</answer>
     <answer id="3" answ="false" selected="false">Södra Europa</answer>
     <answer id="4" answ="false" selected="false">Öst Europa</answer>
   </question>

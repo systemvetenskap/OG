@@ -46,6 +46,10 @@ namespace Group3WebProject.Classes
             ht += "</table>";
             return ht;
         }
+        public string getCheckList(DataTable dt)
+        {
+
+        }
     }
 
 }
