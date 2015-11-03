@@ -107,7 +107,7 @@
     <answer id="4" answ="false" selected="false" sort="">Volvo</answer>
   </question>
   <question value="16" part="Ekonomi" order="">
-    <txt img="">Vilka biltillverkare kommer från tyskland?</txt>
+    <txt img="">Vilken biltillverkare kommer inte från tyskland?</txt>
     <answer id="1" answ="false" selected="false" sort="">Audi</answer>
     <answer id="2" answ="false" selected="false" sort="">VW</answer>
     <answer id="3" answ="false" selected="false" sort="">BMW</answer>
