@@ -94,7 +94,8 @@ namespace Group3WebProject.Classes
                     }
                 }
                 xmlReader.Close();
-                doc.Save(@"C:\inlk.xml");
+                //==ADMIN==
+                //   doc.Save(@"C:\inlk.xml"); //Användes för debug för att se filen lokalt MÅSTE VARA ADMIN!!!!!!!!!!!!!
                 string xmlResult = "";
 
 
@@ -153,12 +154,12 @@ namespace Group3WebProject.Classes
         }
         public void updateResult(string testID, bool answ)
         {
-           
+
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
             try
             {
-                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE completed_test SET passed='" + answ + "', end_time='" + DateTime.Now.ToString() +"' WHERE id='" + testID + "'", conn);
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE completed_test SET passed='" + answ + "', end_time='" + DateTime.Now.ToString() + "' WHERE id='" + testID + "'", conn);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -167,12 +168,12 @@ namespace Group3WebProject.Classes
             }
             conn.Close();
         }
-        public string   canHandIn(string testID)
+        public string canHandIn(string testID)
         {
 
             string result = "";
             string ret = "";
-            
+
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, start_time, end_time FROM completed_test  where id='" + testID + "'", conn);
