@@ -167,6 +167,40 @@ namespace Group3WebProject.Classes
             }
             conn.Close();
         }
+        public string   canHandIn(string testID)
+        {
 
+            string result = "";
+            string ret = "";
+            
+            NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+            conn.Open();
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, start_time, end_time FROM completed_test  where id='" + testID + "'", conn);
+            //cmd.Parameters.Add("testID", testID);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+            if (dr.Read())
+            {
+                result = dr["start_time"].ToString();
+                if (dr["end_time"] != null)
+                {
+                    ret = "INLÄMNAT";
+                }
+            }
+            else
+            {
+                dr.Close();
+                conn.Close();
+                return "FINNS INGET TEST";
+            }
+            dr.Close();
+            conn.Close();
+            Debug.WriteLine("MEOTDE");
+            TimeSpan diffTime = DateTime.Parse(DateTime.Now.ToString()) - DateTime.Parse(result);
+            if (diffTime.TotalMinutes > 29)
+            {
+                return "TIDEN DROG ÖVER";
+            }
+            return "OK";
+        }
     }
 }
