@@ -85,9 +85,10 @@ namespace Group3WebProject
             }
             if (btnNext.Text == "Lämna in")
             {
+                clsMethods clMeth = new clsMethods();
                 clsFillQuestion clQue = new clsFillQuestion();
                 clsRightOrNot clRi = new clsRightOrNot();
-                clsMethods clMeth = new clsMethods();
+                
                 string handle = clRi.canHandIn(ViewState["testID"].ToString());
                 if (handle == "TIDEN DROG ÖVER")
                 {
