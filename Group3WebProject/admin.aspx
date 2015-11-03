@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="admin.aspx.cs" Inherits="Group3WebProject.admin" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta charset="UTF-8" />
 </asp:Content>
@@ -16,15 +17,15 @@
             <br />
             <br />
         </div>
-       
-             <h3 class="lblAdmin">Statistik</h3>
-        
+
+        <h3 class="lblAdmin">Statistik</h3>
+
         <div id="gvS">
-                <asp:GridView ID="gvStats" runat="server" OnRowDataBound="gvStats_RowDataBound" OnRowCreated="gvStats_RowCreated">
-                </asp:GridView>
+            <asp:GridView ID="gvStats" runat="server" OnRowDataBound="gvStats_RowDataBound" OnRowCreated="gvStats_RowCreated">
+            </asp:GridView>
         </div>
 
-<%--            <div id="gvS">
+        <%--            <div id="gvS">
                 <asp:GridView ID="gvStats" runat="server" AutoGenerateColumns="false" OnRowDataBound="gvStats_RowDataBound">
                     <Columns>
                         <asp:BoundField DataField="Namn" HeaderText="Namn">
@@ -62,10 +63,18 @@
                     </Columns>
                 </asp:GridView>
             </div>--%>
-            <%--<dx:ASPxGridView ID="gvStats" AutoGenerateColumns="false" DataSourceID="gvStats" OnRowDataBound="gvStats_RowDataBound">
+        <%--<dx:ASPxGridView ID="gvStats" AutoGenerateColumns="false" DataSourceID="gvStats" OnRowDataBound="gvStats_RowDataBound">
 
             </dx:ASPxGridView>--%>
-
+        <p>
+            <br />
+        </p>
+        <div class="tabSiz">
+            <div class="outer">
+                <div class="inner" id="filen" runat="server">
+                </div>
+            </div>
+        </div>
     </div>
 
     <%--</div>--%>

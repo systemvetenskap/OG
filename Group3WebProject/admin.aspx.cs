@@ -61,9 +61,10 @@ namespace Group3WebProject
             gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             gvUpcomingTests.DataBind();
 
-            gvStats.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
-            gvStats.DataBind();
-
+            //gvStats.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
+            //gvStats.DataBind();
+            clsGetHtmlElement clGetEl = new clsGetHtmlElement();
+           filen.InnerHtml = clGetEl.getTableFixed(testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3));
 
             
             

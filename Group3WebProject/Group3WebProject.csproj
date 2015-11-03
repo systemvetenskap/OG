@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="Classes\clsAnswer.cs" />
     <Compile Include="Classes\clsFillQuestion.cs" />
+    <Compile Include="Classes\clsGetHtmlElement.cs" />
     <Compile Include="Classes\clsgetTests.cs" />
     <Compile Include="Classes\clsLogin.cs" />
     <Compile Include="Classes\clsMethods.cs" />
