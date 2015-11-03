@@ -48,8 +48,10 @@ namespace Group3WebProject.Classes
                             }
                             break;
                         case "txt":
-                            quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
                             img = reader.GetAttribute("img");
+                            quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
+                           
+                            Debug.WriteLine(img + " bilD");
                             break;
                         case "answer":
                             //answ
@@ -65,7 +67,7 @@ namespace Group3WebProject.Classes
                                 countRi += 1;
                             }
                             break;
-
+                        //q4.gif
                     }
                 }
                 reader.Close();

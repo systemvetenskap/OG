@@ -101,9 +101,9 @@ namespace Group3WebProject
                 }
                 string xml = clQue.getXml(ViewState["testID"].ToString());                
                 Tuple<bool, List<int>, List<int>, int, int> aa = clMeth.PartAndTotalResult(clMeth.XmlToClasses(xml));//list1, 
-                bool result = aa.Item1;
-                Debug.WriteLine("TESTID " + testID + "  " + result.ToString() + " res och " + aa.Item4.ToString() + " till sist " + aa.Item5);
-                clRi.updateResult(ViewState["testID"].ToString(), result);
+                bool resultP = aa.Item1;
+                Debug.WriteLine("TESTID " + testID + "  " + resultP.ToString() + " res och " + aa.Item4.ToString() + " till sist " + aa.Item5);
+                clRi.updateResult(ViewState["testID"].ToString(), resultP);
                 Response.Redirect("webbtestresult.aspx");
             }
         }
@@ -145,18 +145,12 @@ namespace Group3WebProject
                 part = "Produkter och hantering av kundens affärer ";
             }
             Label3.Text = "Frågan är inom området:" + part + " <br />" + "<h4>" + getData.Item2 + "</h4>";
-            if (antVal == 1)
-            {
-                lblChoose.Text = " fråga";
-            }
-            else
-            {
-                lblChoose.Text = " frågor";
-            }
-            lblChoose.Text = " Du ska välja: <b>" + antVal.ToString() + "</b>" + lblChoose.Text;
+            
+            lblChoose.Text = " Du ska välja: <b>" + antVal.ToString() + "</b> svar";
             if (getData.Item5 != "")
             {
                 Label2.Text = "<img src='pictures/" + getData.Item5 + "' style='height: 250px; width: 250px;'alt='bilden' />";
+                Debug.WriteLine(getData.Item5);
             }
             try
             {
