@@ -37,7 +37,7 @@ namespace Group3WebProject
             string userid = HttpContext.Current.Session["userid"].ToString();
             Classes.clsStartingTest clStart = new Classes.clsStartingTest();
             string result = clStart.getOk(userid);
-            ViewState["testID"] = "4557";
+           // ViewState["testID"] = "4557";
             if (result == "ÅKU")
             {
                 btnTest.Text = "Starta årligt test";
@@ -49,6 +49,10 @@ namespace Group3WebProject
             else if (result == "IGÅNG")
             {
                 btnTest.Text = "Fortsätt testet";
+            }
+            else if(result == "Du kan göra nästa års test nu")
+            {
+                btnTest.Text = "Gör nästa års test";
             }
             else
             {
@@ -66,6 +70,7 @@ namespace Group3WebProject
             else if (btnTest.Text != "Fortsätt testet")
             {
                 string testNa = "";
+                int year = DateTime.Now.Year;
                 if (btnTest.Text == "Starta Licenstest")
                 {
                     testNa = "LICENS";
@@ -74,13 +79,18 @@ namespace Group3WebProject
                 {
                     testNa = "ÅKU";
                 }
+                else if (btnTest.Text == "Gör nästa års test")
+                {
+                    testNa = "ÅKU";
+                    year += 1;
+                }
                 else
                 {
 
                     return;
                 }
                 Classes.clsStartingTest clStart = new Classes.clsStartingTest();
-                string result = clStart.startNew(testNa, HttpContext.Current.Session["userid"].ToString());
+                string result = clStart.startNew(testNa, HttpContext.Current.Session["userid"].ToString(), year);
                 if (result == "false")
                 {
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", "alert('Finns inget test att välja');", true);
