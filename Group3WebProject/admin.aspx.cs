@@ -59,11 +59,11 @@ namespace Group3WebProject
             }
             clsGetHtmlElement clGetEl = new clsGetHtmlElement();
 
-            DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
-            gvPreviousTests.DataSource = dt[0];
+            DataTable dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
+            gvPreviousTests.DataSource = dt;
             gvPreviousTests.DataBind();
 
-            prev.InnerHtml = clGetEl.getTableFixed(dt[0], 1);
+            prev.InnerHtml = clGetEl.getTableFixed(GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString())), 1);
 
             gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             gvUpcomingTests.DataBind();
@@ -79,7 +79,12 @@ namespace Group3WebProject
             
         }
 
-        private DataTable[] GetTeamList(int leaderId)
+        /// <summary>
+        /// Metoden tar emot inloggad ledares id och hämtar dennes provdeltagares senaste provresultat.
+        /// </summary>
+        /// <param name="leaderId"></param>
+        /// <returns></returns>
+        private DataTable GetTeamList(int leaderId)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Namn", typeof(string));
@@ -88,12 +93,7 @@ namespace Group3WebProject
             dt.Columns.Add("Godkänd", typeof(bool));
             dt.Columns.Add("Giltigt t.o.m.", typeof(string));
 
-            //dt2 används inte just nu men ska senare visa provdeltagare och vilket nästa prov de måste göra är.
-            DataTable dt2 = new DataTable();
-            dt2.Columns.Add("Namn", typeof(string));
-            dt2.Columns.Add("Provtyp", typeof(string));
-
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+            
 
             string sql = "SELECT first_name, last_name, passed, xml_answer, test_type, valid_through FROM "
                             + "(SELECT DISTINCT ON (ct.user_id) u.first_name, u.last_name, u.team_id, ct.passed, ct.xml_answer, t.test_type, t.valid_through "
@@ -104,33 +104,35 @@ namespace Group3WebProject
                             + "ON t.id = ct.test_id "
                             + "ORDER BY ct.user_id, ct.start_time DESC)b "
                             + "WHERE team_id = (SELECT id FROM team WHERE user_id = @uId)";
-
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("uId", leaderId);
-            conn.Open();
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
-                string testType = dr["test_type"].ToString();
-                bool passed = Convert.ToBoolean(dr["passed"]);
-                string validThrough = dr["valid_through"].ToString();
-                string answerXml = (dr["xml_answer"].ToString()).Trim();
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("uId", leaderId);
+                conn.Open();
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
+                    string testType = dr["test_type"].ToString();
+                    bool passed = Convert.ToBoolean(dr["passed"]);
+                    string validThrough = dr["valid_through"].ToString();
+                    string answerXml = (dr["xml_answer"].ToString()).Trim();
 
 
-                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
-                dt.Rows.Add(name, testType, method.getResultFromXml(answerXml), passed, validThrough);
+                    //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                    dt.Rows.Add(name, testType, method.getResultFromXml(answerXml), passed, validThrough);
+                }
+                conn.Close();
             }
-            conn.Close();
-
-
+            catch
+            {
+                
+            }
             
-            DataTable[] dtA = new DataTable[2];
-            dtA[0] = dt;
-            dtA[1] = dt2;
-            
-            return dtA;
+            return dt;
         }
 
         private DataTable UpcomingTests(int leaderId)
@@ -148,22 +150,28 @@ namespace Group3WebProject
                                             + " AND team_id IN(SELECT id FROM team WHERE user_id = @uId))";
 
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
-            NpgsqlCommand cmd = new NpgsqlCommand(sqlUpcomingLicensTests, conn);
-            cmd.Parameters.AddWithValue("uId", leaderId);
-            conn.Open();
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
-                string testType = "Licens";
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlUpcomingLicensTests, conn);
+                cmd.Parameters.AddWithValue("uId", leaderId);
+                conn.Open();
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
+                    string testType = "Licens";
                 
 
-                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
-                dt.Rows.Add(name, testType, "-");
-            }
+                    //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                    dt.Rows.Add(name, testType, "-");
+                }
             conn.Close();
-
+            }
+            catch
+            {
+                conn.Close();
+            }
 
             string sqlFailedTests = "SELECT first_name, last_name, test_type, valid_through FROM"
                                     + " (SELECT DISTINCT ON(ct.user_id, t.valid_through) u.first_name, u.last_name, u.team_id, t.test_type, ct.passed, t.valid_through FROM users u"
@@ -174,22 +182,29 @@ namespace Group3WebProject
                                     + " ORDER BY ct.user_id, t.valid_through, ct.passed DESC, ct.start_time DESC)a"
                                     + " WHERE valid_through >=  (SELECT date_part('year',current_date))  AND passed = false AND team_id IN (SELECT id FROM team WHERE user_id = @uId)";
 
-            NpgsqlCommand cmd2 = new NpgsqlCommand(sqlFailedTests, conn);
-            cmd2.Parameters.AddWithValue("uId", leaderId);
-            conn.Open();
-            NpgsqlDataReader dr2 = cmd2.ExecuteReader();
-
-            while (dr2.Read())
+            try
             {
-                string name = dr2["first_name"].ToString() + " " + dr2["last_name"].ToString();
-                string testType = dr2["test_type"].ToString();
-                string validThrough = dr2["valid_through"].ToString();
 
-                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
-                dt.Rows.Add(name, testType, validThrough);
+                NpgsqlCommand cmd2 = new NpgsqlCommand(sqlFailedTests, conn);
+                cmd2.Parameters.AddWithValue("uId", leaderId);
+                conn.Open();
+                NpgsqlDataReader dr2 = cmd2.ExecuteReader();
+
+                while (dr2.Read())
+                {
+                    string name = dr2["first_name"].ToString() + " " + dr2["last_name"].ToString();
+                    string testType = dr2["test_type"].ToString();
+                    string validThrough = dr2["valid_through"].ToString();
+
+                    //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                    dt.Rows.Add(name, testType, validThrough);
+                }
+                conn.Close();
             }
-            conn.Close();
-
+            catch
+            {
+                conn.Close();
+            }
 
 
             string sqlExpiredPassed = "SELECT DISTINCT ON(u.id) u.first_name, u.last_name, t.valid_through, t.test_type, ct.passed, ct.id FROM users u"
@@ -218,39 +233,43 @@ namespace Group3WebProject
                                    + " AND u.id IN(SELECT id FROM users WHERE id != @uId"
                                    + " AND team_id IN(SELECT id FROM team WHERE user_id = @uId)))";
 
-
-            NpgsqlCommand cmd3 = new NpgsqlCommand(sqlExpiredPassed, conn);
-            cmd3.Parameters.AddWithValue("uId", leaderId);
-            conn.Open();
-            NpgsqlDataReader dr3 = cmd3.ExecuteReader();
-
-            while (dr3.Read())
+            try
             {
-                string name = dr3["first_name"].ToString() + " " + dr3["last_name"].ToString();
-                string testType = dr3["test_type"].ToString();
-                string validThrough = "";
 
-                if(int.Parse(validThrough = dr3["valid_through"].ToString()) < int.Parse(DateTime.Now.Year.ToString()))
-                {
-                    validThrough = DateTime.Now.Year.ToString();
-                }
-                else if (int.Parse(validThrough = dr3["valid_through"].ToString()) == (DateTime.Now.Year))
-                {
-                    int thisYear = DateTime.Now.Year;
-                    
-                    validThrough = (thisYear +1).ToString();
-                }
 
-                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
-                dt.Rows.Add(name, testType, validThrough);
+                NpgsqlCommand cmd3 = new NpgsqlCommand(sqlExpiredPassed, conn);
+                cmd3.Parameters.AddWithValue("uId", leaderId);
+                conn.Open();
+                NpgsqlDataReader dr3 = cmd3.ExecuteReader();
+
+                while (dr3.Read())
+                {
+                    string name = dr3["first_name"].ToString() + " " + dr3["last_name"].ToString();
+                    string testType = dr3["test_type"].ToString();
+                    string validThrough = "";
+
+                    if (int.Parse(validThrough = dr3["valid_through"].ToString()) < int.Parse(DateTime.Now.Year.ToString()))
+                    {
+                        validThrough = DateTime.Now.Year.ToString();
+                    }
+                    else if (int.Parse(validThrough = dr3["valid_through"].ToString()) == (DateTime.Now.Year))
+                    {
+                        int thisYear = DateTime.Now.Year;
+
+                        validThrough = (thisYear + 1).ToString();
+                    }
+
+                    //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                    dt.Rows.Add(name, testType, validThrough);
+                }
+                conn.Close();
             }
-            conn.Close();
-
+            catch
+            {
+                conn.Close();
+            }
             return dt;
         }
-
-
-
         private DataTable testStats(int leaderId, int testId)
         {
             DataTable dt = new DataTable();
@@ -275,64 +294,89 @@ namespace Group3WebProject
                             + "ON t.id = ct.test_id "
                             + "ORDER BY ct.user_id, ct.start_time DESC)b "
                             + "WHERE team_id = (SELECT id FROM team WHERE user_id = @uId) AND test_id = @tId";
-
-            NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("uId", leaderId);
-            cmd.Parameters.AddWithValue("tId", testId);
-            conn.Open();
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-
-            while (dr.Read())
+            try
             {
-                string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
-                string testType = dr["test_type"].ToString();
-                bool passed = Convert.ToBoolean(dr["passed"]);
-                string validThrough = dr["valid_through"].ToString();
-                string answerXml = (dr["xml_answer"].ToString()).Trim();
 
-                //Här plockas resultaten totalt och per provdel fram via en metod som returnerar dessa som listor i en Tuple.
-                Tuple<bool, List<int>, List<int>, int, int> solution = method.PartAndTotalResult(method.XmlToClasses(answerXml));
-                string totalResult = solution.Item4.ToString() + "/" + solution.Item5.ToString();
-                string prodResult = solution.Item2[0].ToString() + "/" + solution.Item3[0].ToString();
-                string ecoResult = solution.Item2[1].ToString() + "/" + solution.Item3[1].ToString(); ;
-                string ethResult = solution.Item2[2].ToString() + "/" + solution.Item3[2].ToString(); ;
-                
-                
-                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
-                dt.Rows.Add(name, testType, prodResult, ecoResult, ethResult, totalResult, passed, validThrough);
-                int questionCounter = 7;
-                foreach (clsQuestion cq in method.XmlToClasses(answerXml))
+
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("uId", leaderId);
+                cmd.Parameters.AddWithValue("tId", testId);
+                conn.Open();
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
                 {
-                    questionCounter++;
-                    if (dt.Columns.Count == 8)
+                    string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
+                    string testType = dr["test_type"].ToString();
+                    bool passed = Convert.ToBoolean(dr["passed"]);
+                    string validThrough = dr["valid_through"].ToString();
+                    string answerXml = (dr["xml_answer"].ToString()).Trim();
+
+                    //Här plockas resultaten totalt och per provdel fram via en metod som returnerar dessa som listor i en Tuple.
+                    Tuple<bool, List<int>, List<int>, int, int> solution = method.PartAndTotalResult(method.XmlToClasses(answerXml));
+                    string totalResult = solution.Item4.ToString() + "/" + solution.Item5.ToString();
+                    string prodResult = solution.Item2[0].ToString() + "/" + solution.Item3[0].ToString();
+                    string ecoResult = solution.Item2[1].ToString() + "/" + solution.Item3[1].ToString(); ;
+                    string ethResult = solution.Item2[2].ToString() + "/" + solution.Item3[2].ToString(); ;
+
+
+                    //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                    dt.Rows.Add(name, testType, prodResult, ecoResult, ethResult, totalResult, passed, validThrough);
+                    int questionCounter = 7;
+                    foreach (clsQuestion cq in method.XmlToClasses(answerXml))
                     {
-                        foreach (clsQuestion q in method.XmlToClasses(answerXml))
+                        questionCounter++;
+                        if (dt.Columns.Count == 8)
                         {
-                            dt.Columns.Add("Fråga: " + q.value.ToString());
+                            foreach (clsQuestion q in method.XmlToClasses(answerXml))
+                            {
+                                dt.Columns.Add("Fråga: " + q.value.ToString());
 
+                            }
                         }
+
+                        if (cq.right())
+                        {
+
+                            dt.Rows[dt.Rows.Count - 1][questionCounter] = "Rätt";
+                        }
+                        else
+                        {
+                            dt.Rows[dt.Rows.Count - 1][questionCounter] = "Fel";
+                        }
+
                     }
-                    
-			        if (cq.right())
-                    {
-
-                        dt.Rows[dt.Rows.Count - 1][questionCounter] = "Rätt";
-                    }
-                    else
-                    {
-                        dt.Rows[dt.Rows.Count - 1][questionCounter] = "Fel";
-                    }
-
-
-                    
-
 
                 }
-                
+                conn.Close();
             }
-            conn.Close();
+            catch
+            {
+                conn.Close();
+            }
             return dt;
         }
+        private DataTable getTests()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+                conn.Open();
+                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT id, name FROM test ORDER BY id desc limit 6", conn);
+                adp.Fill(dt);
+                conn.Close();
+            }
+            catch
+            {
+
+            }
+
+            return dt;
+        }
+
+
+
 
         protected void gvStats_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -385,24 +429,6 @@ namespace Group3WebProject
         protected void gvStats_RowCreated(object sender, GridViewRowEventArgs e)
         {
 
-        }
-        public DataTable getTests()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
-                conn.Open();
-                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT id, name FROM test ORDER BY id desc limit 6", conn);
-                adp.Fill(dt);
-                conn.Close();
-            }
-            catch
-            {
-
-            }
-
-            return dt;
         }
 
         protected void ddlTests_SelectedIndexChanged(object sender, EventArgs e)
