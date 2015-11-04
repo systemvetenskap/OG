@@ -29,54 +29,59 @@ namespace Group3WebProject.Classes
             int totalQuestions = 0; //Totala antalet frågor.
             int rightAnswers = 0; //Provdeltagarens antal rätta svar.
 
-            while (reader.Read())
+            try
             {
-
-                switch (reader.NodeType)
+                while (reader.Read())
                 {
-                        
-                    
-                    case XmlNodeType.Element:
-                        
-                        elementName = reader.Name;
-                        if (elementName == "question")
-                        {
-                            totalQuestions++;
-                        }
-    
-                        if (elementName == "answer" && reader.AttributeCount > 0)
-                        {
-                            if (reader.GetAttribute("answ") != reader.GetAttribute("selected"))
+
+                    switch (reader.NodeType)
+                    {
+
+
+                        case XmlNodeType.Element:
+
+                            elementName = reader.Name;
+                            if (elementName == "question")
                             {
-                                correct = false;
+                                totalQuestions++;
+                            }
+
+                            if (elementName == "answer" && reader.AttributeCount > 0)
+                            {
+                                if (reader.GetAttribute("answ") != reader.GetAttribute("selected"))
+                                {
+                                    correct = false;
+
+                                }
 
                             }
 
-                        }
-
-                        break;
+                            break;
 
 
-                    case XmlNodeType.EndElement:
-                        string endElement = reader.Name;
+                        case XmlNodeType.EndElement:
+                            string endElement = reader.Name;
 
-                        if (endElement == "question" && correct == true)
-                        {
-                            rightAnswers++;
-                            
-                        }
-                        else if (endElement == "question")
-                        {
-                            correct = true;
-                        }
+                            if (endElement == "question" && correct == true)
+                            {
+                                rightAnswers++;
 
-                        break;
+                            }
+                            else if (endElement == "question")
+                            {
+                                correct = true;
+                            }
+
+                            break;
+                    }
+
+
                 }
+            }
+            catch
+            {
 
-
-            
-
-        }
+            }
             
 
             //Poäng endast för komplett besvarade frågor, alltså med rätt antal svarsalternativ förbockade.
@@ -87,6 +92,11 @@ namespace Group3WebProject.Classes
 
         }
 
+        /// <summary>
+        /// Metoden tar emot en xml som string och skickar tillbaks en lista med klassobjekt av typen clsQuestion.
+        /// </summary>
+        /// <param name="xml"></param>
+        /// <returns></returns>
         public List<clsQuestion> XmlToClasses(string xml)
         {
             clsAnswer a = new clsAnswer();
@@ -97,62 +107,68 @@ namespace Group3WebProject.Classes
             string elementName;
             
             string endElementName;
-            
 
-            XmlTextReader reader = new XmlTextReader(new StringReader(xml));
-            reader.WhitespaceHandling = WhitespaceHandling.None;
-          
-
-            while (reader.Read())
+            try
             {
 
-                switch (reader.NodeType)
+                XmlTextReader reader = new XmlTextReader(new StringReader(xml));
+                reader.WhitespaceHandling = WhitespaceHandling.None;
+
+                while (reader.Read())
                 {
 
-
-                    case XmlNodeType.Element:
-                       
-                        elementName = reader.Name;
-                        if (elementName == "question")
-                        {
-                            q.value = int.Parse(reader.GetAttribute("value"));
-                            q.part = reader.GetAttribute("part");
-                            q.answers = new List<clsAnswer>();
-                        }
-
-                        if (elementName == "answer")
-                        {
-                            a.id = int.Parse(reader.GetAttribute("id"));
-                            a.answ = Convert.ToBoolean(reader.GetAttribute("answ"));
-                            a.selected = Convert.ToBoolean(reader.GetAttribute("selected"));
-                            a.text = reader.Value;
-
-                        }
-                        if (elementName == "txt")
-                        {
-                            q.txt = reader.Value;
-                        }
-                        break;
+                    switch (reader.NodeType)
+                    {
 
 
+                        case XmlNodeType.Element:
 
-                    case XmlNodeType.EndElement:
-                        endElementName = reader.Name;
-                        if(endElementName == "answer")
-                        {
-                            //answerList.Add(a);
-                            q.answers.Add(a);
-                            a = new clsAnswer();
-                        }
-                        if(endElementName == "question")
-                        {
-                            //q.answers = answerList;
-                            questionList.Add(q);
-                            q = new clsQuestion();
-                            
-                        }
-                        break;
+                            elementName = reader.Name;
+                            if (elementName == "question")
+                            {
+                                q.value = int.Parse(reader.GetAttribute("value"));
+                                q.part = reader.GetAttribute("part");
+                                q.answers = new List<clsAnswer>();
+                            }
+
+                            if (elementName == "answer")
+                            {
+                                a.id = int.Parse(reader.GetAttribute("id"));
+                                a.answ = Convert.ToBoolean(reader.GetAttribute("answ"));
+                                a.selected = Convert.ToBoolean(reader.GetAttribute("selected"));
+                                a.text = reader.Value;
+
+                            }
+                            if (elementName == "txt")
+                            {
+                                q.txt = reader.Value;
+                            }
+                            break;
+
+
+
+                        case XmlNodeType.EndElement:
+                            endElementName = reader.Name;
+                            if (endElementName == "answer")
+                            {
+                                //answerList.Add(a);
+                                q.answers.Add(a);
+                                a = new clsAnswer();
+                            }
+                            if (endElementName == "question")
+                            {
+                                //q.answers = answerList;
+                                questionList.Add(q);
+                                q = new clsQuestion();
+
+                            }
+                            break;
+                    }
                 }
+            }
+            catch
+            {
+
             }
 
             //XmlSerializer serializer = new XmlSerializer(typeof(clsQuestion));

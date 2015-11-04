@@ -59,13 +59,16 @@ namespace Group3WebProject
             clsGetHtmlElement clGetEl = new clsGetHtmlElement();
 
             DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
-            gvPreviousTests.DataSource = dt[0];
+            //gvPreviousTests.DataSource = dt[0];
+            //gvPreviousTests.DataBind();
+            DataTable dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
+            gvPreviousTests.DataSource = dt;
             gvPreviousTests.DataBind();
 
-            prev.InnerHtml = clGetEl.getTableFixed(dt[0], 1);
+            prev.InnerHtml = clGetEl.getTableFixed(GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString())), 1);
 
-            gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
-            gvUpcomingTests.DataBind();
+            //gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
+            //gvUpcomingTests.DataBind();
 
             upcom.InnerHtml = clGetEl.getTableFixed(UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString())), 1);
 
@@ -78,7 +81,12 @@ namespace Group3WebProject
             
         }
 
-        private DataTable[] GetTeamList(int leaderId)
+        /// <summary>
+        /// Metoden tar emot inloggad ledares id och hämtar dennes provdeltagares senaste provresultat.
+        /// </summary>
+        /// <param name="leaderId"></param>
+        /// <returns></returns>
+        private DataTable GetTeamList(int leaderId)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Namn", typeof(string));
@@ -87,12 +95,7 @@ namespace Group3WebProject
             dt.Columns.Add("Godkänd", typeof(bool));
             dt.Columns.Add("Giltigt t.o.m.", typeof(string));
 
-            //dt2 används inte just nu men ska senare visa provdeltagare och vilket nästa prov de måste göra är.
-            DataTable dt2 = new DataTable();
-            dt2.Columns.Add("Namn", typeof(string));
-            dt2.Columns.Add("Provtyp", typeof(string));
 
-            NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
 
             string sql = "SELECT first_name, last_name, passed, xml_answer, test_type, valid_through FROM "
                             + "(SELECT DISTINCT ON (ct.user_id) u.first_name, u.last_name, u.team_id, ct.passed, ct.xml_answer, t.test_type, t.valid_through "
@@ -103,6 +106,9 @@ namespace Group3WebProject
                             + "ON t.id = ct.test_id "
                             + "ORDER BY ct.user_id, ct.start_time DESC)b "
                             + "WHERE team_id = (SELECT id FROM team WHERE user_id = @uId)";
+            try
+            {
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("uId", leaderId);
@@ -122,14 +128,13 @@ namespace Group3WebProject
                 dt.Rows.Add(name, testType, method.getResultFromXml(answerXml), passed, validThrough);
             }
             conn.Close();
+            }
+            catch
+            {
 
+            }
 
-            
-            DataTable[] dtA = new DataTable[2];
-            dtA[0] = dt;
-            dtA[1] = dt2;
-            
-            return dtA;
+            return dt;
         }
 
         private DataTable UpcomingTests(int leaderId)
@@ -147,6 +152,8 @@ namespace Group3WebProject
                                             + " AND team_id IN(SELECT id FROM team WHERE user_id = @uId))";
 
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+            try
+            {
             NpgsqlCommand cmd = new NpgsqlCommand(sqlUpcomingLicensTests, conn);
             cmd.Parameters.AddWithValue("uId", leaderId);
             conn.Open();
@@ -162,7 +169,11 @@ namespace Group3WebProject
                 dt.Rows.Add(name, testType, "-");
             }
             conn.Close();
-
+            }
+            catch
+            {
+            conn.Close();
+            }
 
             string sqlFailedTests = "SELECT first_name, last_name, test_type, valid_through FROM"
                                     + " (SELECT DISTINCT ON(ct.user_id, t.valid_through) u.first_name, u.last_name, u.team_id, t.test_type, ct.passed, t.valid_through FROM users u"
@@ -172,6 +183,9 @@ namespace Group3WebProject
                                     + " ON ct.test_id = t.id"
                                     + " ORDER BY ct.user_id, t.valid_through, ct.passed DESC, ct.start_time DESC)a"
                                     + " WHERE valid_through >=  (SELECT date_part('year',current_date))  AND passed = false AND team_id IN (SELECT id FROM team WHERE user_id = @uId)";
+
+            try
+            {
 
             NpgsqlCommand cmd2 = new NpgsqlCommand(sqlFailedTests, conn);
             cmd2.Parameters.AddWithValue("uId", leaderId);
@@ -187,8 +201,12 @@ namespace Group3WebProject
                 //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
                 dt.Rows.Add(name, testType, validThrough);
             }
+                conn.Close();
+            }
+            catch
+            {
             conn.Close();
-
+            }
 
 
             string sqlExpiredPassed = "SELECT DISTINCT ON(u.id) u.first_name, u.last_name, t.valid_through, t.test_type, ct.passed, ct.id FROM users u"
@@ -217,6 +235,9 @@ namespace Group3WebProject
                                    + " AND u.id IN(SELECT id FROM users WHERE id != @uId"
                                    + " AND team_id IN(SELECT id FROM team WHERE user_id = @uId)))";
 
+            try
+            {
+
 
             NpgsqlCommand cmd3 = new NpgsqlCommand(sqlExpiredPassed, conn);
             cmd3.Parameters.AddWithValue("uId", leaderId);
@@ -229,7 +250,7 @@ namespace Group3WebProject
                 string testType = dr3["test_type"].ToString();
                 string validThrough = "";
 
-                if(int.Parse(validThrough = dr3["valid_through"].ToString()) < int.Parse(DateTime.Now.Year.ToString()))
+                    if (int.Parse(validThrough = dr3["valid_through"].ToString()) < int.Parse(DateTime.Now.Year.ToString()))
                 {
                     validThrough = DateTime.Now.Year.ToString();
                 }
@@ -237,19 +258,20 @@ namespace Group3WebProject
                 {
                     int thisYear = DateTime.Now.Year;
                     
-                    validThrough = (thisYear +1).ToString();
+                        validThrough = (thisYear + 1).ToString();
                 }
 
                 //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
                 dt.Rows.Add(name, testType, validThrough);
             }
+                conn.Close();
+            }
+            catch
+            {
             conn.Close();
-
+            }
             return dt;
         }
-
-
-
         private DataTable testStats(int leaderId, int testId)
         {
             DataTable dt = new DataTable();
@@ -274,6 +296,9 @@ namespace Group3WebProject
                             + "ON t.id = ct.test_id "
                             + "ORDER BY ct.user_id, ct.start_time DESC)b "
                             + "WHERE team_id = (SELECT id FROM team WHERE user_id = @uId) AND test_id = @tId";
+            try
+            {
+
 
             NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("uId", leaderId);
@@ -322,70 +347,18 @@ namespace Group3WebProject
                         dt.Rows[dt.Rows.Count - 1][questionCounter] = "Fel";
                     }
 
-
-                    
-
-
-                }
-                
-            }
-            conn.Close();
-            return dt;
-        }
-
-        protected void gvStats_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
-
-            
-
-
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            foreach (GridViewRow row in gvStats.Rows) //För varje rad i Gridview gör detta.
-                {
-
-                    int rad = gvStats.Rows.Count; //Räknar rader i GridView.
-
-
-                    for (int y = 0; y <= rad; y++) //För varje rad
-                    {
-                        for (int i = 0; i < row.Cells.Count; i++) //För varje cell
-                        {
-                            if (i >= 0)
-                            {
-                                if (row.Cells[i].Text == "R&#228;tt") //Om texten i cellen[i] är "Rätt" sätt backgrundsfärgen för cellen till grön.
-                                {
-                                    row.Cells[i].BackColor = System.Drawing.Color.LightGreen;
-                                }
-
-                                else if (row.Cells[i].Text == "Fel") //Om texten i cellen[i] är "Fel" sätt backgrundsfärgen för cellen till tomatröd.
-                                {
-                                    row.Cells[i].BackColor = System.Drawing.Color.Tomato;
-                                }
-                            }
-                        }
                     }
 
-         
                 }
-            //}
-
-            e.Row.Cells[0].CssClass = "lockColumns";
-
-            for (int i = 1; i < e.Row.Cells.Count; i++)
-            {
-                e.Row.Cells[i].CssClass = "floatColumns";
+                conn.Close();
             }
-
-            //e.Row.Cells[1].CssClass = "lockColumns";
+            catch
+            {
+                conn.Close();
+            }
+            return dt;
         }
-
-        protected void gvStats_RowCreated(object sender, GridViewRowEventArgs e)
-        {
-
-        }
-        public DataTable getTests()
+        private DataTable getTests()
         {
             DataTable dt = new DataTable();
             try
@@ -399,9 +372,62 @@ namespace Group3WebProject
             catch
             {
 
-            }
-
+                }
+                
             return dt;
+        }
+
+        //protected void gvStats_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+
+
+            
+
+
+        //    //if (e.Row.RowType == DataControlRowType.DataRow)
+        //    //{
+        //    foreach (GridViewRow row in gvStats.Rows) //För varje rad i Gridview gör detta.
+        //        {
+
+        //            int rad = gvStats.Rows.Count; //Räknar rader i GridView.
+
+
+        //            for (int y = 0; y <= rad; y++) //För varje rad
+        //            {
+        //                for (int i = 0; i < row.Cells.Count; i++) //För varje cell
+        //                {
+        //                    if (i >= 0)
+        //                    {
+        //                        if (row.Cells[i].Text == "R&#228;tt") //Om texten i cellen[i] är "Rätt" sätt backgrundsfärgen för cellen till grön.
+        //                        {
+        //                            row.Cells[i].BackColor = System.Drawing.Color.LightGreen;
+        //                        }
+
+        //                        else if (row.Cells[i].Text == "Fel") //Om texten i cellen[i] är "Fel" sätt backgrundsfärgen för cellen till tomatröd.
+        //                        {
+        //                            row.Cells[i].BackColor = System.Drawing.Color.Tomato;
+        //                        }
+        //                    }
+        //                }
+        //            }
+
+         
+        //        }
+        //    //}
+
+        //    e.Row.Cells[0].CssClass = "lockColumns";
+
+        //    for (int i = 1; i < e.Row.Cells.Count; i++)
+        //    {
+        //        e.Row.Cells[i].CssClass = "floatColumns";
+        //    }
+
+        //    //e.Row.Cells[1].CssClass = "lockColumns";
+        //}
+
+        protected void gvStats_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+
         }
 
         protected void ddlTests_SelectedIndexChanged(object sender, EventArgs e)

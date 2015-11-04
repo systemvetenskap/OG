@@ -11,8 +11,8 @@
         
     </script>
     <div class="all_contents shadow">
-        <h1>Webbtest</h1>
-        <h2 id="doTest"></h2>
+        <h1 class="contentpages_h1">Webbtest</h1>
+        <%--<h2 class="contentpages_h2" id="doTest"></h2>--%>
         <p>
             När du väl startat ett test så har du bara 30minuter på dig så gäller att du har tiden för dig. Om du inte lyckas med testet så får du vänta en vecka innan du kan göra testet igen. 
             Du får göra ett test nu. 
