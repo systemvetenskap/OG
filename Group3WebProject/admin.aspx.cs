@@ -57,18 +57,22 @@ namespace Group3WebProject
                ddlTests.DataSource = getTests();
                ddlTests.DataBind();
             }
+            clsGetHtmlElement clGetEl = new clsGetHtmlElement();
 
             DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             gvPreviousTests.DataSource = dt[0];
             gvPreviousTests.DataBind();
 
+            prev.InnerHtml = clGetEl.getTableFixed(dt[0], 1);
+
             gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             gvUpcomingTests.DataBind();
+
+            upcom.InnerHtml = clGetEl.getTableFixed(UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString())), 1);
 
 
             //gvStats.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
             //gvStats.DataBind();
-           //clsGetHtmlElement clGetEl = new clsGetHtmlElement();
            //filen.InnerHtml = clGetEl.getTableFixed(testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3));
 
             
@@ -410,7 +414,7 @@ namespace Group3WebProject
         {
            // int id = int.Parse(ddlTests.SelectedValue);
             clsGetHtmlElement clGetEl = new clsGetHtmlElement();
-            filen.InnerHtml = clGetEl.getTableFixed(testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), int.Parse(ddlTests.SelectedValue)));
+            filen.InnerHtml = clGetEl.getTableFixed(testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), int.Parse(ddlTests.SelectedValue)), 1);
 
         }
 

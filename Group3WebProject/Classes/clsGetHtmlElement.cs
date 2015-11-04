@@ -8,9 +8,8 @@ namespace Group3WebProject.Classes
 {
     public class clsGetHtmlElement
     {
-        public string getTableFixed(DataTable dt)
+        public string getTableFixed(DataTable dt, int antCols)
         {
-            int antCols = 1;
             string ht = "<table class='tabFixRel'>";
             ht += "<tr>";
             for (int z = 0; z < dt.Columns.Count; z++ )

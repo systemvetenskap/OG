@@ -11,11 +11,23 @@
             <br />
             <br />
         </div>
+        <div class="stats_div tests_div">
+            <div class="outer">
+                <div class="inner" id="prev" runat="server">
+                </div>
+            </div>
+        </div>
         <div class="gvUpcoming">
             <h3 class="lblAdmin">Kommande test</h3>
             <asp:GridView ID="gvUpcomingTests" runat="server"></asp:GridView>
             <br />
             <br />
+        </div>
+        <div class="stats_div tests_div">
+            <div class="outer">
+                <div class="inner" id="upcom" runat="server">
+                </div>
+            </div>
         </div>
 
         <div id="gvS">
