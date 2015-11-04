@@ -59,18 +59,17 @@ namespace Group3WebProject
             }
             clsGetHtmlElement clGetEl = new clsGetHtmlElement();
 
-            DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
+            //DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             //gvPreviousTests.DataSource = dt[0];
             //gvPreviousTests.DataBind();
             DataTable dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
-            gvPreviousTests.DataSource = dt;
-            gvPreviousTests.DataBind();
-
+            
+            //gvPreviousTests.DataSource = dt;
+            //gvPreviousTests.DataBind();
             prev.InnerHtml = clGetEl.getTableFixed(GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString())), 1);
 
             //gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             //gvUpcomingTests.DataBind();
-
             upcom.InnerHtml = clGetEl.getTableFixed(UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString())), 1);
 
 
