@@ -106,7 +106,7 @@ namespace Group3WebProject.Classes
                 xmlResult = sw.ToString();
                 if (xmlResult != "")
                 {
-                    updateXML(testId, xmlResult, doc);
+                    updateXML(testId, xmlResult);
                     Debug.WriteLine("Saved xml");
                 }
 
@@ -120,7 +120,7 @@ namespace Group3WebProject.Classes
             //doc.Save(yourFilePath);
 
         }
-        private void updateXML(string testID, string strXML, XmlDocument doc)
+        public void updateXML(string testID, string strXML)
         {
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();

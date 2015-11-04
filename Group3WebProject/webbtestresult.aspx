@@ -5,7 +5,7 @@
     <div class="all_contents shadow">
         <h1>Resultat för testet </h1>
 
-
+        <asp:Label ID="lblRes" runat="server" Text="Label"></asp:Label>
         <br />
         <asp:Panel ID="panData" runat="server">
         </asp:Panel>

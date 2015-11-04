@@ -18,6 +18,7 @@ namespace Group3WebProject.Classes
             DataTable dt = new DataTable();
             dt.Columns.Add("name"); //Fråga 1, Fråga 2---
             dt.Columns.Add("id"); //Fråge id:et 
+            dt.Columns.Add("order");
             try
             {
                 int va = 0;
@@ -28,9 +29,10 @@ namespace Group3WebProject.Classes
                     {
                         case "question":
                             dt.Rows.Add();
+                            dt.Rows[dt.Rows.Count - 1]["order"] = reader.GetAttribute("order").ToUpper();
                             dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("value").ToUpper();
                            // Random random = new Random();
-                            dt.Rows[dt.Rows.Count - 1]["name"] = (va + 1).ToString(); //random.Next(20, 100);
+                           
                             reader.Skip();
                             break;
                     }
@@ -42,7 +44,7 @@ namespace Group3WebProject.Classes
                 Debug.WriteLine(ex.ToString());
             }
             
-            dt.DefaultView.Sort = "name";
+            dt.DefaultView.Sort = "order";
             dt = dt.DefaultView.ToTable();
             for (int i = 0; i < dt.Rows.Count; i++)
             {

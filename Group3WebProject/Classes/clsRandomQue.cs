@@ -10,6 +10,15 @@ namespace Group3WebProject.Classes
 {
     public class clsRandomQue
     {
+        private static readonly Random random = new Random();
+        private static readonly object syncLock = new object();
+        public static int RandomNumber(int min, int max)
+        {
+            lock (syncLock)
+            { // synchronize
+                return random.Next(min, max);
+            }
+        }
         public void randomizeTest(string testID)
         {
             clsTestMenuFill clMen = new clsTestMenuFill();
@@ -43,9 +52,9 @@ namespace Group3WebProject.Classes
                 foreach (XmlNode node in nodes)
                 {
                     Random rand = new Random((int)DateTime.Now.Ticks);
-                    int RandomNumber;
-                    RandomNumber = rand.Next(1, 1200);
-                    node.Attributes["order"].Value = RandomNumber.ToString();
+                   // int RandomNumber;
+                    //RandomNumber = rand.Next(1, 1200);
+                    node.Attributes["order"].Value = RandomNumber(1, 90).ToString();
                     // Debug.WriteLine(node.Attributes["value"].Value + " värdet   och sedan value " + answ);
                     foreach (XmlNode childNode in node.ChildNodes)
                     {
@@ -58,8 +67,8 @@ namespace Group3WebProject.Classes
                             //{
                                
                             //}
-                            RandomNumber = rand2.Next(1, 500) * 3 - rand2.Next(0,50);
-                            childNode.Attributes["sort"].Value = RandomNumber.ToString();
+                            //RandomNumber = rand2.Next(50, 200) * 3 - rand2.Next(0,50);
+                            childNode.Attributes["sort"].Value = RandomNumber(1, 65).ToString();
                            // Debug.WriteLine(childNode.Attributes["selected"].Value); // = RandomNumber.ToString();
                         }
                         //Debug.WriteLine(childNode.Name);
@@ -75,10 +84,11 @@ namespace Group3WebProject.Classes
                 xw.Formatting = Formatting.Indented; //Fixar formateringen på xml:en
                 doc.WriteTo(xw);
                 xmlResult = sw.ToString();
+                Classes.clsRightOrNot clsRi = new Classes.clsRightOrNot();
                 if (xmlResult != "")
                 {
-                    //updateXML(testId, xmlResult, doc);
-                    Debug.WriteLine("Saved xml");
+                    clsRi.updateXML(testID, xmlResult);
+                    Debug.WriteLine("Saved xml with random" + xmlResult);
                 }
 
                 Debug.WriteLine(doc.ToString());

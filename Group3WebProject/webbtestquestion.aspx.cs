@@ -85,6 +85,7 @@ namespace Group3WebProject
             }
             if (btnNext.Text == "Lämna in")
             {
+                checkAnswers();
                 clsMethods clMeth = new clsMethods();
                 clsFillQuestion clQue = new clsFillQuestion();
                 clsRightOrNot clRi = new clsRightOrNot();
@@ -195,7 +196,7 @@ namespace Group3WebProject
                             }
                             val = 0;
                         }
-                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" && lookAgain == true)
+                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" )
                         {
                             if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                             {
@@ -225,7 +226,7 @@ namespace Group3WebProject
                                 rbQuestionList.SelectedValue = val.ToString();
                             }
                         }
-                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" && lookAgain == true) //Om man vill kolla på frågorna igen så markeras den grön om det är okej 
+                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" ) //Om man vill kolla på frågorna igen så markeras den grön om det är okej 
                         {
                             if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                             {

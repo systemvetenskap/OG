@@ -67,6 +67,7 @@ namespace Group3WebProject
                 Label qutNam = new Label();
                 qutNam.Text = "<br/> <br />";
                 panData.Controls.Add(qutNam);
+                result(ViewState["testID"].ToString());
             }
         }
         private void result(string testID)
@@ -74,8 +75,11 @@ namespace Group3WebProject
             clsMethods clMeth = new clsMethods();
             clsFillQuestion clQue = new clsFillQuestion();
             string xml = clQue.getXml(testID);
+            
             Tuple<bool, List<int>, List<int>, int, int> aa = clMeth.PartAndTotalResult(clMeth.XmlToClasses(xml));//list1, 
             bool result = aa.Item1;
+            lblRes.Text = "Resultat: " + result.ToString() + " Områden " + aa.Item2[0] + "/" + aa.Item3[0] + "NExt " + aa.Item2[1] + "/" + aa.Item3[1] +
+                " Next " + aa.Item2[2] + "/" + aa.Item3[2] + " Total " + aa.Item4.ToString() + " Tot" + aa.Item5.ToString();
 
         }
         /// <summary>

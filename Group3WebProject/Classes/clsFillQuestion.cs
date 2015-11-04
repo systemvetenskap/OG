@@ -29,6 +29,7 @@ namespace Group3WebProject.Classes
             dt.Columns.Add("id");
             dt.Columns.Add("sel");
             dt.Columns.Add("answ");
+            dt.Columns.Add("order");
             try
             {
                 XmlTextReader reader = new XmlTextReader(new System.IO.StringReader(getXml(testID)));
@@ -57,6 +58,7 @@ namespace Group3WebProject.Classes
                             //answ
                             string rightOrFalse = "";
                             dt.Rows.Add();//Nedan är svarsalternativen 
+                            dt.Rows[dt.Rows.Count - 1]["order"] = reader.GetAttribute("sort");
                             dt.Rows[dt.Rows.Count - 1]["id"] = reader.GetAttribute("id").ToUpper();
                             rightOrFalse = reader.GetAttribute("answ").ToUpper();
                             dt.Rows[dt.Rows.Count - 1]["answ"] = rightOrFalse;
@@ -71,6 +73,8 @@ namespace Group3WebProject.Classes
                     }
                 }
                 reader.Close();
+                dt.DefaultView.Sort = "order";
+                dt = dt.DefaultView.ToTable();
                 return new Tuple<DataTable, string, int, string, string>(dt, quest, countRi, part, img);
                 //Debug.WriteLine("Detta gick bra   " + dt.Rows.Count.ToString());
             }
