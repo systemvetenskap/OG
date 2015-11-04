@@ -18,45 +18,169 @@ namespace Group3WebProject.Classes
         /// <returns></returns>
         public string getOk(string userID)
         {
-            DataTable dt = fixData(userID);
-            if (dt == null || dt.Rows.Count < 1)
+            DataTable dt = fixData(userID); //Hämtar datan vi behöver 
+            bool pass = false;
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                return "LICENS"; //FÖrsta gången 
+                if (bool.Parse(dt.Rows[i]["passed"].ToString()) == true && dt.Rows[i]["type"].ToString().ToUpper() == "LICENS")
+                {
+                    pass = true;
+                }
             }
+            if ((dt == null || dt.Rows.Count < 1))
+            {
+                return "LICENS"; //FÖrsta gången  //Flytta ned den här en bit
+            }
+            //KOMMER INTE NER HIT VID LICENS 
             DateTime startTime = DateTime.Parse(dt.Rows[0]["starttime"].ToString());
             DateTime timNow = DateTime.Now;
             TimeSpan diffDate = timNow - startTime;
-            //for (int i = 0; i < dt.Rows.Count; i++)
-            //{
-            if ((DateTime.Parse(dt.Rows[0]["starttime"].ToString()).Year == DateTime.Now.Year) && (dt.Rows[0]["passed"].ToString().ToUpper() == "t"))//Då har man redan gjort testet
-            {
-                return "Du har redan gjort årets test och är godkänd";
-            }
-            // }
-            Debug.WriteLine(DateTime.Parse(dt.Rows[0]["starttime"].ToString()));
-            if (dt.Rows[0]["endtime"] == null || Convert.ToString(dt.Rows[0]["endtime"]) == "")
-            {
-                if (diffDate.TotalMinutes < 30)
-                {
-                    Debug.WriteLine(diffDate.TotalMinutes.ToString());
-                    return "IGÅNG";
-                }
 
+            if ((dt.Rows[0]["endtime"] == null || Convert.ToString(dt.Rows[0]["endtime"]) == "") && diffDate.TotalMinutes < 30)
+            {
+
+                return "IGÅNG";
             }
-            if (diffDate.Days < 7)
+            else
+            {
+                //Sätt sluttid
+            }
+            if (bool.Parse(dt.Rows[0]["passed"].ToString()) == true) //Då har man klarat det sista 
+            {
+                if (int.Parse(dt.Rows[0]["valid"].ToString()) < DateTime.Now.Year)
+                {
+                    //Då ska man göra årets test
+                    //Hoppar ner till 7dagar
+                    return "ÅKU";
+                }
+                else if (int.Parse(dt.Rows[0]["valid"].ToString()) > DateTime.Now.Year)
+                {
+                            //Du har redan gjort det senaste provet'
+                    return "Du har redan gjort det senaste provet";
+                }
+                else if (int.Parse(dt.Rows[0]["valid"].ToString()) == DateTime.Now.Year)
+                {
+                    //Då ska man göra åku för nästa år
+
+                    string next = doNextYear(int.Parse(dt.Rows[0]["valid"].ToString()), "ÅKU");
+                    
+                        if (next == "false")
+                        {
+                            return "Du är godkänd på årets test men det har inte kommit något inför nästa år";
+                        }
+                        else
+                        {
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                if (dt.Rows[i]["valid"].ToString() == DateTime.Now.AddYears(1).Year.ToString())
+                                {
+                                    return "Du är godkänd på kommande års test";
+                                }
+                            }
+                            if (diffDate.Days <= 7)
+                            {
+                                return "Du måste vänta minst 7dagar mellan proven";
+                            }
+                            else
+                            { 
+                            return "Du kan göra nästa års test nu";
+                            }
+                        }
+                    
+                }
+               
+            }
+            else
+            {
+                if (int.Parse(dt.Rows[0]["valid"].ToString()) < DateTime.Now.Year)
+                {
+                    //Då ska man göra årets test
+                    //Hoppar ner till 7dagar
+                    Debug.WriteLine("ÅKU aa");
+
+                    if (dt.Rows[0]["type"].ToString() == "ÅKU")
+                    {
+                        return "ÅKU";
+                    }
+                    else
+                    {
+                        return "LICENS";
+                    }
+                }
+                else if (int.Parse(dt.Rows[0]["valid"].ToString()) > DateTime.Now.Year)
+                {
+                    //Du har redan gjort det senaste provet'
+                   // return "Du har redan gjort det senaste provet";
+                    if (diffDate.Days <= 7)
+                    {
+                        return "Du måste vänta minst 7dagar mellan proven";
+                    }
+                    else
+                    {
+                        return "Du kan göra nästa års test nu";
+                    }
+                }
+                //else if (int.Parse(dt.Rows[0]["valid"].ToString()) == DateTime.Now.Year)
+                //{
+                //    //Då ska man göra åku för nästa år
+
+                //    string next = doNextYear(startTime, "ÅKU");
+
+                   
+                //}
+                //Då måste vi kolla 
+                //Du har haft fel på senaste provet
+            }
+
+
+            //
+            //if ((DateTime.Parse(dt.Rows[0]["starttime"].ToString()).Year == DateTime.Now.Year) && (bool.Parse(dt.Rows[0]["passed"].ToString()) == true))//Godkänd på årets test 
+            //{
+            //    string next = doNextYear(startTime, "ÅKU");
+            //    if (int.Parse(dt.Rows[0]["valid"].ToString()) != DateTime.Now.AddYears(1).Year)
+            //    {
+            //        if (next == "false")
+            //        {
+            //            return "Du är godkänd på årets test men det har inte kommit något inför nästa år";
+            //        }
+            //        else
+            //        {
+            //            for (int i = 0; i < dt.Rows.Count; i++)
+            //            {
+            //                if (dt.Rows[i]["valid"].ToString() == DateTime.Now.AddYears(1).Year.ToString() && (bool.Parse(dt.Rows[0]["passed"].ToString()) == true))
+            //                {
+            //                    return "Du är godkänd på kommande års test";
+            //                }
+            //            }
+            //            return "Du kan göra nästa års test nu";
+            //        }
+            //    }
+            //    return "Du har redan gjort årets test och är godkänd";
+            //}
+            //else if (int.Parse(dt.Rows[0]["valid"].ToString()) == DateTime.Now.AddYears(1).Year)
+            //{
+            //    Debug.WriteLine("aall ");
+            //}
+            
+            if (diffDate.Days <= 7)
             {
                 return "Du måste vänta minst 7dagar mellan proven";
             }
+            if (!pass)
+            {
+                return "LICENS";
+            }
+
             return "ÅKU"; //Årliga testet 
         }
-        private DataTable fixData(string userID)
+        private DataTable fixData(string userID)//Hämtar alla genomförda testen för användaren completed_test 
         {
             DataTable dt = new DataTable();
             try
             {
                 NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
                 conn.Open();
-                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT start_time AS starttime, passed, end_time AS endtime FROM completed_test WHERE user_id='" + userID + "' ORDER BY start_time desc", conn);
+                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT start_time AS starttime, passed, end_time AS endtime, test_type AS type, valid_through AS valid, test.id AS testid FROM completed_test left join test on test.id = completed_test.test_id  WHERE user_id='" + userID + "' ORDER BY start_time desc", conn);
                 adp.Fill(dt);
                 conn.Close();
             }
@@ -69,19 +193,19 @@ namespace Group3WebProject.Classes
         /// </summary>
         /// <param name="type"></param>
         /// <param name="userID"></param>
-        public string startNew(string type, string userID)
+        public string startNew(string type, string userID, int year)
         {
             DateTime startTime = DateTime.Now;
             string retAnsw = "";
             //string sql = ""
-            string sql= "SELECT xml_questions As ans, id FROM test where test_type='" + type + "' and valid_through='" + startTime.Year.ToString() + "' order by id";
+            string sql = "SELECT xml_questions As ans, id FROM test where test_type='" + type + "' and valid_through='" + year + "' order by id";
             Debug.WriteLine(sql);
             try
             {
                 NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
-                
+
                 string xml = "";
                 string test = "";
                 NpgsqlDataReader dr = cmd.ExecuteReader();
@@ -138,6 +262,35 @@ namespace Group3WebProject.Classes
                 Debug.WriteLine(ex.ToString());
             }
             return test;
+        }
+        private string doNextYear(int lastPassedTest, string nextTestType) //Kontrollerar om det finns ett test inför nästa år 
+        {
+            string test = "";
+            try
+            {
+                int nexYear = lastPassedTest + 1;
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT id FROM test WHERE valid_through ='" + nexYear + "' and test_type='" + nextTestType + "' ORDER BY valid_through desc limit 1", conn);
+
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    test = dr["id"].ToString();
+                }
+                else
+                {
+                    conn.Close();
+                    test = "false";
+                }
+                dr.Close();
+                return test;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            return "false";
         }
     }
 }

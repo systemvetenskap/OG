@@ -95,7 +95,7 @@ namespace Group3WebProject.Classes
                 }
                 xmlReader.Close();
                 //==ADMIN==
-                //   doc.Save(@"C:\inlk.xml"); //Användes för debug för att se filen lokalt MÅSTE VARA ADMIN!!!!!!!!!!!!!
+               //   doc.Save(@"C:\inlk.xml"); //Användes för debug för att se filen lokalt MÅSTE VARA ADMIN!!!!!!!!!!!!!
                 string xmlResult = "";
 
 

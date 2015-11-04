@@ -306,7 +306,7 @@ namespace Group3WebProject
             {
                 
                 btnNext.CssClass = "btn";
-                btnNext.OnClientClick = null;
+              //  btnNext.OnClientClick = null;
                 btnNext.Text = "Nästa";
             }
         }
