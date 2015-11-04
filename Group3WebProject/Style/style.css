@@ -324,6 +324,10 @@ ul.nav_list li{
 }
 
 
+#cmbChooseQue{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
 
 
 
@@ -441,6 +445,10 @@ ul.nav_list li{
 
     .ddl{
         float:none;
+    }
+
+    .gvPrevious{
+        padding-right:0%;
     }
 
     #login{
