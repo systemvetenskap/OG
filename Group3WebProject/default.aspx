@@ -7,9 +7,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
     <div class="all_contents shadow">
-        <h1 class="login_h1">Kompetensportalen</h1>
+        <h1 class="contentpages_h1">Kompetensportalen</h1>
         <br />
-            <h2 class="login_h2">Välkommen till Kompetensportalen för JE Banken</h2>
+            <h2 class="contentpages_h2">Välkommen till Kompetensportalen för JE Banken</h2>
                 <p>
                     Denna sida är till för bankens anställda och dess teamledare.
                     

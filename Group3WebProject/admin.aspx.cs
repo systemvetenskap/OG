@@ -60,13 +60,13 @@ namespace Group3WebProject
             clsGetHtmlElement clGetEl = new clsGetHtmlElement();
 
             DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
-            gvPreviousTests.DataSource = dt[0];
-            gvPreviousTests.DataBind();
+            //gvPreviousTests.DataSource = dt[0];
+            //gvPreviousTests.DataBind();
 
             prev.InnerHtml = clGetEl.getTableFixed(dt[0], 1);
 
-            gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
-            gvUpcomingTests.DataBind();
+            //gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
+            //gvUpcomingTests.DataBind();
 
             upcom.InnerHtml = clGetEl.getTableFixed(UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString())), 1);
 
@@ -334,53 +334,53 @@ namespace Group3WebProject
             return dt;
         }
 
-        protected void gvStats_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
+        //protected void gvStats_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
 
 
             
 
 
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            foreach (GridViewRow row in gvStats.Rows) //För varje rad i Gridview gör detta.
-                {
+        //    //if (e.Row.RowType == DataControlRowType.DataRow)
+        //    //{
+        //    foreach (GridViewRow row in gvStats.Rows) //För varje rad i Gridview gör detta.
+        //        {
 
-                    int rad = gvStats.Rows.Count; //Räknar rader i GridView.
+        //            int rad = gvStats.Rows.Count; //Räknar rader i GridView.
 
 
-                    for (int y = 0; y <= rad; y++) //För varje rad
-                    {
-                        for (int i = 0; i < row.Cells.Count; i++) //För varje cell
-                        {
-                            if (i >= 0)
-                            {
-                                if (row.Cells[i].Text == "R&#228;tt") //Om texten i cellen[i] är "Rätt" sätt backgrundsfärgen för cellen till grön.
-                                {
-                                    row.Cells[i].BackColor = System.Drawing.Color.LightGreen;
-                                }
+        //            for (int y = 0; y <= rad; y++) //För varje rad
+        //            {
+        //                for (int i = 0; i < row.Cells.Count; i++) //För varje cell
+        //                {
+        //                    if (i >= 0)
+        //                    {
+        //                        if (row.Cells[i].Text == "R&#228;tt") //Om texten i cellen[i] är "Rätt" sätt backgrundsfärgen för cellen till grön.
+        //                        {
+        //                            row.Cells[i].BackColor = System.Drawing.Color.LightGreen;
+        //                        }
 
-                                else if (row.Cells[i].Text == "Fel") //Om texten i cellen[i] är "Fel" sätt backgrundsfärgen för cellen till tomatröd.
-                                {
-                                    row.Cells[i].BackColor = System.Drawing.Color.Tomato;
-                                }
-                            }
-                        }
-                    }
+        //                        else if (row.Cells[i].Text == "Fel") //Om texten i cellen[i] är "Fel" sätt backgrundsfärgen för cellen till tomatröd.
+        //                        {
+        //                            row.Cells[i].BackColor = System.Drawing.Color.Tomato;
+        //                        }
+        //                    }
+        //                }
+        //            }
 
          
-                }
-            //}
+        //        }
+        //    //}
 
-            e.Row.Cells[0].CssClass = "lockColumns";
+        //    e.Row.Cells[0].CssClass = "lockColumns";
 
-            for (int i = 1; i < e.Row.Cells.Count; i++)
-            {
-                e.Row.Cells[i].CssClass = "floatColumns";
-            }
+        //    for (int i = 1; i < e.Row.Cells.Count; i++)
+        //    {
+        //        e.Row.Cells[i].CssClass = "floatColumns";
+        //    }
 
-            //e.Row.Cells[1].CssClass = "lockColumns";
-        }
+        //    //e.Row.Cells[1].CssClass = "lockColumns";
+        //}
 
         protected void gvStats_RowCreated(object sender, GridViewRowEventArgs e)
         {

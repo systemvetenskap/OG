@@ -8,9 +8,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
     <div class="all_contents shadow">
-        <h1>Webbtestquestion</h1>
+        <h1 class="contentpages_h1">Webbtestquestion</h1>
         <div>
-            <h2>Välkommen till test tryck på start för att påbörja</h2>
+            <h2 class="contentpages_h2">Välkommen till test tryck på start för att påbörja</h2>
             <p>Tid kvar: <span id="timeLeft">30:00</span> </p>
         </div>
         <div>

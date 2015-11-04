@@ -1,7 +1,7 @@
 ﻿/*===== SCROLL =====*/
-.tabFixRel {
+.tabFixRel{
   table-layout: fixed; 
-  width: auto;
+  /*width: auto;*/
   *margin-left: -100px;/*ie7*/
   
 }
@@ -41,16 +41,23 @@
   width:auto; 
   margin-left:120px;
 }
-.stats_div
-{
+.stats_div{
     position: relative;
     float: left;
-    width: 90%;
+    max-width: 90%;
     height: auto;
 }
 
 .tests_div{
-    width: 20%;
+    width: auto;
+}
+
+.prev_upcoming{
+    overflow:auto;
+}
+
+.previoustesttabell{
+    margin-right:10%;
 }
 
 
@@ -79,8 +86,8 @@ p{
 a.nav_links{
     color:#384245;
     font-size:28px;
-    text-decoration-line:none;
-
+    text-decoration-line:none; /*Funkar i Firefox*/
+    text-decoration:none; /*För Chrome*/
     padding-right:1%;
     border-right:1px solid black;
 }
@@ -92,6 +99,8 @@ a.nav_links:hover{
 
     border-right:none;
 }
+
+
 
 footer{
     background-color:#ffffff;
@@ -160,7 +169,7 @@ h1{
     padding-left:1%;
     /*font-size:190%;    STÄLLER IN FONT-SIZE i span-klasserna JE och -banken*/
     text-decoration-line:none;
-                              
+    text-decoration:none;
 }
 
 
@@ -248,10 +257,19 @@ ul.nav_list li{
     font-weight:normal;
 }
 
-.lblLogIn{
+/*.lblLogIn{
     font-size:170%;
     color:#384245;
     font-weight:normal;
+}*/
+
+
+.contentpages_h1{
+    font-size:200%;
+    color:#384245;
+}
+.contentpages_h2{
+    font-size:110%
 }
 
 
@@ -407,12 +425,23 @@ ul.nav_list li{
         padding-right:0%;
     }
 
-    .login_h1{
-        font-size:180%;
+    .contentpages_h1{
+        font-size:165%;
     }
-    .login_h2{
-        font-size:130%
+    .contentpages_h2{
+        font-size:110%
     }
+
+    .lblAdmin{
+        font-size:130%;
+        /*text-decoration:underline;*/
+    }
+
+    /*.previoustesttabell{
+        margin-right:0;
+        width:100%;
+    }*/
+
 }
 
 
@@ -458,6 +487,14 @@ ul.nav_list li{
     #login{
         float:none;
     }
+
+    .previoustesttabell{
+        margin-right:0;
+    }
+
+    /*.tabFixRel{
+        width:auto;
+    }*/
 }
 
 
