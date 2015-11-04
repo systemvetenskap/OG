@@ -40,6 +40,24 @@ namespace Group3WebProject {
         protected global::System.Web.UI.WebControls.GridView gvStats;
         
         /// <summary>
+        /// ddlTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTests;
+        
+        /// <summary>
+        /// btnShowTest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnShowTest;
+        
+        /// <summary>
         /// filen control.
         /// </summary>
         /// <remarks>

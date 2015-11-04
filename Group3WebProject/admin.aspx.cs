@@ -52,6 +52,10 @@ namespace Group3WebProject
                     Response.Write(ex.Message);
                 }
 
+               ddlTests.DataValueField = "id";
+               ddlTests.DataTextField = "name";
+               ddlTests.DataSource = getTests();
+               ddlTests.DataBind();
             }
 
             DataTable[] dt = GetTeamList(int.Parse(HttpContext.Current.Session["userid"].ToString()));
@@ -61,10 +65,11 @@ namespace Group3WebProject
             gvUpcomingTests.DataSource = UpcomingTests(int.Parse(HttpContext.Current.Session["userid"].ToString()));
             gvUpcomingTests.DataBind();
 
+
             //gvStats.DataSource = testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3);
             //gvStats.DataBind();
-            clsGetHtmlElement clGetEl = new clsGetHtmlElement();
-           filen.InnerHtml = clGetEl.getTableFixed(testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3));
+           //clsGetHtmlElement clGetEl = new clsGetHtmlElement();
+           //filen.InnerHtml = clGetEl.getTableFixed(testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), 3));
 
             
             
@@ -375,6 +380,37 @@ namespace Group3WebProject
 
         protected void gvStats_RowCreated(object sender, GridViewRowEventArgs e)
         {
+
+        }
+        public DataTable getTests()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+                conn.Open();
+                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT id, name FROM test ORDER BY id desc limit 6", conn);
+                adp.Fill(dt);
+                conn.Close();
+            }
+            catch
+            {
+
+            }
+
+            return dt;
+        }
+
+        protected void ddlTests_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnShowTest_Click(object sender, EventArgs e)
+        {
+           // int id = int.Parse(ddlTests.SelectedValue);
+            clsGetHtmlElement clGetEl = new clsGetHtmlElement();
+            filen.InnerHtml = clGetEl.getTableFixed(testStats(int.Parse(HttpContext.Current.Session["userid"].ToString()), int.Parse(ddlTests.SelectedValue)));
 
         }
 
