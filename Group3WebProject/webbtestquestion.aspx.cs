@@ -150,7 +150,7 @@ namespace Group3WebProject
                 part = "Produkter och hantering av kundens affärer ";
             }
             Label3.Text = "Frågan är inom området:" + part + " <br />" + "<h4>" + getData.Item2 + "</h4>";
-            
+            ViewState.Add("antQue", antVal.ToString());
             lblChoose.Text = " Du ska välja: <b>" + antVal.ToString() + "</b> svar";
             if (getData.Item5 != "")
             {
@@ -284,8 +284,17 @@ namespace Group3WebProject
         }
         protected void btnNext_Click(object sender, EventArgs e) //Näst fråga kommer man till, samma som på den tidigare
         {
+            //btnNext.OnClientClick = "return userValid('rbQuestionList', '" + antVal + "');";
             checkAnswers();
-
+            string handIN = "";
+            if (rbQuestionList.Visible == true)
+            {
+                handIN = "return wantToCont('rbQuestionList', '" + ViewState["antQue"].ToString() + "')";
+            }
+            else
+            {
+                handIN = "return wantToCont('chkQuestionList', '" + ViewState["antQue"].ToString() + "')";
+            }
             ViewState["alfred"] = cmbChooseQue.SelectedValue.ToString();
             if (cmbChooseQue.Items.Count > cmbChooseQue.SelectedIndex + 1)
             {
@@ -294,13 +303,13 @@ namespace Group3WebProject
             fillquestion();
             if (btnNext.Text == "Lämna in")
             {
-                btnNext.OnClientClick = "return wantToCont();"; 
+                btnNext.OnClientClick = handIN; 
             }
             if (cmbChooseQue.SelectedIndex >= cmbChooseQue.Items.Count - 1)
             {
                 btnNext.Text = "Lämna in";
                 btnNext.CssClass = "btn btn-succes";
-                btnNext.OnClientClick = "return wantToCont();"; //Frågar om man vill gå vidare och lämna in det 
+                btnNext.OnClientClick = handIN; //Frågar om man vill gå vidare och lämna in det 
             }
             else
             {

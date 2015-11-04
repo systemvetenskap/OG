@@ -14,14 +14,12 @@ namespace Group3WebProject.Classes
     {
         public DataTable read(string testID)
         {
-            Debug.WriteLine("Nu har vi kommit in ");
             DataTable dt = new DataTable();
             dt.Columns.Add("name"); //Fråga 1, Fråga 2---
             dt.Columns.Add("id"); //Fråge id:et 
             dt.Columns.Add("order");
             try
             {
-                int va = 0;
                 XmlTextReader reader = new XmlTextReader(new StringReader(getXml(testID)));
                 while (reader.Read())
                 {
@@ -58,7 +56,8 @@ namespace Group3WebProject.Classes
             string result = "";
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id='" + testID + "'", conn);
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id= @testID ", conn);
+            cmd.Parameters.AddWithValue("testID", int.Parse(testID));
             NpgsqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {

@@ -86,19 +86,26 @@ namespace Group3WebProject
                 }
                 else
                 {
-
                     return;
                 }
                 Classes.clsStartingTest clStart = new Classes.clsStartingTest();
                 string result = clStart.startNew(testNa, HttpContext.Current.Session["userid"].ToString(), year);
                 if (result == "false")
                 {
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", "alert('Finns inget test att välja');", true);
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", "alert('Finns inget test att välja på kontakta supporten om problemet');", true);
                     return;
                 }
                 ViewState.Add("testID", result);
+
+                Response.Redirect("webbtestquestion.aspx?testID=" + ViewState["testID"].ToString());
             }
-            Response.Redirect("webbtestquestion.aspx?testID=" + ViewState["testID"].ToString());
+            else
+            {
+                Classes.clsStartingTest clStart = new Classes.clsStartingTest();
+                ViewState.Add("testID", clStart.getTestid(HttpContext.Current.Session["userid"].ToString()));
+                Response.Redirect("webbtestquestion.aspx?testID=" + ViewState["testID"].ToString());
+            }
+          
         }
 
     }

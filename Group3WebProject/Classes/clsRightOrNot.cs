@@ -71,7 +71,6 @@ namespace Group3WebProject.Classes
                 {
                     if (node.Attributes["value"].Value == qid)
                     {
-                        Debug.WriteLine(node.Attributes["value"].Value + " värdet   och sedan value " + answ);
                         foreach (XmlNode childNode in node.ChildNodes)
                         {
                             if (childNode.Name == "answer")
@@ -95,7 +94,7 @@ namespace Group3WebProject.Classes
                 }
                 xmlReader.Close();
                 //==ADMIN==
-               //   doc.Save(@"C:\inlk.xml"); //Användes för debug för att se filen lokalt MÅSTE VARA ADMIN!!!!!!!!!!!!!
+                //   doc.Save(@"C:\inlk.xml"); //Användes för debug för att se filen lokalt MÅSTE VARA ADMIN!!!!!!!!!!!!!
                 string xmlResult = "";
 
 
@@ -107,10 +106,8 @@ namespace Group3WebProject.Classes
                 if (xmlResult != "")
                 {
                     updateXML(testId, xmlResult);
-                    Debug.WriteLine("Saved xml");
                 }
 
-                Debug.WriteLine(doc.ToString());
             }
             catch (Exception ex)
             {
@@ -126,7 +123,9 @@ namespace Group3WebProject.Classes
             conn.Open();
             try
             {
-                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE completed_test SET xml_answer='" + strXML + "' WHERE id='" + testID + "'", conn);
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE completed_test SET xml_answer= @strXML  WHERE id= @testID", conn);
+                cmd.Parameters.AddWithValue("strXML", strXML);
+                cmd.Parameters.AddWithValue("testID", int.Parse(testID));
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -140,7 +139,8 @@ namespace Group3WebProject.Classes
             string result = "";
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id='" + testID + "'", conn);
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id= @testID", conn);
+            cmd.Parameters.AddWithValue("testID", int.Parse(testID));
             //cmd.Parameters.Add("testID", testID);
             NpgsqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
@@ -149,9 +149,13 @@ namespace Group3WebProject.Classes
             }
             dr.Close();
             conn.Close();
-            Debug.WriteLine("MEOTDE");
             return result.TrimStart();
         }
+        /// <summary>
+        /// Sparar resultat på provet 
+        /// </summary>
+        /// <param name="testID"></param>
+        /// <param name="answ"></param>
         public void updateResult(string testID, bool answ)
         {
 
@@ -159,7 +163,12 @@ namespace Group3WebProject.Classes
             conn.Open();
             try
             {
-                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE completed_test SET passed='" + answ + "', end_time='" + DateTime.Now.ToString() + "' WHERE id='" + testID + "'", conn);
+                NpgsqlCommand cmd = new NpgsqlCommand("UPDATE completed_test SET passed= @answ , end_time=@dateNo WHERE id= @testID ", conn);
+                cmd.Parameters.AddWithValue("testID", int.Parse(testID));
+                cmd.Parameters.AddWithValue("dateNo", DateTime.Now);
+                cmd.Parameters.AddWithValue("answ", answ);
+
+
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -176,7 +185,8 @@ namespace Group3WebProject.Classes
 
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, start_time, end_time FROM completed_test  where id='" + testID + "'", conn);
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, start_time, end_time FROM completed_test  where id= @testID ", conn);
+            cmd.Parameters.AddWithValue("testID", int.Parse(testID));
             //cmd.Parameters.Add("testID", testID);
             NpgsqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
@@ -195,13 +205,46 @@ namespace Group3WebProject.Classes
             }
             dr.Close();
             conn.Close();
-            Debug.WriteLine("MEOTDE");
             TimeSpan diffTime = DateTime.Parse(DateTime.Now.ToString()) - DateTime.Parse(result);
             if (diffTime.TotalMinutes > 29)
             {
                 return "TIDEN DROG ÖVER";
             }
             return "OK";
+        }
+        public void setFail(string comp_TestID, string testID)
+        {
+            string re = canHandIn(comp_TestID);
+            if (re != "TIDEN DROG ÖVER")
+            {
+                return;
+            }
+            NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+            conn.Open();
+            string sql = "SELECT xml_questions As ans, id FROM test where id= @testID  order by id";
+            try
+            {
+                string xml = "";
+                NpgsqlCommand cmd = new NpgsqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("testID", int.Parse(testID));
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    xml = dr["ans"].ToString();
+                }
+                else
+                {
+                    return;
+                }
+                dr.Close();
+                 cmd = new NpgsqlCommand("UPDATE completed_test SET passed='" + bool.Parse("false") + "', end_time='" + DateTime.Now.ToString() + "', xml_answer='" + xml  + "' WHERE id='" + comp_TestID + "'", conn);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            conn.Close();
         }
     }
 }

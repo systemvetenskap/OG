@@ -28,7 +28,6 @@ namespace Group3WebProject
                     HttpSessionState ss = HttpContext.Current.Session;
                     if (HttpContext.Current.Session["userid"] != null)
                     {
-                        Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
                         //Check if user have right credit 
                         //IF level == Provdeltahare
                         Classes.clsLogin clsLog = new Classes.clsLogin();

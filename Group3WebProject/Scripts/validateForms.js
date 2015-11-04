@@ -36,8 +36,12 @@ function timeToEnd(starttime, duration, proc) //Starttiden och sedan hur långt,
     //stTim.getTime();
 
 }
-function wantToCont()
+function wantToCont(elementID, minium)
 {
+    if (userValid(elementID, minium) == false)
+    {
+        return false;
+    }
     if (confirm("Är du säker på att du vill lämna in testet? \n det går inte att ångra!")) {
         return true; //Om man vill lämna in det får man välja att skicka in en true
     }

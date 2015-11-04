@@ -29,7 +29,6 @@ namespace Group3WebProject.Classes
                 int RandomNumber;
                 RandomNumber = rand.Next(1, 1200) * 1000;
                 dt.Rows[i]["name"] = RandomNumber.ToString();
-                Debug.WriteLine(RandomNumber.ToString() + " " + i.ToString());
             }
             dt.DefaultView.Sort = "name";
             dt = dt.DefaultView.ToTable();
@@ -52,7 +51,7 @@ namespace Group3WebProject.Classes
                 foreach (XmlNode node in nodes)
                 {
                     Random rand = new Random((int)DateTime.Now.Ticks);
-                   // int RandomNumber;
+                    // int RandomNumber;
                     //RandomNumber = rand.Next(1, 1200);
                     node.Attributes["order"].Value = RandomNumber(1, 90).ToString();
                     // Debug.WriteLine(node.Attributes["value"].Value + " värdet   och sedan value " + answ);
@@ -60,24 +59,15 @@ namespace Group3WebProject.Classes
                     {
                         if (childNode.Name == "answer")
                         {
-                            // var match = answ.FirstOrDefault(stringToCheck => stringToCheck.Contains(childNode.Attributes["id"].Value));
-                            //if (childNode.Attributes["id"].Value == answ) //Sätter det elementet til ltrue som stämmer överens 
                             Random rand2 = new Random((int)DateTime.Now.Ticks);
-                            //for (int i = 0; i < rand2.Next(3, 103); i++ )
-                            //{
-                               
-                            //}
-                            //RandomNumber = rand2.Next(50, 200) * 3 - rand2.Next(0,50);
                             childNode.Attributes["sort"].Value = RandomNumber(1, 65).ToString();
-                           // Debug.WriteLine(childNode.Attributes["selected"].Value); // = RandomNumber.ToString();
                         }
-                        //Debug.WriteLine(childNode.Name);
                     }
 
                 }
                 xmlReader.Close();
                 //==ADMIN==
-               // doc.Save(@"C:\Rinlk.xml"); //Användes för debug för att se filen lokalt MÅSTE VARA ADMIN!!!!!!!!!!!!!
+                // doc.Save(@"C:\Rinlk.xml"); //Användes för debug för att se filen lokalt MÅSTE VARA ADMIN!!!!!!!!!!!!!
                 string xmlResult = "";
                 StringWriter sw = new StringWriter();
                 XmlTextWriter xw = new XmlTextWriter(sw);
@@ -88,10 +78,8 @@ namespace Group3WebProject.Classes
                 if (xmlResult != "")
                 {
                     clsRi.updateXML(testID, xmlResult);
-                    Debug.WriteLine("Saved xml with random" + xmlResult);
                 }
 
-                Debug.WriteLine(doc.ToString());
             }
             catch (Exception ex)
             {
@@ -100,13 +88,6 @@ namespace Group3WebProject.Classes
             }
             //doc.Save(yourFilePath);
         }
-        /*
-         public void valudateXML(string testId, string qid, List<string> answ)
-        {
 
-           
-
-        }
-         */
     }
 }
