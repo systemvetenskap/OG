@@ -31,14 +31,23 @@ namespace Group3WebProject.Classes
                     ht += "<tr>";
                     for (int z = 0; z < dt.Columns.Count; z++)
                     {
+                        string value = dt.Rows[i][z].ToString();
+                        if (value.ToUpper() == "FEL")
+                        {
+                            value = "<img src='pictures/wrong.jpg' style='height:23px; width:auto'></img>";
+                        }
+                        if (value.ToUpper() == "RÄTT")
+                        {
+                            value = "<img src='pictures/right.jpg' style='height:23px; width:auto'></img>";
+                        }
                         if (z < antCols)
                         {
-                            ht += "<td class='fixColumns' style='margin-left:" + ((z) * 100).ToString() + "px;'>" + dt.Rows[i][z].ToString() + "</td>";
+                            ht += "<td class='fixColumns' style='margin-left:" + ((z) * 100).ToString() + "px;'>" + value + "</td>";
                             Debug.WriteLine(ht);
                         }
                         else
                         {
-                            ht += "<td class='relColumns'>" + dt.Rows[i][z].ToString() + "</td>";
+                            ht += "<td class='relColumns'>" + value + "</td>";
                         }
                     }
                     ht += "</tr>";
