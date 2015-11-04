@@ -233,13 +233,13 @@ namespace Group3WebProject.Classes
             noOfQuestionsPerPart.Add(ecoQuestionCounter);
             noOfQuestionsPerPart.Add(ethQuestionCounter);
 
-            double total = totalCorrectCounter / totalQuestionCounter;
-            double partProd = prodCorrectCounter / prodQuestionCounter;
-            double partEco = ecoCorrectCounter / ecoQuestionCounter;
-            double partEth = ethCorrectCounter / ethQuestionCounter;
+            double total = (double)totalCorrectCounter / totalQuestionCounter;
+            double partProd = (double)prodCorrectCounter / prodQuestionCounter;
+            double partEco = (double)ecoCorrectCounter / ecoQuestionCounter;
+            double partEth = (double)ethCorrectCounter / ethQuestionCounter;
 
 
-            if(total >= 0.7 && partProd >= 0.6 && partEco >= 0.6 && partEth >= 0.6)
+            if((total >= 0.7) && (partProd >= 0.6) && (partEco >= 0.6) && (partEth >= 0.6))
             {
                 passed = true;
             }
