@@ -6,7 +6,7 @@
   
 }
 .relColumns, .fixColumns {
-  vertical-align: top;
+  vertical-align: middle;
   border-top: 1px solid #ccc;
   padding:2px;
   width:auto;
@@ -322,7 +322,6 @@ ul.nav_list li{
     padding-right:0%;
     border-right:none;
 }
-
 
 
 
