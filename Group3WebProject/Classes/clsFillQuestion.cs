@@ -52,7 +52,6 @@ namespace Group3WebProject.Classes
                             img = reader.GetAttribute("img");
                             quest = reader.ReadString(); //Frågan sparas till en string behöver ha en tupple
                            
-                            Debug.WriteLine(img + " bilD");
                             break;
                         case "answer":
                             //answ
@@ -90,7 +89,8 @@ namespace Group3WebProject.Classes
             string result = "";
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id='" + testID + "'", conn);
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id= @testID", conn);
+            cmd.Parameters.AddWithValue("testID", int.Parse(testID));
             NpgsqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
