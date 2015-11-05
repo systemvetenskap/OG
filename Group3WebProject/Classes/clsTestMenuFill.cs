@@ -46,7 +46,7 @@ namespace Group3WebProject.Classes
             dt = dt.DefaultView.ToTable();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                dt.Rows[i]["name"] = "Fråga " + (i + 1).ToString();
+                dt.Rows[i]["name"] = (i + 1).ToString();
             }
 
             return dt;
