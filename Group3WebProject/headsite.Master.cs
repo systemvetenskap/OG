@@ -24,25 +24,22 @@ namespace Group3WebProject
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            testSi.Visible = false;
+            adminSi.Visible = false;
             if (HttpContext.Current.Session["usrLevel"] != null)
             {
                 if (HttpContext.Current.Session["usrLevel"].ToString() == "provledare")
                 {
+                    adminSi.Visible = true;
 
                 }
-                else if (HttpContext.Current.Session["usrLevel"].ToString() == "provledare")
+                else if (HttpContext.Current.Session["usrLevel"].ToString() == "deltagare")
                 {
 
-                }
-                else
-                {
-
-                }
+                    testSi.Visible = true;
+                }               
             }
-            else
-            {
-
-            }
+           
         }
 
     //    protected void ddl_users_SelectedIndexChanged(object sender, EventArgs e)

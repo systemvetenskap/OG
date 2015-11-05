@@ -28,8 +28,8 @@
                     <ul class="nav_list">
                         <!-- navigerings-menyn -->
                         <li><a class="nav_links" runat="server" href="~/default.aspx">Hem</a></li>
-                        <li><a class="nav_links" runat="server" href="~/webbtest.aspx">Prov</a></li>
-                        <li><a class="nav_links" runat="server" href="~/admin.aspx">Admin</a></li>
+                        <li id="testSi" runat="server"><a class="nav_links" runat="server" href="~/webbtest.aspx">Prov</a></li>
+                        <li id="adminSi" runat="server"><a class="nav_links" runat="server" href="~/admin.aspx">Admin</a></li>
                         <li><a class="nav_links" id="login" runat="server" href="~/login.aspx">Logga in</a></li>
                     </ul>
                     
