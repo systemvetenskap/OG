@@ -43,12 +43,13 @@
                        <asp:DropDownList ID="ddl_users" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddl_users_SelectedIndexChanged"></asp:DropDownList>
                     </div>--%>
                 </div>
+            </div>
             <%--<div class="testar_divs">--%>
                 <asp:ContentPlaceHolder ID="bodyn" runat="server">
                 </asp:ContentPlaceHolder>
             <%--</div>--%>
             </form>
-        </div>
+
 
         <footer class="shadow no_margin_bottom">
             <p><b>©Copyright</b> JE-banken 2015<br />
