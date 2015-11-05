@@ -205,14 +205,14 @@ namespace Group3WebProject
                             }
                             val = 0;
                         }
-                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" )
-                        {
-                            if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
-                            {
-                                chkQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;"); //= System.Drawing.Color.Green; //Sätter alla som finns till true så att den kan vara multippella
-                            }
-                            val = 0;
-                        }
+                        //if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" )
+                        //{
+                        //    if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
+                        //    {
+                        //        chkQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;"); //= System.Drawing.Color.Green; //Sätter alla som finns till true så att den kan vara multippella
+                        //    }
+                        //    val = 0;
+                        //}
                     }
                 }
                 else //Om det är ett val så kommer man till en radiobuttonlist
@@ -235,13 +235,13 @@ namespace Group3WebProject
                                 rbQuestionList.SelectedValue = val.ToString();
                             }
                         }
-                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" ) //Om man vill kolla på frågorna igen så markeras den grön om det är okej 
-                        {
-                            if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
-                            {
-                                rbQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;");
-                            }
-                        }
+                        //if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" ) //Om man vill kolla på frågorna igen så markeras den grön om det är okej 
+                        //{
+                        //    if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
+                        //    {
+                        //        rbQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;");
+                        //    }
+                        //}
                     }
                 }
             }
