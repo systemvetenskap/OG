@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Default" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="Group3WebProject._default" %>
+﻿<%@ Page Title="Kompetensportalen" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="default.aspx.cs" Inherits="Group3WebProject._default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
