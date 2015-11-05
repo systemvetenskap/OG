@@ -48,6 +48,7 @@ namespace Group3WebProject
 
 
             clsLogin logInClass = new clsLogin();
+            HttpContext.Current.Session.Add("usrLevel", logInClass.getLevel(b));
             if(logInClass.getLevel(b) == "provledare")
             {
                 Response.Redirect("admin.aspx");
