@@ -130,7 +130,7 @@ namespace Group3WebProject
         /// <returns></returns>
         private bool fillquestion()//Hämtar frågorna 
         {
-            Label1.Text = "Du är på fråga: " + cmbChooseQue.SelectedItem.Text + " av " + cmbChooseQue.Items.Count.ToString() + " frågor";
+            Label1.Text = "Du är på fråga: <b>" + cmbChooseQue.SelectedItem.Text + " av " + cmbChooseQue.Items.Count.ToString() + " frågor </b>";
             Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
             Tuple<DataTable, string, int, string, string> getData = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
             DataTable dt = getData.Item1;
@@ -159,7 +159,7 @@ namespace Group3WebProject
             {
                 part = " Produkter och hantering av kundens affärer ";
             }
-            Label3.Text = "Frågan är inom området:" + part + " <br />" + "<h4>" + getData.Item2 + "</h4>";
+            Label3.Text = "Frågan är inom området: <b>" + part + "</b> <br />" + "<h4>" + getData.Item2 + "</h4>";
             ViewState.Add("antQue", antVal.ToString());
             lblChoose.Text = " Du ska välja: <b>" + antVal.ToString() + "</b> svar";
             if (getData.Item5 != "")

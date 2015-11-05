@@ -9,13 +9,11 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
     <div class="all_contents shadow" >
-        <h1 class="contentpages_h1">Webbtestquestion</h1>
         <div>
              <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-            <h2 class="contentpages_h2">Välkommen till test tryck på start för att påbörja</h2>
+            
             <p>
-                Tid kvar: <span id="timeLeft"></span>         
-                                  
+                Tid kvar: <b> <span id="timeLeft"></span> </b>                                
                 
             </p>
 

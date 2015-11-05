@@ -119,8 +119,14 @@ namespace Group3WebProject
             DataTable dt = Que.Item1;
 
             Label lbN = new Label();
+            string img = "";
+            if (Que.Item5 != null)
+            {
+                img = "<img src='pictures/" + Que.Item5 + "' style='height: 150px; width: 150px;'alt='bilden' />";
+            }
             lbN.ID = "QUEST_" + queID;
-            lbN.Text = "<h5>" + Que.Item2 + "</h5>";
+            lbN.Text = "<h5>" + Que.Item2 + "</h5> " + img  + "<br />";
+
             panData.Controls.Add(lbN);
             int many = 0;
             for (int i = 0; i < Que.Item1.Rows.Count; i++)

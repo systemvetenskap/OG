@@ -14,6 +14,7 @@ namespace Group3WebProject.Classes
         /// <summary>
         /// Läser in datan till en datatable för att ta med frågorna som finns för ´just det testidet
         /// Qid är vilken fråga som man efter¨frågar sedan så är det testID som är vilkter tessom man har valt
+        /// dt, quest, countRi, part, img
         /// </summary>
         /// <param name="qID"></param>
         /// <param name="testID"></param>
