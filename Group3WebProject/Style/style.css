@@ -1,38 +1,38 @@
 ﻿/*===== SCROLL =====*/
-.tabFixRel{
-  table-layout: fixed; 
-  /*width: auto;*/
-  *margin-left: -100px;/*ie7*/
-  
+.tabFixRel {
+    table-layout: fixed;
+    /*width: auto;*/
+    *margin-left: -100px; /*ie7*/
 }
-.relColumns, .fixColumns {
-  vertical-align: middle;
-  border-top: 1px solid #ccc;
-  padding:2px;
-  width:auto;
-  text-align: center;
 
+.relColumns, .fixColumns {
+    vertical-align: middle;
+    border-top: 1px solid #ccc;
+    padding: 2px;
+    width: auto;
+    text-align: center;
 }
+
 .fixColumns {
-  
-  position:absolute;
-  *position: relative; /*ie7*/
-  left:0; 
-  /*width:auto;
+    position: absolute;
+    *position: relative; /*ie7*/
+    left: 0;
+    /*width:auto;
   line-break: auto;
   min-width: 0px;*/
-  width:120px;
-  /*height:auto;*/
-  
-  /*margin-right:20%;*/
+    width: 120px;
+    /*height:auto;*/
+    /*margin-right:20%;*/
 }
-td.tr.fixColumns{
-    word-break:break-all;
+
+td.tr.fixColumns {
+    word-break: break-all;
     vertical-align: middle;
 }
-tbody tr{
-    height:41px;
-    overflow:hidden;
+
+tbody tr {
+    height: 41px;
+    overflow: hidden;
 }
 
 /*.relColumns{
@@ -46,34 +46,33 @@ tbody tr{
     /*float: right;*/
     width: 100%;
     display: block;
-
 }
 
 .inner {
-  overflow-x:scroll;
-  overflow-y:visible;
-  width:auto; 
-  margin-left:125px;
+    overflow-x: scroll;
+    overflow-y: visible;
+    width: auto;
+    margin-left: 125px;
 }
-.stats_div{
+
+.stats_div {
     position: relative;
     float: left;
     max-width: 100%;
     height: auto;
 }
 
-.tests_div{
+.tests_div {
     width: auto;
 }
 
-.prev_upcoming{
-    overflow:auto;
+.prev_upcoming {
+    overflow: auto;
     max-height: 430px;
-    
 }
 
-.previoustesttabell{
-    margin-right:10%;
+.previoustesttabell {
+    margin-right: 10%;
 }
 
 
@@ -84,48 +83,48 @@ tbody tr{
 
 /*===== GENERELLA =====*/
 body {
-    background-image:url("/pictures/fncd0wql-jpg.jpg");
+    background-image: url("/pictures/fncd0wql-jpg.jpg");
     background-repeat: repeat;
     /*background-color:#006C8D;*/
-    margin:0 auto;
-    font-family:Tahoma;
+    margin: 0 auto;
+    font-family: Tahoma;
 }
 
-h1{
-    margin:0;
+h1 {
+    margin: 0;
 }
 
-p{
-    margin:0;
+p {
+    margin: 0;
 }
 
-a.nav_links{
-    color:#384245;
-    font-size:28px;
-    text-decoration-line:none; /*Funkar i Firefox*/
-    text-decoration:none; /*För Chrome*/
-    padding-right:1%;
-    border-right:1px solid black;
-}
-a.nav_links:hover{
-    color:#8F9496;
-    border-bottom: 1px solid grey;
-    border-top:1px solid grey;
-    padding-bottom:5px;
-
-    border-right:none;
+a.nav_links {
+    color: #384245;
+    font-size: 28px;
+    text-decoration-line: none; /*Funkar i Firefox*/
+    text-decoration: none; /*För Chrome*/
+    padding-right: 1%;
+    border-right: 1px solid black;
 }
 
+    a.nav_links:hover {
+        color: #8F9496;
+        border-bottom: 1px solid grey;
+        border-top: 1px solid grey;
+        padding-bottom: 5px;
+        border-right: none;
+    }
 
 
-footer{
-    background-color:#ffffff;
-    clear:both;
-    text-align:center;
+
+footer {
+    background-color: #ffffff;
+    clear: both;
+    text-align: center;
     /*border-top:5px groove black;*/
-    padding-bottom:1%;
-    padding-top:1%;
-    font-size:90%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    font-size: 90%;
     /*box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.4);*/
 }
 
@@ -134,143 +133,149 @@ footer{
 
 
 /*===== CONTENT PAGES =====*/
-h1{
-    color:#384245;
+h1 {
+    color: #384245;
 }
 
-.all_contents{
-    background-color:#ffffff;
-    padding-top:2%;
-    padding-bottom:2%;
-    width:92%;
-    padding-left:4%;
-    padding-right:4%;
+.all_contents {
+    background-color: #ffffff;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 92%;
+    padding-left: 4%;
+    padding-right: 4%;
     margin: 0 auto;
-    font-size:90%;
-    height:100%;
+    font-size: 90%;
+    height: 100%;
     /*box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.4);*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.center_login{
-    width:50%;
-    margin:0 auto;
-    clear:both;
-    padding-right:4%;
-    padding-top:2%;
-    padding-bottom:2%;
-    text-align:center;
+.center_login {
+    width: 50%;
+    margin: 0 auto;
+    clear: both;
+    padding-right: 4%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    text-align: center;
 }
 
 
 
 
 /*===== KLASSER =====*/
-.wrapper{
-    opacity:1.0;
+.wrapper {
+    opacity: 1.0;
     /*background-color:#ffffff;*/
     /*background-color:#E3E8EF;*/
     /*background-color:#E5F0F3;*/
-    max-width:1280px; /*Sätter ett maxvärde på wrappern (allt innehåll) här för att den inte ska breda ut sig om man har gigantisk skärm. */ 
+    max-width: 1280px; /*Sätter ett maxvärde på wrappern (allt innehåll) här för att den inte ska breda ut sig om man har gigantisk skärm. */
     /*max-width:90%;*/ /*max-width:90% sätts som en media query istället när webbläsarfönstret är max 1400px;*/
-    min-width:280px;
+    min-width: 280px;
     margin: 0 auto;
 }
 
 
-.the_header{
-    width:99%;
-    background-color:#ffffff;
-    color:#384245;
-    float:left;
-    padding-left:1%;
+.the_header {
+    width: 99%;
+    background-color: #ffffff;
+    color: #384245;
+    float: left;
+    padding-left: 1%;
     /*font-size:190%;    STÄLLER IN FONT-SIZE i span-klasserna JE och -banken*/
-    text-decoration-line:none;
-    text-decoration:none;
+    text-decoration-line: none;
+    text-decoration: none;
 }
 
 
-.shadow{
+.shadow {
     box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.4);
-    margin-bottom:14.4px;
+    margin-bottom: 14.4px;
 }
 
 
-.no_margin_bottom{
-    margin-bottom:0;
+.no_margin_bottom {
+    margin-bottom: 0;
 }
 
 
-.JE{
-    color:cornflowerblue;
-    font-size:190%;
+.JE {
+    color: cornflowerblue;
+    font-size: 190%;
 }
 
-.bindestreck{
-    color:#b5b9bf;
-    font-size:150%
+.bindestreck {
+    color: #b5b9bf;
+    font-size: 150%;
 }
 
-.the_B{
-    color:#b5b9bf;
-    font-size:190%;
+.the_B {
+    color: #b5b9bf;
+    font-size: 190%;
 }
 
-.banken{
-    color:#b5b9bf;
-    font-size:150%;
+.banken {
+    color: #b5b9bf;
+    font-size: 150%;
 }
 
-.nav_head{
-    padding-bottom:1%;
-    background-color:#ffffff;
+.nav_head {
+    padding-bottom: 1%;
+    background-color: #ffffff;
     /*box-shadow: 0px 0px 10px black;*/
     /*border-bottom:5px groove black;*/
 }
 
-.nav_list{
-    margin-top:0;
-    padding-top:2%;
-    padding-right:1%;
-    padding-bottom:0%;
-    padding-left:1%;
+.nav_list {
+    margin-top: 0;
+    padding-top: 2%;
+    padding-right: 1%;
+    padding-bottom: 0%;
+    padding-left: 1%;
 }
 
-ul.nav_list li{
-    display:inline;
+ul.nav_list li {
+    display: inline;
     /*list-style-type:circle;*/
 }
 
-.ddl{
-    float:left;
-    padding-left:1%;
+.ddl {
+    float: left;
+    padding-left: 1%;
 }
 
 
-.clearfix{
-    overflow:auto;
-    /*border:1px solid brown;*/   /*TA BORT RAD*/
+.clearfix {
+    overflow: auto;
+    /*border:1px solid brown;*/ /*TA BORT RAD*/
 }
 
 
-.gvPrevious{
-    float:left;
-    padding-right:7%;
+.gvPrevious {
+    float: left;
+    padding-right: 7%;
 }
 
-.gvUpcoming{
-    float:left;
+.gvUpcoming {
+    float: left;
 }
 
-.gvS{
-    float:left;
+.gvS {
+    float: left;
     /*overflow-x:auto;
     max-width:360px;*/
 }
 
-.lblAdmin{
-    font-size:170%;
-    color:#384245;
-    font-weight:normal;
+.lblAdmin {
+    font-size: 170%;
+    color: #384245;
+    font-weight: normal;
 }
 
 /*.lblLogIn{
@@ -280,12 +285,13 @@ ul.nav_list li{
 }*/
 
 
-.contentpages_h1{
-    font-size:200%;
-    color:#384245;
+.contentpages_h1 {
+    font-size: 200%;
+    color: #384245;
 }
-.contentpages_h2{
-    font-size:110%
+
+.contentpages_h2 {
+    font-size: 110%;
 }
 
 
@@ -316,7 +322,7 @@ ul.nav_list li{
     background-image: -moz-linear-gradient(top, #6F9A15, #607f25);
     background-image: -ms-linear-gradient(top, #6F9A15, #607f25);
     background-image: -o-linear-gradient(top, #6F9A15, #607f25);
-    background-image: linear-gradient(to bottom, #6F9A15, #607f25);  
+    background-image: linear-gradient(to bottom, #6F9A15, #607f25);
 }
 
 .btn:hover {
@@ -329,7 +335,7 @@ ul.nav_list li{
     box-shadow: 1px 2px 5px #888888;
 }
 
-.btn-succes:hover{
+.btn-succes:hover {
     background-image: -webkit-linear-gradient(top, #6C9A14, #607f25);
     background-image: -moz-linear-gradient(top, #6C9A14, #607f25);
     background-image: -ms-linear-gradient(top, #6C9A14, #607f25);
@@ -355,14 +361,14 @@ ul.nav_list li{
 
 /*===== ID =====*/
 
-#login{
-    float:right;
-    padding-right:0%;
-    border-right:none;
+#login {
+    float: right;
+    padding-right: 0%;
+    border-right: none;
 }
 
 
-#cmbChooseQue{
+#cmbChooseQue {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
@@ -373,91 +379,83 @@ ul.nav_list li{
 /*===== MEDIA =====*/
 
 /*= DESKTOP =*/
-@media only screen and (-webkit-min-device-pixel-ratio: 1.3), 
-        only screen and (max-width:1400px) { /*Om max-bredden på webbläsarfönstret är 1400px, gör nedan.*/
-        
-        .wrapper{
-            max-width:90%;
-        }
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (max-width:1400px) { /*Om max-bredden på webbläsarfönstret är 1400px, gör nedan.*/
 
+    .wrapper {
+        max-width: 90%;
+    }
 }
 
 
 /*= TABLET =*/
-@media only screen and (-webkit-min-device-pixel-ratio: 1.3),
-       only screen and (max-width:800px){ /*Om max-bredden på webbläsarfönstret är 800px, gör nedan.*/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (max-width:800px) { /*Om max-bredden på webbläsarfönstret är 800px, gör nedan.*/
 
-        .wrapper{
-            max-width:98.5%;
-        }
+    .wrapper {
+        max-width: 98.5%;
+    }
 
-        .nav_head{
-            padding-bottom:3%;
-        }
+    .nav_head {
+        padding-bottom: 3%;
+    }
 
-        .all_contents{
-            padding-left:1%;
-            padding-right:1%;
-            width:98%;
-            
-        }
+    .all_contents {
+        padding-left: 1%;
+        padding-right: 1%;
+        width: 98%;
+    }
 
-        #login{
-            padding-right:1%;
-        }
-        
+    #login {
+        padding-right: 1%;
+    }
 }
 
 
 /*= MOBIL =*/
-@media only screen and (-webkit-min-device-pixel-ratio: 1.3),
-       only screen and (max-width:500px){ /*Om max-bredden på webbläsarfönstret är 500px, gör nedan.*/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (max-width:500px) { /*Om max-bredden på webbläsarfönstret är 500px, gör nedan.*/
 
-    .the_header{
-        width:100%;
-        font-size:100%;
-        text-align:center;
-        margin:0 auto;
+    .the_header {
+        width: 100%;
+        font-size: 100%;
+        text-align: center;
+        margin: 0 auto;
         padding-left: 0%;
         padding-right: 0%;
         border-bottom: 2px solid grey;
     }
 
-    .header_class{
-        float:none;
-        padding:0;
-
+    .header_class {
+        float: none;
+        padding: 0;
     }
 
-.prev_upcoming{
-    overflow:auto;
-    max-height:none;
-    height:auto;
-
-    
-}
-
-    .nav_head{
-        padding-bottom:4%;
+    .prev_upcoming {
+        overflow: auto;
+        max-height: none;
+        height: auto;
     }
 
-    a.nav_links{
-        font-size:150%;
+    .nav_head {
+        padding-bottom: 4%;
     }
 
-    #login{
-        padding-right:0%;
+    a.nav_links {
+        font-size: 150%;
     }
 
-    .contentpages_h1{
-        font-size:165%;
-    }
-    .contentpages_h2{
-        font-size:110%
+    #login {
+        padding-right: 0%;
     }
 
-    .lblAdmin{
-        font-size:130%;
+    .contentpages_h1 {
+        font-size: 165%;
+    }
+
+    .contentpages_h2 {
+        font-size: 110%;
+    }
+
+    .lblAdmin {
+        font-size: 130%;
         /*text-decoration:underline;*/
     }
 
@@ -469,51 +467,50 @@ ul.nav_list li{
 }
 
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1.3),
-       only screen and (max-width:384px){ /*Om max-bredden på webbläsarfönstret är 384px, gör nedan.*/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (max-width:384px) { /*Om max-bredden på webbläsarfönstret är 384px, gör nedan.*/
 
-    ul.nav_list li{
+    ul.nav_list li {
         display: block;
     }
 
-    a.nav_links{
-        padding-right:0%;
-        border-right:none;
+    a.nav_links {
+        padding-right: 0%;
+        border-right: none;
     }
 
-    .wrapper{
+    .wrapper {
         /*background-color:#E5F0F3;*/
         /*max-width:100%;*/
         margin: 0 auto;
     }
 
-    .top_header{            /*the_header || top_header*/
-        color:#384245;
-        float:none;
-        margin:0 auto;
-        padding-left:1%;
-        font-size:190%;
+    .top_header { /*the_header || top_header*/
+        color: #384245;
+        float: none;
+        margin: 0 auto;
+        padding-left: 1%;
+        font-size: 190%;
     }
 
-    .nav_head{
-        text-align:center;
-        padding-bottom:2%;
+    .nav_head {
+        text-align: center;
+        padding-bottom: 2%;
     }
 
-    .ddl{
-        float:none;
+    .ddl {
+        float: none;
     }
 
-    .gvPrevious{
-        padding-right:0%;
+    .gvPrevious {
+        padding-right: 0%;
     }
 
-    #login{
-        float:none;
+    #login {
+        float: none;
     }
 
-    .previoustesttabell{
-        margin-right:0;
+    .previoustesttabell {
+        margin-right: 0;
     }
 
     /*.tabFixRel{
@@ -530,4 +527,4 @@ ul.nav_list li{
             background-color:green;
 		}
 	}
-*/   
+*/

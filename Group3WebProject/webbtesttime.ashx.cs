@@ -34,7 +34,7 @@ namespace Group3WebProject
                 if (HttpContext.Current.Session["userid"] != null)
                     Name = HttpContext.Current.Session["userid"].ToString();
                 int par = int.Parse(Name);
-
+                context.Response.ContentType = "text/html";
                 string res = clGetEl.getTableFixed(vv.testStats(par, int.Parse(testID)), 1);
                 context.Response.Write(res);
             }

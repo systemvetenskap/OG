@@ -54,4 +54,18 @@ function wantToCont(elementID, minium)
     }
 
 }
-
+function getList() {
+    $.ajax({
+        url: "webbtesttime.ashx",             
+        data: { 'test': "8", 'type': "tab" },      
+        success: OnCom,
+        error: OnFa
+    });
+}
+function OnCom(result) {   
+    document.getElementById("filen").innerHTML = result;
+          
+}
+function OnFa(result) {
+    inte = null;
+}

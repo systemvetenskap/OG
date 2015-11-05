@@ -8,7 +8,7 @@
 <%-- Body --%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
-    <div class="all_contents shadow" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">
+    <div class="all_contents shadow" >
         <h1 class="contentpages_h1">Webbtestquestion</h1>
         <div>
              <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>

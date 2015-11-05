@@ -43,32 +43,47 @@ namespace Group3WebProject
             if (result == "ÅKU")
             {
                 btnTest.Text = "Starta årligt test";
+                Label2.Text = "Nu kan du göra årligt test";
             }
             else if (result == "LICENS")
             {
                 btnSeeLastTest.Enabled = false;
                 btnSeeLastTest.Visible = false;
                 btnTest.Text = "Starta Licenstest";
+                Label2.Text = "Nu kan du göra licens test";
             }
             else if (result == "IGÅNG")
             {
                 btnSeeLastTest.Enabled = false;
                 btnSeeLastTest.Visible = false;
                 btnTest.Text = "Fortsätt testet";
+                Label2.Text = "Testet är igång redan";
             }
             else if(result == "Du kan göra nästa års test nu")
             {
                 btnTest.Text = "Gör nästa års test";
+                Label2.Text = result;
 
+            }
+            else if (result == "Du måste vänta minst 7 dagar mellan proven")
+            {
+                btnTest.Visible = false;
+                btnSeeLastTest.Visible = false;
+                Label2.Text = result;
             }
             else
             {
                 btnTest.Text = "Du får vänta på nästa prov";
                 btnTest.Enabled = false;
                 btnTest.Visible = false;
+                Label2.Text = "Du får vänta på nästa prov";
                 //btnTest.Enabled = false;
             }
-            Label2.Text = result;
+            if (clStart.checkLasttest(userid) == false)
+            {
+                btnSeeLastTest.Visible = false;
+            }
+            
         }
         protected void Unnamed1_Click(object sender, EventArgs e)
         {

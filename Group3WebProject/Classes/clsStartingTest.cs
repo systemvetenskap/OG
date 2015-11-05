@@ -81,7 +81,7 @@ namespace Group3WebProject.Classes
                             }
                             if (diffDate.Days <= 7 && bool.Parse(dt.Rows[0]["passed"].ToString()) == false)
                             {
-                                return "Du måste vänta minst 7dagar mellan proven";
+                                return "Du måste vänta minst 7 dagar mellan proven";
                             }
                             else
                             { 
@@ -112,7 +112,7 @@ namespace Group3WebProject.Classes
                    // return "Du har redan gjort det senaste provet";
                     if (diffDate.Days <= 7 )
                     {
-                        return "Du måste vänta minst 7dagar mellan proven";
+                        return "Du måste vänta minst 7 dagar mellan proven";
                     }
                     else
                     {
@@ -129,7 +129,7 @@ namespace Group3WebProject.Classes
 
             if (diffDate.Days <= 7 && bool.Parse(dt.Rows[0]["passed"].ToString()) == false)
             {
-                return "Du måste vänta minst 7dagar mellan proven";
+                return "Du måste vänta minst 7 dagar mellan proven";
             }
             if (!pass)
             {
@@ -266,6 +266,36 @@ namespace Group3WebProject.Classes
                 Debug.WriteLine(ex.ToString());
             }
             return "false";
+        }
+        public bool checkLasttest(string userID)
+        {
+            try
+            {
+                NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT passed FROM completed_test WHERE user_id= @uid  ORDER BY start_time desc limit 1", conn);
+                cmd.Parameters.AddWithValue("uid", int.Parse(userID));
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    bool boolAnw = bool.Parse(dr["passed"].ToString());
+                    conn.Close();
+                    return boolAnw;
+                }
+                else
+                {
+                    dr.Close();
+                    conn.Close();
+                    return false;
+                }
+                //Debug.WriteLine()
+                
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            return false;
         }
     }
 }
