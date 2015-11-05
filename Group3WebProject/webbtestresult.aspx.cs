@@ -72,14 +72,33 @@ namespace Group3WebProject
         {
             clsMethods clMeth = new clsMethods();
             clsFillQuestion clQue = new clsFillQuestion();
-            string xml = clQue.getXml(testID);
-            
+            string xml = clQue.getXml(testID);            
             Tuple<bool, List<int>, List<int>, int, int> aa = clMeth.PartAndTotalResult(clMeth.XmlToClasses(xml));//list1, 
-            bool result = aa.Item1;
-            lblRes.Text = "Resultat: " + result.ToString() + " Områden " + aa.Item2[0] + "/" + aa.Item3[0] + "NExt " + aa.Item2[1] + "/" + aa.Item3[1] +
-                " Next " + aa.Item2[2] + "/" + aa.Item3[2] + " Total " + aa.Item4.ToString() + " Tot" + aa.Item5.ToString();
+            string pic;
+            if (aa.Item1 == true)
+            {
+                //rightstyle='border:1px solid black'
+                pic = "<div ><img src='pictures/right.jpg' style='height:80px; width:auto; border:1px solid black;'></img> <h3>Godkänd</h3></div>";
+            }
+            else
+            {
+                //pic = "<img src='pictures/wrong.jpg' style='height:80px; width:auto'></img> <h3>Underkänd</h3>";
+                pic = "<div ><img src='pictures/wrong.jpg' style='height:80px; width:auto; border:1px solid black;'></img> <h3>Underkänd</h3></div>";
 
+            }
+            lblRes.Text = pic;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Produkt");
+            dt.Columns.Add("Ekonomi");
+            dt.Columns.Add("Etik");
+            dt.Columns.Add("Total");
+            dt.Rows.Add(aa.Item2[0] + @"/" + aa.Item3[0], aa.Item2[1] + @"/" + aa.Item3[1], aa.Item2[2] + @"/" + aa.Item3[2], aa.Item4 + @"/" + aa.Item5);
+            GRID.DataSource = dt;
+            GRID.DataBind();
+            //Produkt	Ekonomi	Etik
         }
+
+
         /// <summary>
         /// Lägger till varje fråga i paneln och visar om man har svarat rätt eller fel. 
         /// </summary>
@@ -120,7 +139,7 @@ namespace Group3WebProject
                         if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                         {
                             li.Items.FindByValue(val.ToString()).Selected = true; //Sätter alla som finns till true så att den kan vara multippella
-                            li.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: red;");
+                            li.Items.FindByValue(val.ToString()).Attributes.Add("style", "border: 2px solid red;");
                         }
                         val = 0;
                     }
@@ -128,7 +147,7 @@ namespace Group3WebProject
                     {
                         if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                         {
-                            li.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;"); //= System.Drawing.Color.Green; //Sätter alla som finns till true så att den kan vara multippella
+                            li.Items.FindByValue(val.ToString()).Attributes.Add("style", "border: 2px solid green;"); //= System.Drawing.Color.Green; //Sätter alla som finns till true så att den kan vara multippella
                         }
                         val = 0;
                     }
@@ -152,14 +171,14 @@ namespace Group3WebProject
                         if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                         {
                             li.SelectedValue = val.ToString();
-                            li.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: red;");
+                            li.Items.FindByValue(val.ToString()).Attributes.Add("style", "border: 2px solid red;");
                         }
                     }
                     if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE") //Om man vill kolla på frågorna igen så markeras den grön om det är okej 
                     {
                         if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
                         {
-                            li.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;");
+                            li.Items.FindByValue(val.ToString()).Attributes.Add("style", "border: 2px solid green;");
                         }
                     }
                 }

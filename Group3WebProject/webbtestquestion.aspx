@@ -2,13 +2,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
             <script src="scripts/getTime.js" type="text/javascript">   </script>
-
+       <link rel="stylesheet" href="Style/styleForWEB.css" />
 </asp:Content>
 
 <%-- Body --%>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
-    <div class="all_contents shadow">
+    <div class="all_contents shadow" style="-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">
         <h1 class="contentpages_h1">Webbtestquestion</h1>
         <div>
              <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
