@@ -19,7 +19,6 @@ namespace Group3WebProject
             {
                 if (HttpContext.Current.Session["userid"] != null)
                 {
-                    Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
                     //Check if user have right credit 
                     //IF level == Provdeltahare
                     Classes.clsLogin clsLog = new Classes.clsLogin();
@@ -47,7 +46,6 @@ namespace Group3WebProject
                 int tstID;
                 clsStartingTest clsTestID = new clsStartingTest();
                 testID = clsTestID.getTestid(HttpContext.Current.Session["userid"].ToString());
-                Debug.WriteLine(testID + "  ALfekroek");
                 if (int.TryParse(testID, out tstID))
                 {
                     ViewState["testID"] = testID;

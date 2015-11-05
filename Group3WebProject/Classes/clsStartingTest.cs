@@ -44,7 +44,7 @@ namespace Group3WebProject.Classes
                 if ((dt.Rows[0]["endtime"] == null || Convert.ToString(dt.Rows[0]["endtime"]) == ""))
                 {
                     clsRightOrNot clRight = new clsRightOrNot();
-                    clRight.setFail(dt.Rows[0]["comtestid"].ToString(), dt.Rows[0]["testid"].ToString());
+                    clRight.setFail(dt.Rows[0]["comtestid"].ToString());
                 }                //Sätt sluttid
             }
             if (bool.Parse(dt.Rows[0]["passed"].ToString()) == true) //Då har man klarat det sista 

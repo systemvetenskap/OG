@@ -212,16 +212,17 @@ namespace Group3WebProject.Classes
             }
             return "OK";
         }
-        public void setFail(string comp_TestID, string testID)
+        public void setFail(string testID)
         {
-            string re = canHandIn(comp_TestID);
+            string re = canHandIn(testID);
             if (re != "TIDEN DROG ÖVER")
             {
                 return;
             }
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
-            string sql = "SELECT xml_questions As ans, id FROM test where id= @testID  order by id";
+            //SELECT * FROM completed_test left join test on test.id = completed_test.test_id   ORDER BY start_time desc;
+            string sql = "SELECT xml_questions As ans, test.id FROM test left join completed_test on test.id = completed_test.test_id WHERE completed_test.id= @testID  order by id";
             try
             {
                 string xml = "";
@@ -237,7 +238,11 @@ namespace Group3WebProject.Classes
                     return;
                 }
                 dr.Close();
-                 cmd = new NpgsqlCommand("UPDATE completed_test SET passed='" + bool.Parse("false") + "', end_time='" + DateTime.Now.ToString() + "', xml_answer='" + xml  + "' WHERE id='" + comp_TestID + "'", conn);
+                cmd = new NpgsqlCommand("UPDATE completed_test SET passed= @pas, end_time= @end, xml_answer= @xml WHERE id= @testID", conn);
+                cmd.Parameters.AddWithValue("pas", false);
+                cmd.Parameters.AddWithValue("end", DateTime.Now);
+                cmd.Parameters.AddWithValue("xml", xml);
+                cmd.Parameters.AddWithValue("testID", int.Parse(testID));                
                 cmd.ExecuteNonQuery();
             }
             catch (Exception ex)

@@ -24,7 +24,6 @@ namespace Group3WebProject
             {
                 if (HttpContext.Current.Session["userid"] != null)
                 {
-                    Debug.WriteLine(HttpContext.Current.Session["userid"].ToString() + " aa  ");
                   
                     Classes.clsLogin clsLog = new Classes.clsLogin();
                     if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "deltagare") //Inloggad
@@ -49,7 +48,6 @@ namespace Group3WebProject
                     int tstID;
                     clsStartingTest clsTestID = new clsStartingTest();
                     testID = clsTestID.getTestid(HttpContext.Current.Session["userid"].ToString());
-                    Debug.WriteLine(testID + "  ALfekroek");
                     if (int.TryParse(testID, out tstID))
                     {
                         ViewState["testID"] = testID;
@@ -80,7 +78,6 @@ namespace Group3WebProject
             }
             else
             {
-                Debug.WriteLine(" FEL ET ");
                 testID = ViewState["testID"].ToString();
             }
             if (btnNext.Text == "Lämna in")
@@ -93,6 +90,7 @@ namespace Group3WebProject
                 string handle = clRi.canHandIn(ViewState["testID"].ToString());
                 if (handle == "TIDEN DROG ÖVER")
                 {
+                    clRi.setFail(ViewState["testID"].ToString()); //Om tiden har gått över 30min så har man failat
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", "alert('Du lämnade in testet för sent du blir underkänd');", true);
                     return;
                 }
@@ -103,7 +101,7 @@ namespace Group3WebProject
                 string xml = clQue.getXml(ViewState["testID"].ToString());                
                 Tuple<bool, List<int>, List<int>, int, int> aa = clMeth.PartAndTotalResult(clMeth.XmlToClasses(xml));//list1, 
                 bool resultP = aa.Item1;
-                Debug.WriteLine("TESTID " + testID + "  " + resultP.ToString() + " res och " + aa.Item4.ToString() + " till sist " + aa.Item5);
+                //Debug.WriteLine("TESTID " + testID + "  " + resultP.ToString() + " res och " + aa.Item4.ToString() + " till sist " + aa.Item5);
                 clRi.updateResult(ViewState["testID"].ToString(), resultP);
                 Response.Redirect("webbtestresult.aspx");
             }
@@ -155,7 +153,6 @@ namespace Group3WebProject
             if (getData.Item5 != "")
             {
                 Label2.Text = "<img src='pictures/" + getData.Item5 + "' style='height: 250px; width: 250px;'alt='bilden' />";
-                Debug.WriteLine(getData.Item5);
             }
             else
             {
@@ -258,7 +255,6 @@ namespace Group3WebProject
                         {
                             sele = (item.Value);
                             selDat.Add(item.Value);
-                            Debug.WriteLine(sele);
                         }
                     }
                 }
@@ -269,11 +265,9 @@ namespace Group3WebProject
                 {
                     sele = rbQuestionList.SelectedValue.ToString();
                     selDat.Add(rbQuestionList.SelectedValue.ToString());
-                    Debug.WriteLine(sele);
                 }
             }
             //Label1.Text = sele;
-            Debug.WriteLine(sele + " SELE ");
             cls.valudateXML(testID, cmbChooseQue.SelectedValue.ToString(), selDat); //SKickar en list så att flera val kan väljas
 
             return true;

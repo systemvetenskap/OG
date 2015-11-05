@@ -33,7 +33,7 @@ namespace Group3WebProject
                         Classes.clsLogin clsLog = new Classes.clsLogin();
                         if (clsLog.getLevel(HttpContext.Current.Session["userid"].ToString()) == "provledare") //Inloggad
                         {
-                            Debug.WriteLine(" DU KOM IN ");
+                            //Debug.WriteLine(" DU KOM IN ");
                         }
                         else //Är inloggad med fel credinatl
                         {
