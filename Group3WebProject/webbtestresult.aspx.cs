@@ -78,12 +78,12 @@ namespace Group3WebProject
             if (aa.Item1 == true)
             {
                 //rightstyle='border:1px solid black'
-                pic = "<div ><img src='pictures/right.jpg' style='height:80px; width:auto; border:1px solid black;'></img> <h3>Godkänd</h3></div>";
+                pic = "<div ><img src='pictures/right.jpg' style='height:80px; width:auto; border:1px solid #dbdbdb;'></img> <h3>Godkänd</h3></div>";
             }
             else
             {
                 //pic = "<img src='pictures/wrong.jpg' style='height:80px; width:auto'></img> <h3>Underkänd</h3>";
-                pic = "<div ><img src='pictures/wrong.jpg' style='height:80px; width:auto; border:1px solid black;'></img> <h3>Underkänd</h3></div>";
+                pic = "<div ><img src='pictures/wrong.jpg' style='height:80px; width:auto; border:1px solid #dbdbdb;'></img> <h3>Underkänd</h3></div>";
 
             }
             lblRes.Text = pic;
