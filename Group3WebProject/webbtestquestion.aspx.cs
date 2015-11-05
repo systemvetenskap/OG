@@ -92,6 +92,7 @@ namespace Group3WebProject
                 {
                     clRi.setFail(ViewState["testID"].ToString()); //Om tiden har gått över 30min så har man failat
                     ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", "alert('Du lämnade in testet för sent du blir underkänd');", true);
+                    Response.Redirect("default.aspx");
                     return;
                 }
                 else if(handle != "OK")
@@ -105,7 +106,20 @@ namespace Group3WebProject
                 clRi.updateResult(ViewState["testID"].ToString(), resultP);
                 Response.Redirect("webbtestresult.aspx");
             }
-            time1.Enabled = true;
+            string start;
+            if (ViewState["startime"] == null)
+            {
+                clsSetGetStarttime clSta = new clsSetGetStarttime();
+                start = clSta.getStarttime(ViewState["testID"].ToString()).ToString();
+                ViewState.Add("startime", start.ToString());
+            }
+            else
+            {
+                start = ViewState["startime"].ToString();
+            }
+            ClientScript.RegisterStartupScript(GetType(), "Javascript", "CallHandler('" + start + "'); ", true);
+
+           
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -280,7 +294,7 @@ namespace Group3WebProject
         protected void btnNext_Click(object sender, EventArgs e) //Näst fråga kommer man till, samma som på den tidigare
         {
             //btnNext.OnClientClick = "return userValid('rbQuestionList', '" + antVal + "');";
-            time1.Enabled = false;
+           
             checkAnswers();
            
             string handIN = "";
@@ -339,37 +353,7 @@ namespace Group3WebProject
             //fillquestion();
         }
 
-        protected void time1_Tick(object sender, EventArgs e)
-        {
-            DateTime start;
-            if (ViewState["startime"] == null)
-            {
-                clsSetGetStarttime clSta = new clsSetGetStarttime();
-                start = clSta.getStarttime(ViewState["testID"].ToString());
-                ViewState.Add("startime", start.ToString());
-            }
-            else
-            {
-                start = DateTime.Parse(ViewState["startime"].ToString());
-            }
-            int h = start.Hour;
-            int m = start.Minute;
-            int s = start.Second;
-            int totSec = (h * 3600) + (m * 60) + (s) + (30 * 60); //Sluttiden är 30min efter starttiden   21:30
-            DateTime timNo = DateTime.Now;
-            int noSec = timNo.Hour * 3600 + timNo.Minute * 60 + timNo.Second;   //21:30-21:10 
-            int timeLeft = totSec - noSec;
-            if (timeLeft < 0)
-            {
-                lblTime.Text = "Tiden gick ut";
-            }
-
-            h = (timeLeft / 3600);
-            m = (timeLeft / 60) - (h * 3600);
-            s = timeLeft - (m * 60) - (h * 3600);
-
-            lblTime.Text = h + ":" + m + ":" + s;
-        }
+        
 
 
         
