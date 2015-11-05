@@ -10,6 +10,9 @@
     }
     args.IsValid = isValid;
 }
+function Baa() {
+    alert("aa");
+}
 function userValid(elementID, minium) {    
     elementID = "bodyn_" + elementID; //Var tvungen att fixa element namnet
     var atLeast = parseInt(minium);
@@ -50,3 +53,4 @@ function wantToCont(elementID, minium)
     }
 
 }
+

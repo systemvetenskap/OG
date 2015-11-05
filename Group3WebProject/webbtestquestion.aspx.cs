@@ -105,6 +105,7 @@ namespace Group3WebProject
                 clRi.updateResult(ViewState["testID"].ToString(), resultP);
                 Response.Redirect("webbtestresult.aspx");
             }
+            time1.Enabled = true;
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -279,7 +280,9 @@ namespace Group3WebProject
         protected void btnNext_Click(object sender, EventArgs e) //Näst fråga kommer man till, samma som på den tidigare
         {
             //btnNext.OnClientClick = "return userValid('rbQuestionList', '" + antVal + "');";
+            time1.Enabled = false;
             checkAnswers();
+           
             string handIN = "";
             if (rbQuestionList.Visible == true)
             {
@@ -342,17 +345,32 @@ namespace Group3WebProject
             if (ViewState["startime"] == null)
             {
                 clsSetGetStarttime clSta = new clsSetGetStarttime();
-                 start = clSta.getStarttime(ViewState["testID"].ToString());
+                start = clSta.getStarttime(ViewState["testID"].ToString());
                 ViewState.Add("startime", start.ToString());
             }
             else
             {
                 start = DateTime.Parse(ViewState["startime"].ToString());
             }
-            
+            int h = start.Hour;
+            int m = start.Minute;
+            int s = start.Second;
+            int totSec = (h * 3600) + (m * 60) + (s) + (30 * 60); //Sluttiden är 30min efter starttiden   21:30
+            DateTime timNo = DateTime.Now;
+            int noSec = timNo.Hour * 3600 + timNo.Minute * 60 + timNo.Second;   //21:30-21:10 
+            int timeLeft = totSec - noSec;
+            if (timeLeft < 0)
+            {
+                lblTime.Text = "Tiden gick ut";
+            }
 
-            lblTime.Text = DateTime.Now.ToString();
+            h = (timeLeft / 3600);
+            m = (timeLeft / 60) - (h * 3600);
+            s = timeLeft - (m * 60) - (h * 3600);
+
+            lblTime.Text = h + ":" + m + ":" + s;
         }
+
 
         
     }

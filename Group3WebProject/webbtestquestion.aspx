@@ -13,7 +13,7 @@
             <h2 class="contentpages_h2">Välkommen till test tryck på start för att påbörja</h2>
             <p>
                 Tid kvar: <span id="timeLeft">                    
-                    <asp:Timer ID="time1" runat="server" Interval="100" OnTick="time1_Tick"></asp:Timer>
+                    <asp:Timer ID="time1" runat="server" Interval="800" OnTick="time1_Tick"></asp:Timer>
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <Triggers>
                              <asp:AsyncPostBackTrigger ControlID="time1" EventName="Tick" />
