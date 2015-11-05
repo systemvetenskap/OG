@@ -1,6 +1,6 @@
 ﻿function CallHandler()
 {
-  /*  $.ajax({
+    $.ajax({
         url: "webbtesttime.ashx",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -8,8 +8,8 @@
         responseType: "json",
         success: OnComplete,
         error: OnFail
-    }); */
-    alert("JEJ");
+    }); 
+   
 }
 function OnComplete(result) {
     alert([result.timeLeft]);
