@@ -16,7 +16,7 @@ namespace Group3WebProject.Classes
             {
                 if (z < antCols)
                 {
-                    ht += "<th class='fixColumns' style='margin-left:" + ((z) * 100).ToString() + "px;'>" + dt.Columns[z].ColumnName.ToString() + "</th>";
+                    ht += "<th class='fixColumns'>" + dt.Columns[z].ColumnName.ToString() + "</th>";
                   //  Debug.WriteLine(ht);
                 }
                 else

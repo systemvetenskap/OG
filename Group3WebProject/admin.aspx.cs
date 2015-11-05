@@ -132,6 +132,8 @@ namespace Group3WebProject
             {
 
             }
+            dt.DefaultView.Sort = "Namn ASC";
+            dt = dt.DefaultView.ToTable();
 
             return dt;
         }
@@ -143,36 +145,8 @@ namespace Group3WebProject
             dt.Columns.Add("Provtyp", typeof(string));
             dt.Columns.Add("Giltigt t.o.m.", typeof(string));
 
-
-
-            string sqlUpcomingLicensTests = "SELECT first_name, last_name FROM users u"
-                                            + " WHERE u.id NOT IN (SELECT user_id FROM completed_test ct)"
-                                            + " AND u.id IN(SELECT id FROM users WHERE id != @uId"
-                                            + " AND team_id IN(SELECT id FROM team WHERE user_id = @uId))";
-
             NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
-            try
-            {
-            NpgsqlCommand cmd = new NpgsqlCommand(sqlUpcomingLicensTests, conn);
-            cmd.Parameters.AddWithValue("uId", leaderId);
-            conn.Open();
-            NpgsqlDataReader dr = cmd.ExecuteReader();
 
-            while (dr.Read())
-            {
-                string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
-                string testType = "Licens";
-                
-
-                //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
-                dt.Rows.Add(name, testType, "-");
-            }
-            conn.Close();
-            }
-            catch
-            {
-            conn.Close();
-            }
 
             string sqlFailedTests = "SELECT first_name, last_name, test_type, valid_through FROM"
                                     + " (SELECT DISTINCT ON(ct.user_id, t.valid_through) u.first_name, u.last_name, u.team_id, t.test_type, ct.passed, t.valid_through FROM users u"
@@ -207,6 +181,7 @@ namespace Group3WebProject
             conn.Close();
             }
 
+            
 
             string sqlExpiredPassed = "SELECT DISTINCT ON(u.id) u.first_name, u.last_name, t.valid_through, t.test_type, ct.passed, ct.id FROM users u"
                                    + " INNER JOIN completed_test ct"
@@ -269,6 +244,37 @@ namespace Group3WebProject
             {
             conn.Close();
             }
+            dt.DefaultView.Sort = "Giltigt t.o.m. ASC, Provtyp DESC";
+            dt = dt.DefaultView.ToTable();
+
+            string sqlUpcomingLicensTests = "SELECT first_name, last_name FROM users u"
+                                           + " WHERE u.id NOT IN (SELECT user_id FROM completed_test ct)"
+                                           + " AND u.id IN(SELECT id FROM users WHERE id != @uId"
+                                           + " AND team_id IN(SELECT id FROM team WHERE user_id = @uId))";
+
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(sqlUpcomingLicensTests, conn);
+                cmd.Parameters.AddWithValue("uId", leaderId);
+                conn.Open();
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    string name = dr["first_name"].ToString() + " " + dr["last_name"].ToString();
+                    string testType = "Licens";
+
+
+                    //nedan läggs provdeltagarens statistik till i en egen rad i DataTable.
+                    dt.Rows.Add(name, testType, "-");
+                }
+                conn.Close();
+            }
+            catch
+            {
+                conn.Close();
+            }
+
             return dt;
         }
         public DataTable testStats(int leaderId, int testId)
@@ -355,6 +361,9 @@ namespace Group3WebProject
             {
                 conn.Close();
             }
+
+            dt.DefaultView.Sort = "Namn ASC";
+            dt = dt.DefaultView.ToTable();
             return dt;
         }
         private DataTable getTests()

@@ -5,15 +5,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyn" runat="server">
     <div class="all_contents shadow clearfix">
-        <%--<div class="gvPrevious">--%>
-            <%--<h3 class="lblAdmin">Föregående test</h3>--%>
-            <%--<asp:GridView ID="gvPreviousTests" runat="server"></asp:GridView>--%>
-            <%--<br />
-            <br />--%>
-        <%--</div>--%>
 
         <h1 class="contentpages_h1">Provledare</h1>
         <h2 class="contentpages_h2">Här kan du som provleadre se föregående och kommande test för dina teammedlemmar. Även statistik finns längre ned.</h2>
+        
         <div class="prev_upcoming">
             <div class="stats_div tests_div previoustesttabell">
                 <div class="outer">
@@ -21,12 +16,6 @@
                     <div class="inner" id="prev" runat="server">
                     </div>
                 </div>
-            </div>
-            <div class="gvUpcoming">
-                <%--<h3 class="lblAdmin">Kommande test</h3>--%>
-                <%--<asp:GridView ID="gvUpcomingTests" runat="server"></asp:GridView>--%>
-                <br />
-                <br />
             </div>
             <div class="stats_div tests_div">
                 <div class="outer">
@@ -37,10 +26,6 @@
             </div>
         </div>
 
-        <%--<div id="gvS">
-            <asp:GridView ID="gvStats" runat="server" OnRowDataBound="gvStats_RowDataBound" OnRowCreated="gvStats_RowCreated">
-            </asp:GridView>
-        </div>--%>
         <div class="stats_div">
             <h3 class="lblAdmin">Statistik</h3>
             <asp:DropDownList ID="ddlTests" runat="server" Autopostback="True" OnSelectedIndexChanged="ddlTests_SelectedIndexChanged"></asp:DropDownList>
