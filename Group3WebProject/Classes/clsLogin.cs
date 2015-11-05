@@ -21,7 +21,7 @@ namespace Group3WebProject.Classes
             {
                 NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
                 conn.Open();
-                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT id, (first_name || ' '|| last_name) AS name FROM users", conn);
+                NpgsqlDataAdapter adp = new NpgsqlDataAdapter("SELECT id, (first_name || ' '|| last_name) AS name FROM users ORDER BY id ASC", conn);
                 adp.Fill(dt);
                 conn.Close();
             }
