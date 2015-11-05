@@ -22,6 +22,15 @@ namespace Group3WebProject {
         protected global::System.Web.UI.WebControls.Label lblRes;
         
         /// <summary>
+        /// GRID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GRID;
+        
+        /// <summary>
         /// panData control.
         /// </summary>
         /// <remarks>

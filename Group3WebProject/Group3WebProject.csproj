@@ -84,6 +84,7 @@
     <Content Include="pictures\fncd0wql.bmp" />
     <Content Include="Scripts\getTime.js" />
     <Content Include="Scripts\validateForms.js" />
+    <Content Include="Style\styleForWEB.css" />
     <Content Include="webbtestresult.aspx" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="login.aspx" />

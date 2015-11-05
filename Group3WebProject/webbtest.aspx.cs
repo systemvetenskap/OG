@@ -38,25 +38,34 @@ namespace Group3WebProject
             Classes.clsStartingTest clStart = new Classes.clsStartingTest();
             string result = clStart.getOk(userid);
            // ViewState["testID"] = "4557";
+            btnSeeLastTest.Visible = true;
+            btnTest.Visible = true;
             if (result == "ÅKU")
             {
                 btnTest.Text = "Starta årligt test";
             }
             else if (result == "LICENS")
             {
+                btnSeeLastTest.Enabled = false;
+                btnSeeLastTest.Visible = false;
                 btnTest.Text = "Starta Licenstest";
             }
             else if (result == "IGÅNG")
             {
+                btnSeeLastTest.Enabled = false;
+                btnSeeLastTest.Visible = false;
                 btnTest.Text = "Fortsätt testet";
             }
             else if(result == "Du kan göra nästa års test nu")
             {
                 btnTest.Text = "Gör nästa års test";
+
             }
             else
             {
-                btnTest.Text = "Se senaste testet";
+                btnTest.Text = "Du får vänta på nästa prov";
+                btnTest.Enabled = false;
+                btnTest.Visible = false;
                 //btnTest.Enabled = false;
             }
             Label2.Text = result;
@@ -106,6 +115,13 @@ namespace Group3WebProject
                 Response.Redirect("webbtestquestion.aspx?testID=" + ViewState["testID"].ToString());
             }
           
+        }
+
+        protected void btnSeeLastTest_Click(object sender, EventArgs e)
+        {
+            Classes.clsStartingTest clStart = new Classes.clsStartingTest();
+            ViewState.Add("testID", clStart.getTestid(HttpContext.Current.Session["userid"].ToString()));
+            Response.Redirect("webbtestresult.aspx");
         }
 
     }

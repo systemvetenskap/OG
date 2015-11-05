@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="Webbtest" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="webbtest.aspx.cs" Inherits="Group3WebProject.webbtest" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
 </asp:Content>
 
 <%-- Body --%>
@@ -25,7 +26,7 @@
         <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
         <br />
         <br />
-        <asp:Button runat="server" Text="Välj test" OnClick="Unnamed1_Click" ID="btnTest" CssClass="btn" /><br />
+        <asp:Button runat="server" Text="Välj test" OnClick="Unnamed1_Click" ID="btnTest" CssClass="btn" /><asp:Button ID="btnSeeLastTest" runat="server" Text="Se senaste provet" CssClass="btn" OnClick="btnSeeLastTest_Click" /><br />
         <%--<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>--%>
     </div>
 </asp:Content>
