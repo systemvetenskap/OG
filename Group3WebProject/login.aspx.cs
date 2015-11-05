@@ -38,7 +38,7 @@ namespace Group3WebProject
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            HttpContext.Current.Session.Timeout = 134*10000;
+            HttpContext.Current.Session.Timeout = 13400;
             HttpContext.Current.Session["username"] = ddlAllUser.Text;
             HttpContext.Current.Session["userid"] = ddlAllUser.SelectedValue;
             //HttpContext.Current.Session["level"] = "2"; 

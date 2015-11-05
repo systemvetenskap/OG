@@ -137,19 +137,28 @@ namespace Group3WebProject.Classes
         public string getXml(string testID)
         {
             string result = "";
-            NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
-            conn.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id= @testID", conn);
-            cmd.Parameters.AddWithValue("testID", int.Parse(testID));
-            //cmd.Parameters.Add("testID", testID);
-            NpgsqlDataReader dr = cmd.ExecuteReader();
-            if (dr.Read())
+            try
             {
-                result = dr["qXml"].ToString();
+                NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, xml_answer as qXml FROM completed_test  where id= @testID", conn);
+                cmd.Parameters.AddWithValue("testID", int.Parse(testID));
+                //cmd.Parameters.Add("testID", testID);
+                NpgsqlDataReader dr = cmd.ExecuteReader();
+                if (dr.Read())
+                {
+                    result = dr["qXml"].ToString();
+                }
+                dr.Close();
+                conn.Close();
+                return result.TrimStart();
             }
-            dr.Close();
-            conn.Close();
-            return result.TrimStart();
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+            return "";
+           
         }
         /// <summary>
         /// Sparar resultat på provet 

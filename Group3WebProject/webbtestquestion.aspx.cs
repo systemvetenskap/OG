@@ -336,6 +336,24 @@ namespace Group3WebProject
             //fillquestion();
         }
 
+        protected void time1_Tick(object sender, EventArgs e)
+        {
+            DateTime start;
+            if (ViewState["startime"] == null)
+            {
+                clsSetGetStarttime clSta = new clsSetGetStarttime();
+                 start = clSta.getStarttime(ViewState["testID"].ToString());
+                ViewState.Add("startime", start.ToString());
+            }
+            else
+            {
+                start = DateTime.Parse(ViewState["startime"].ToString());
+            }
+            
+
+            lblTime.Text = DateTime.Now.ToString();
+        }
+
         
     }
 }
