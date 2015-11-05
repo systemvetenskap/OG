@@ -5,12 +5,13 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Data;
 using System.Diagnostics;
+using System.Web.SessionState;
 namespace Group3WebProject
 {
     /// <summary>
     /// Summary description for webbtesttime
     /// </summary>
-    public class webbtesttime : IHttpHandler
+    public class webbtesttime : IHttpHandler, IRequiresSessionState 
     {
 
         public void ProcessRequest(HttpContext context)
@@ -23,20 +24,20 @@ namespace Group3WebProject
                 string time = java.Serialize(aa(startTime));
                 context.Response.Write(time);
             }
-            //else
-            //{
-            //    string testID = context.Request["test"];
-            //    Classes.clsGetHtmlElement clGetEl = new Classes.clsGetHtmlElement();
-            //    admin vv = new admin();
-            //    //int par = int.Parse(HttpContext.Current.Session["userid"].ToString());
-            //    string Name = "1";
-            //    //if (HttpContext.Current.Session["userid"] != null)
-            //    //    Name = HttpContext.Current.Session["userid"].ToString();
-            //    int par = int.Parse(Name);
+            else if (context.Request["type"] == "tab")
+            {
+                string testID = context.Request["test"];
+                Classes.clsGetHtmlElement clGetEl = new Classes.clsGetHtmlElement();
+                admin vv = new admin();
+                //int par = int.Parse(HttpContext.Current.Session["userid"].ToString());
+                string Name = "";
+                if (HttpContext.Current.Session["userid"] != null)
+                    Name = HttpContext.Current.Session["userid"].ToString();
+                int par = int.Parse(Name);
 
-            //    string res = clGetEl.getTableFixed(vv.testStats(par, int.Parse(testID)), 1);
-            //    context.Response.Write(res);
-            //}
+                string res = clGetEl.getTableFixed(vv.testStats(par, int.Parse(testID)), 1);
+                context.Response.Write(res);
+            }
 
 
 
