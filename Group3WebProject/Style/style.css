@@ -11,20 +11,33 @@
   padding:2px;
   width:auto;
   text-align: center;
+
 }
 .fixColumns {
+  
   position:absolute;
   *position: relative; /*ie7*/
   left:0; 
-  width:auto;
+  /*width:auto;
   line-break: auto;
-  min-width: 100px;
-  width:auto;
+  min-width: 0px;*/
+  width:120px;
+  /*height:auto;*/
+  
   /*margin-right:20%;*/
+}
+td.tr.fixColumns{
+    word-break:break-all;
+    vertical-align: middle;
+}
+tbody tr{
+    height:41px;
+    overflow:hidden;
 }
 
 /*.relColumns{
-    width:100%;
+    height:inherit;
+
 }*/
 
 
@@ -35,11 +48,12 @@
     display: block;
 
 }
+
 .inner {
   overflow-x:scroll;
   overflow-y:visible;
   width:auto; 
-  margin-left:120px;
+  margin-left:125px;
 }
 .stats_div{
     position: relative;
@@ -54,6 +68,8 @@
 
 .prev_upcoming{
     overflow:auto;
+    max-height: 430px;
+    
 }
 
 .previoustesttabell{
@@ -412,6 +428,14 @@ ul.nav_list li{
         padding:0;
 
     }
+
+.prev_upcoming{
+    overflow:auto;
+    max-height:none;
+    height:auto;
+
+    
+}
 
     .nav_head{
         padding-bottom:4%;
