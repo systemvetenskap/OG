@@ -19,7 +19,6 @@
             Om du inte blir godkänd på testet så måste du vänta minst en vecka innan du kan göra testet igen.
             <br />
             <br />
-            Lycka till!
         </p>
         <br />
         <br />
