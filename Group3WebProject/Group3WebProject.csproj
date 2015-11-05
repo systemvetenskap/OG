@@ -101,6 +101,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="webbtesttime.ashx" />
+    <None Include="XMLSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
