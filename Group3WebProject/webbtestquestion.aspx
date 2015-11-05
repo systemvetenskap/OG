@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Webbtestquestion" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="webbtestquestion.aspx.cs" Inherits="Group3WebProject.webbtestquestion" %>
+﻿<%@ Page Title="Prov" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="webbtestquestion.aspx.cs" Inherits="Group3WebProject.webbtestquestion" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
             <script src="scripts/getTime.js" type="text/javascript">   </script>

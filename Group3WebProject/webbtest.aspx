@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Webbtest" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="webbtest.aspx.cs" Inherits="Group3WebProject.webbtest" %>
+﻿<%@ Page Title="Dina prov" Language="C#" MasterPageFile="~/headsite.Master" AutoEventWireup="true" CodeBehind="webbtest.aspx.cs" Inherits="Group3WebProject.webbtest" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
