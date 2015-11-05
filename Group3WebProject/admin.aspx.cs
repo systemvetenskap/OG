@@ -271,7 +271,7 @@ namespace Group3WebProject
             }
             return dt;
         }
-        private DataTable testStats(int leaderId, int testId)
+        public DataTable testStats(int leaderId, int testId)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Namn", typeof(string));

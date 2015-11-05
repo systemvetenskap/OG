@@ -26,7 +26,8 @@ function userValid(elementID, minium) {
         }
     }    
     if (atLeast != counter) {
-        alert("Välj " + atLeast + " svar");
+        document.getElementById("notRight").innerHTML = "Välj " + atLeast + " svar";
+        document.getElementById("notRight").style.backgroundColor = "red";
         return false;
     }
     return true;

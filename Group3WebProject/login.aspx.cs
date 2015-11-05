@@ -15,7 +15,6 @@ namespace Group3WebProject
         {
             if (!IsPostBack)
             {
-                ClientScript.RegisterStartupScript(GetType(), "Javascript", "CallHandler(); ", true);
             DataTable dt = new DataTable();
             dt.Columns.Add("name");
             dt.Columns.Add("id");
@@ -40,8 +39,8 @@ namespace Group3WebProject
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             HttpContext.Current.Session.Timeout = 13400;
-            HttpContext.Current.Session["username"] = ddlAllUser.Text;
-            HttpContext.Current.Session["userid"] = ddlAllUser.SelectedValue;
+            HttpContext.Current.Session.Add("username", ddlAllUser.Text);
+            HttpContext.Current.Session.Add("userid", ddlAllUser.SelectedValue);
             //HttpContext.Current.Session["level"] = "2"; 
 
             string a = HttpContext.Current.Session["username"].ToString();
