@@ -190,8 +190,6 @@ namespace Group3WebProject.Classes
         {
 
             string result = "";
-            string ret = "";
-
             NpgsqlConnection conn = new NpgsqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["JE"].ConnectionString);
             conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand("SELECT  id, start_time, end_time FROM completed_test  where id= @testID ", conn);
@@ -203,7 +201,7 @@ namespace Group3WebProject.Classes
                 result = dr["start_time"].ToString();
                 if (dr["end_time"] != null)
                 {
-                    ret = "INLÄMNAT";
+                    
                 }
             }
             else

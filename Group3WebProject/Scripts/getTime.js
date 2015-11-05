@@ -24,10 +24,11 @@ function OnComplete(result) {
     }
     else if (result.status == "Bad") {
         document.getElementById("timeLeft").innerHTML = result.timeLeft;
-        document.getElementById("timeLeft").style.background = "red";
+        document.getElementById("timeLeft").style.border = "1px solid red";
     }
     else
     {
+        alert("Du drog över tiden på provet och blev automatiskt underkänd.");
         document.getElementById("bodyn_btnNext").value = "Lämna in";
         document.getElementById("bodyn_btnNext").innerHTML = "Lämna in";
         window.location.replace("webbtest.aspx");

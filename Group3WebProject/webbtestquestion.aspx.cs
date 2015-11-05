@@ -68,8 +68,7 @@ namespace Group3WebProject
                 }
                 else
                 {
-                    Label1.Text = "Något gick fel försök igen";
-                    Button1.Enabled = false;
+                    Label1.Text = "Något gick fel försök igen";                  
                     btnNext.Enabled = false;
                     btnPrevious.Enabled = false;
                     rbQuestionList.Enabled = false;
@@ -118,15 +117,12 @@ namespace Group3WebProject
                 start = ViewState["startime"].ToString();
             }
             ClientScript.RegisterStartupScript(GetType(), "Javascript", "CallHandler('" + start + "'); ", true);
-
+            
            
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            Classes.clsRightOrNot cls = new Classes.clsRightOrNot();
-            List<string> liAnsw = new List<string>();
-            liAnsw.Add("1");
-            Label3.Text = cls.getXml(testID);
+           
         }
         /// <summary>
         /// Laddar in frågorna i antingen checboxlist eller radiobuttonlist
@@ -134,6 +130,7 @@ namespace Group3WebProject
         /// <returns></returns>
         private bool fillquestion()//Hämtar frågorna 
         {
+            Label1.Text = "Du är på fråga: " + cmbChooseQue.SelectedItem.Text + " av " + cmbChooseQue.Items.Count.ToString() + " frågor";
             Classes.clsFillQuestion clFill = new Classes.clsFillQuestion();
             Tuple<DataTable, string, int, string, string> getData = clFill.readXML(cmbChooseQue.SelectedValue.ToString(), testID);
             DataTable dt = getData.Item1;
@@ -152,15 +149,15 @@ namespace Group3WebProject
             
             if (part == "ETIK")
             {
-                part = "Etik och regelverk";
+                part = " Etik och regelverk";
             }
             else if(part == "EKONOMI")
             {
-                part = "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi.";
+                part = " Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi.";
             }
             else if (part == "PRODUKTER")
             {
-                part = "Produkter och hantering av kundens affärer ";
+                part = " Produkter och hantering av kundens affärer ";
             }
             Label3.Text = "Frågan är inom området:" + part + " <br />" + "<h4>" + getData.Item2 + "</h4>";
             ViewState.Add("antQue", antVal.ToString());
@@ -208,14 +205,14 @@ namespace Group3WebProject
                             }
                             val = 0;
                         }
-                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" )
-                        {
-                            if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
-                            {
-                                chkQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;"); //= System.Drawing.Color.Green; //Sätter alla som finns till true så att den kan vara multippella
-                            }
-                            val = 0;
-                        }
+                        //if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" )
+                        //{
+                        //    if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
+                        //    {
+                        //        chkQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;"); //= System.Drawing.Color.Green; //Sätter alla som finns till true så att den kan vara multippella
+                        //    }
+                        //    val = 0;
+                        //}
                     }
                 }
                 else //Om det är ett val så kommer man till en radiobuttonlist
@@ -238,13 +235,13 @@ namespace Group3WebProject
                                 rbQuestionList.SelectedValue = val.ToString();
                             }
                         }
-                        if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" ) //Om man vill kolla på frågorna igen så markeras den grön om det är okej 
-                        {
-                            if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
-                            {
-                                rbQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;");
-                            }
-                        }
+                        //if (dt.Rows[i]["answ"].ToString().ToUpper() == "TRUE" ) //Om man vill kolla på frågorna igen så markeras den grön om det är okej 
+                        //{
+                        //    if (int.TryParse(dt.Rows[i]["id"].ToString(), out val))
+                        //    {
+                        //        rbQuestionList.Items.FindByValue(val.ToString()).Attributes.Add("style", "background-color: green;");
+                        //    }
+                        //}
                     }
                 }
             }
@@ -312,6 +309,7 @@ namespace Group3WebProject
                 cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex + 1;
             }
             fillquestion();
+            
             if (btnNext.Text == "Lämna in")
             {
                 btnNext.OnClientClick = handIN; 
@@ -343,6 +341,7 @@ namespace Group3WebProject
                 cmbChooseQue.SelectedIndex = cmbChooseQue.SelectedIndex - 1;
             }
             fillquestion();
+            //cmbChooseQue.Items.Count
             btnNext.CssClass = "btn";
             btnNext.Text = "Nästa"; //Sätter nästa
         }
@@ -351,6 +350,7 @@ namespace Group3WebProject
             //checkAnswers(); //Sparar svarerne
            // ViewState["alfred"] = cmbChooseQue.SelectedItem.ToString();
             //fillquestion();
+            
         }
 
         

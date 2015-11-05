@@ -50,9 +50,16 @@ namespace Group3WebProject
                 {
                     ViewState["testID"] = testID;
                 }
+                else
+                {
+                    Response.Redirect("default.aspx");
+                }
             }
+            
             if (!IsPostBack)
             {
+                Classes.clsStartingTest clsSt = new Classes.clsStartingTest();
+                clsSt.checkLasttest(HttpContext.Current.Session["userid"].ToString());
                 clsTestMenuFill menu = new clsTestMenuFill();
                 DataTable dtQuestions = menu.read(testID);
                 for (int i = 0; i < dtQuestions.Rows.Count; i++)
@@ -78,13 +85,14 @@ namespace Group3WebProject
             if (aa.Item1 == true)
             {
                 //rightstyle='border:1px solid black'
-                pic = "<div ><img src='pictures/right.jpg' style='height:80px; width:auto; border:1px solid black;'></img> <h3>Godkänd</h3></div>";
+                pic = "<div ><img src='pictures/right.jpg' style='height:80px; width:auto; border:1px solid #dbdbdb;'></img> <h3>Godkänd</h3></div>";
+                panData.Visible = true;
             }
             else
             {
                 //pic = "<img src='pictures/wrong.jpg' style='height:80px; width:auto'></img> <h3>Underkänd</h3>";
-                pic = "<div ><img src='pictures/wrong.jpg' style='height:80px; width:auto; border:1px solid black;'></img> <h3>Underkänd</h3></div>";
-
+                pic = "<div ><img src='pictures/wrong.jpg' style='height:80px; width:auto; border:1px solid #dbdbdb;'></img> <h3>Underkänd</h3></div>";
+                panData.Visible = false;
             }
             lblRes.Text = pic;
             DataTable dt = new DataTable();
