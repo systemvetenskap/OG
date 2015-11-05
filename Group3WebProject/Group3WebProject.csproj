@@ -82,6 +82,7 @@
     <Content Include="pictures\q4.gif" />
     <Content Include="pictures\fncd0wql-jpg.jpg" />
     <Content Include="pictures\fncd0wql.bmp" />
+    <Content Include="Scripts\getTime.js" />
     <Content Include="Scripts\validateForms.js" />
     <Content Include="webbtestresult.aspx" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
@@ -98,6 +99,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="webbtesttime.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
@@ -169,6 +171,9 @@
     </Compile>
     <Compile Include="webbtestresult.aspx.designer.cs">
       <DependentUpon>webbtestresult.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="webbtesttime.ashx.cs">
+      <DependentUpon>webbtesttime.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

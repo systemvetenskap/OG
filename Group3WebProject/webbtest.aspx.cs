@@ -31,6 +31,8 @@ namespace Group3WebProject
                 {
                     Response.Redirect("login.aspx");
                 }
+                //ScriptManager.RegisterStartupScript(this, typeof(Page), "UpdateMsg", "CallHandler();", true);
+                
             }
             string userid = HttpContext.Current.Session["userid"].ToString();
             Classes.clsStartingTest clStart = new Classes.clsStartingTest();
@@ -71,7 +73,7 @@ namespace Group3WebProject
                 int year = DateTime.Now.Year;
                 if (btnTest.Text == "Starta Licenstest")
                 {
-                    testNa = "LICENS";
+                    testNa = "Licens";
                 }
                 else if(btnTest.Text == "Starta årligt test")
                 {
